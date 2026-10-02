@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mikroorganismer, bakterier og virus</title>
+<meta name="description" content="Interaktivt opplegg i naturfag for Vg1 helse- og oppvekstfag, tilpasset elever med norsk som andrespråk. Kilder fra NDLA.">
+<style>
+:root{
+  --bg:#f7f8fb; --card:#ffffff; --ink:#1d2433; --muted:#5a6475; --line:#dde2ea;
+  --accent:#0f6b5c; --accent-soft:#e3f3ef; --accent-ink:#ffffff;
+  --virus:#8a3ffc; --virus-soft:#f1e9ff; --bact:#c2410c; --bact-soft:#fdeee5;
+  --ok:#1a7f37; --ok-soft:#e6f4ea; --bad:#b42318; --bad-soft:#fdecea;
+  --warn-soft:#fff6db; --shadow:0 1px 3px rgba(20,30,50,.08),0 4px 14px rgba(20,30,50,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151c; --card:#1a202a; --ink:#e7ebf2; --muted:#a2acbc; --line:#2d3644;
+    --accent:#4fc3a8; --accent-soft:#16332d; --accent-ink:#0c1512;
+    --virus:#b98cff; --virus-soft:#2a1f40; --bact:#ff9a62; --bact-soft:#3a2418;
+    --ok:#5fd27a; --ok-soft:#173222; --bad:#ff7b6e; --bad-soft:#3b1d1a;
+    --warn-soft:#3a3218; --shadow:none; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151c; --card:#1a202a; --ink:#e7ebf2; --muted:#a2acbc; --line:#2d3644;
+  --accent:#4fc3a8; --accent-soft:#16332d; --accent-ink:#0c1512;
+  --virus:#b98cff; --virus-soft:#2a1f40; --bact:#ff9a62; --bact-soft:#3a2418;
+  --ok:#5fd27a; --ok-soft:#173222; --bad:#ff7b6e; --bad-soft:#3b1d1a;
+  --warn-soft:#3a3218; --shadow:none; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--accent)}
+header.top{background:var(--accent);color:var(--accent-ink);padding:28px 16px 22px}
+header.top .wrap{max-width:900px;margin:0 auto}
+header.top h1{margin:0 0 6px;font-size:clamp(1.6rem,4.5vw,2.3rem);line-height:1.2}
+header.top p{margin:0;opacity:.92}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+nav.toc .wrap{max-width:900px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;padding:8px 16px;scrollbar-width:thin}
+nav.toc a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.88rem;padding:5px 10px;border-radius:999px;border:1px solid var(--line)}
+nav.toc a.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+main{max-width:900px;margin:0 auto;padding:16px}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:18px 0;box-shadow:var(--shadow)}
+section.card h2{margin:0 0 4px;font-size:1.4rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.step{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:1rem;flex:none}
+.goal{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+h3{font-size:1.1rem;margin:18px 0 6px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 14px}
+button,select{font:inherit;font-size:.95rem;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+button.small{font-size:.85rem;padding:5px 10px}
+.listen::before{content:"🔊 "}
+.ord{border-bottom:2px dotted var(--accent);cursor:help;font-weight:600}
+.ord:focus-visible{outline:2px solid var(--accent)}
+#pop{position:absolute;z-index:50;max-width:280px;background:var(--ink);color:var(--bg);padding:10px 12px;border-radius:10px;font-size:.92rem;box-shadow:0 6px 24px rgba(0,0,0,.25);display:none}
+#pop b{display:block;font-size:1rem}
+#pop .tr{font-size:1.05rem;margin-top:4px}
+#pop .def{opacity:.85;margin-top:4px;font-size:.85rem}
+.tip{background:var(--warn-soft);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.95rem}
+.easy{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:8px;padding:10px 14px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.box{border:1px solid var(--line);border-radius:12px;padding:14px}
+.box.b{background:var(--bact-soft);border-color:transparent}
+.box.v{background:var(--virus-soft);border-color:transparent}
+.box h4{margin:0 0 6px}
+ul.clean{padding-left:20px;margin:6px 0}
+.feedback{margin-top:10px;padding:10px 14px;border-radius:10px;display:none}
+.feedback.ok{display:block;background:var(--ok-soft);color:var(--ok)}
+.feedback.bad{display:block;background:var(--bad-soft);color:var(--bad)}
+.check{display:inline-block;margin-left:6px;font-weight:700}
+/* glossary */
+.gloss{width:100%;border-collapse:collapse;font-size:.95rem}
+.gloss th,.gloss td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+.gloss th{color:var(--muted);font-weight:600;font-size:.85rem}
+.gloss td.tr{font-size:1.05rem}
+.gloss-wrap{overflow-x:auto}
+[dir="rtl"]{font-family:"Segoe UI",Tahoma,Arial,sans-serif}
+/* flashcards */
+.flash{perspective:900px;margin:10px auto;max-width:420px}
+.flash-inner{position:relative;height:180px;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+.flash.flipped .flash-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;display:grid;place-items:center;text-align:center;padding:16px;border:2px solid var(--accent);background:var(--card)}
+.face.back{transform:rotateY(180deg);background:var(--accent-soft)}
+.face .big{font-size:1.7rem;font-weight:700}
+@media (prefers-reduced-motion: reduce){.flash-inner{transition:none}html{scroll-behavior:auto}}
+/* simulator */
+.sim-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:end}
+.sim-controls label{display:block;font-size:.9rem;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.temps{display:flex;gap:6px;flex-wrap:wrap}
+.temps button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#dish{width:100%;max-width:420px;aspect-ratio:1;display:block;margin:12px auto;border-radius:50%;border:6px solid var(--line);background:var(--bg)}
+.stat{font-size:1.3rem;font-weight:700;text-align:center}
+.stat small{display:block;font-size:.9rem;font-weight:400;color:var(--muted)}
+/* sort */
+.sort-card{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0}
+.sort-card .btns{display:flex;gap:6px}
+.sort-card.right{background:var(--ok-soft);border-color:var(--ok)}
+.sort-card.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.btn-b{color:var(--bact);border-color:var(--bact)}
+.btn-v{color:var(--virus);border-color:var(--virus)}
+/* chain */
+.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.link{border:3px solid var(--bact);border-radius:16px;padding:10px;text-align:center;background:var(--bact-soft);position:relative;min-height:110px;display:flex;flex-direction:column;justify-content:center}
+.link .n{font-size:.75rem;color:var(--muted)}
+.link .t{font-weight:700}
+.link .e{font-size:.85rem;color:var(--muted)}
+.link.broken{border-style:dashed;border-color:var(--ok);background:var(--ok-soft)}
+.link.broken::after{content:"✂️ brutt";position:absolute;top:4px;right:8px;font-size:.75rem;color:var(--ok);font-weight:700}
+.measures{display:flex;flex-wrap:wrap;gap:8px}
+.measures button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.measures button:disabled{opacity:.45;cursor:default;text-decoration:line-through}
+/* order */
+.order-list{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px}
+.order-list button{width:100%;text-align:left}
+.order-list button:disabled{opacity:.5}
+.answer-list{counter-reset:s;list-style:none;padding:0;margin:10px 0}
+.answer-list li{counter-increment:s;padding:6px 10px;border-radius:8px;background:var(--ok-soft);margin:4px 0}
+.answer-list li::before{content:counter(s) ". ";font-weight:700}
+.answer-list li.wrong{background:var(--bad-soft)}
+/* cloze */
+.cloze select{padding:3px 6px;margin:2px}
+.cloze p{line-height:2.2}
+.wordbank{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.wordbank span{background:var(--accent-soft);padding:2px 10px;border-radius:999px;font-size:.9rem}
+/* quiz */
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.q p{margin:0 0 8px;font-weight:600}
+.q .opts{display:grid;gap:6px}
+.q .opts button{text-align:left}
+.q .opts button.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.q .opts button.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.q .why{font-size:.9rem;color:var(--muted);margin-top:8px;display:none}
+.score{font-size:1.2rem;font-weight:700}
+/* talk */
+.starters{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.starters span{border:1px dashed var(--accent);border-radius:8px;padding:3px 9px;font-size:.92rem}
+textarea{width:100%;min-height:90px;font:inherit;border-radius:10px;border:1px solid var(--line);padding:10px;background:var(--bg);color:var(--ink)}
+.sources li{margin:6px 0}
+footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);font-size:.85rem}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:12px}
+.progress div{height:100%;background:var(--accent-ink);width:0;transition:width .4s}
+.svgfig{display:block;max-width:100%;height:auto;margin:8px auto}
+.svgfig text{fill:var(--ink);font:13px system-ui,sans-serif}
+.lang-pick{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.lang-pick select{background:var(--card)}
+@media (max-width:520px){section.card{padding:16px}body{font-size:16px}}
+@media print{nav.toc,.toolbar,button{display:none!important}section.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <h1>Mikroorganismer – bakterier og virus</h1>
+    <p>Naturfag · Vg1 helse- og oppvekstfag · Lett norsk med ordhjelp</p>
+    <div class="lang-pick">
+      <label for="lang"><b>Mitt språk:</b></label>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="ar">العربية (arabisk)</option>
+        <option value="uk">Українська (ukrainsk)</option>
+        <option value="so">Soomaali (somali)</option>
+        <option value="ti">ትግርኛ (tigrinja)</option>
+        <option value="fa">دری (dari)</option>
+        <option value="pl">Polski (polsk)</option>
+      </select>
+      <span style="font-size:.9rem;opacity:.9">Trykk på <u>understreka ord</u> for å se ordet på ditt språk.</span>
+    </div>
+    <div class="progress" aria-label="Framdrift"><div id="progbar"></div></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Innhold">
+  <div class="wrap">
+    <a href="#s1" data-sec="s1">1 Start</a>
+    <a href="#s2" data-sec="s2">2 Ord</a>
+    <a href="#s3" data-sec="s3">3 Mikroorganismer</a>
+    <a href="#s4" data-sec="s4">4 Bakterier</a>
+    <a href="#s5" data-sec="s5">5 Virus</a>
+    <a href="#s6" data-sec="s6">6 Bakterie eller virus?</a>
+    <a href="#s7" data-sec="s7">7 Smittekjeden</a>
+    <a href="#s8" data-sec="s8">8 Håndhygiene</a>
+    <a href="#s9" data-sec="s9">9 Forsvar og medisin</a>
+    <a href="#s10" data-sec="s10">10 Yrket</a>
+    <a href="#s11" data-sec="s11">11 Quiz</a>
+    <a href="#kilder">Kilder</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="step">1</span> Før vi begynner</h2>
+  <p class="goal">Mål: Jeg vet hva jeg kan fra før.</p>
+  <p>Du skal lære om små levende ting som vi ikke kan se med øynene. Noen gjør oss syke. Mange er nyttige.</p>
+  <h3>Hva tror du? Trykk på «Sant» eller «Usant».</h3>
+  <div id="pretest"></div>
+  <p class="tip">💡 Det er helt greit å svare feil nå. Du får svarene etterpå, og du kan prøve igjen på slutten.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="step">2</span> Viktige ord</h2>
+  <p class="goal">Mål: Jeg kjenner de viktigste ordene i temaet.</p>
+  <h3>Ordkort</h3>
+  <p>Trykk på kortet for å snu det. Trykk 🔊 for å høre ordet.</p>
+  <div class="flash" id="flash" tabindex="0" role="button" aria-label="Snu ordkortet">
+    <div class="flash-inner">
+      <div class="face front"><div><div class="big" id="fl-word"></div><div id="fl-count" style="color:var(--muted);font-size:.85rem"></div></div></div>
+      <div class="face back"><div><div class="big" id="fl-tr"></div><div id="fl-def" style="margin-top:8px"></div></div></div>
+    </div>
+  </div>
+  <div class="toolbar" style="justify-content:center">
+    <button id="fl-prev">← Forrige</button>
+    <button class="listen" id="fl-say">Hør</button>
+    <button id="fl-next">Neste →</button>
+  </div>
+  <h3>Hele ordlista</h3>
+  <div class="gloss-wrap"><table class="gloss" id="glossTable"></table></div>
+  <p class="tip">Lærer: Oversettelsene er laget som støtte. Be gjerne en morsmålslærer eller elevene selv kontrollere dem.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="step">3</span> Hva er mikroorganismer?</h2>
+  <p class="goal">Mål: Jeg kan forklare hva en mikroorganisme er og gi eksempler.</p>
+  <div class="toolbar"><button class="listen small" data-read="r3">Les høyt</button></div>
+  <div id="r3">
+    <p><span class="ord" data-k="mikroorganisme">Mikroorganismer</span> er levende ting som er så små at vi ikke kan se dem uten <b>mikroskop</b>. «Mikro» betyr «veldig liten».</p>
+    <p>Det finnes mange typer. De viktigste er <span class="ord" data-k="bakterie">bakterier</span>, <span class="ord" data-k="virus">virus</span>, <span class="ord" data-k="sopp">sopp</span> og <b>alger</b>.</p>
+    <p>Mikroorganismer finnes overalt: i luft, vann, jord, mat – og på og inni kroppen vår. De fleste er ufarlige eller nyttige. Noen kan gi oss sykdom. Disse kaller vi <b>sykdomsfremkallende</b> mikroorganismer.</p>
+  </div>
+  <div class="easy"><b>Kort sagt:</b> Mikroorganismer er veldig små. De finnes overalt. Noen er nyttige, noen gjør oss syke.</div>
+  <h3>Hvor små er de?</h3>
+  <svg class="svgfig" viewBox="0 0 640 170" role="img" aria-label="Størrelser: hårstrå 0,1 millimeter, menneskecelle 0,02 millimeter, bakterie 0,002 millimeter, virus 0,0001 millimeter">
+    <circle cx="70" cy="80" r="60" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/>
+    <text x="70" y="85" text-anchor="middle">hårstrå</text>
+    <text x="70" y="160" text-anchor="middle">0,1 mm</text>
+    <circle cx="230" cy="80" r="34" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+    <circle cx="230" cy="80" r="9" fill="var(--accent)" opacity=".6"/>
+    <text x="230" y="160" text-anchor="middle">menneskecelle</text>
+    <text x="230" y="40" text-anchor="middle" style="font-size:11px">0,02 mm</text>
+    <rect x="370" y="72" width="34" height="16" rx="8" fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="2"/>
+    <text x="387" y="160" text-anchor="middle">bakterie</text>
+    <text x="387" y="60" text-anchor="middle" style="font-size:11px">0,002 mm</text>
+    <circle cx="540" cy="80" r="3" fill="var(--virus)"/>
+    <text x="540" y="160" text-anchor="middle">virus</text>
+    <text x="540" y="60" text-anchor="middle" style="font-size:11px">0,0001 mm</text>
+  </svg>
+  <p class="tip">Figuren viser omtrentlige størrelser. Et virus er rundt 100 ganger mindre enn en bakterie.</p>
+  <h3>Nyttig eller skadelig? Velg.</h3>
+  <div id="usefulSort"></div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="step">4</span> Bakterier</h2>
+  <p class="goal">Mål: Jeg kan beskrive en bakterie og hva den trenger for å vokse.</p>
+  <div class="toolbar"><button class="listen small" data-read="r4">Les høyt</button></div>
+  <div id="r4">
+    <p>En <span class="ord" data-k="bakterie">bakterie</span> er én <span class="ord" data-k="celle">celle</span>. Den har ikke cellekjerne. Arvestoffet (DNA) ligger fritt inni cellen. Bakterier er levende: de spiser, vokser og <span class="ord" data-k="formere">formerer seg</span>.</p>
+    <p>En bakterie formerer seg ved å dele seg i to. Det kalles <b>todeling</b>. Når forholdene er gode, kan en bakterie dele seg omtrent hver 20. minutt. Da blir det fort veldig mange!</p>
+    <p>Bakterier trenger dette for å vokse:</p>
+    <ul class="clean">
+      <li>🌡️ <b>Riktig temperatur</b> – mange liker det varmt, rundt 37 °C (som kroppen vår).</li>
+      <li>💧 <b>Fuktighet</b> – vann.</li>
+      <li>🍞 <b><span class="ord" data-k="naering">Næring</span></b> – mat.</li>
+      <li>⏱️ <b>Tid</b>.</li>
+    </ul>
+    <p>Kulde (kjøleskap) gjør at bakteriene vokser sakte. Høy varme (koking, over 70 °C) dreper de fleste bakterier.</p>
+  </div>
+  <svg class="svgfig" viewBox="0 0 520 150" role="img" aria-label="Tegning av en bakterie med cellevegg, cellemembran, DNA og flagell">
+    <rect x="110" y="35" width="260" height="80" rx="40" fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="4"/>
+    <rect x="118" y="43" width="244" height="64" rx="32" fill="none" stroke="var(--bact)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M180 75 C200 55, 220 95, 240 75 S280 55, 300 80" fill="none" stroke="var(--accent)" stroke-width="3"/>
+    <path d="M370 75 C400 60, 410 95, 440 78 S480 60, 500 80" fill="none" stroke="var(--bact)" stroke-width="2.5"/>
+    <text x="240" y="20" text-anchor="middle">cellevegg</text>
+    <line x1="240" y1="24" x2="240" y2="36" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="240" y="140" text-anchor="middle">DNA (arvestoff)</text>
+    <line x1="240" y1="128" x2="240" y2="82" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="465" y="110" text-anchor="middle">flagell (hale)</text>
+    <text x="55" y="80" text-anchor="middle">ingen</text>
+    <text x="55" y="96" text-anchor="middle">cellekjerne</text>
+  </svg>
+
+  <h3>🧫 Forsøk på skjermen: Hvor fort vokser bakteriene?</h3>
+  <p>Velg temperatur og tid. Vi starter med <b>én</b> bakterie på et brødsmule.</p>
+  <div class="sim-controls">
+    <div>
+      <label>Temperatur</label>
+      <div class="temps" id="temps">
+        <button data-t="4">❄️ Kjøleskap 4 °C</button>
+        <button data-t="20">🏠 Rom 20 °C</button>
+        <button data-t="37" aria-pressed="true">🧍 Kropp 37 °C</button>
+        <button data-t="100">🔥 Koking 100 °C</button>
+      </div>
+    </div>
+    <div>
+      <label for="time">Tid: <b id="timeLbl">2 timer</b></label>
+      <input type="range" id="time" min="0" max="8" step="0.5" value="2">
+    </div>
+  </div>
+  <canvas id="dish" width="420" height="420" aria-label="Petriskål med bakterier"></canvas>
+  <div class="stat" id="stat"></div>
+  <p class="tip">Modellen er forenklet. Den viser at varme og tid gir mange bakterier, kulde bremser veksten, og koking dreper bakteriene. Sammenlign med <a href="https://ndla.no/r/naturfag-hs/forsok-undersok-mikroorganismer/638818bb20" target="_blank" rel="noopener">forsøket på NDLA</a>, der dere dyrker ekte mikroorganismer i petriskåler.</p>
+  <h3>Spørsmål</h3>
+  <div id="simQ"></div>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="step">5</span> Virus</h2>
+  <p class="goal">Mål: Jeg kan forklare hvordan et virus formerer seg.</p>
+  <div class="toolbar"><button class="listen small" data-read="r5">Les høyt</button></div>
+  <div id="r5">
+    <p>Et <span class="ord" data-k="virus">virus</span> er mye mindre enn en bakterie. Et virus er <b>ikke en celle</b>. Det er bare arvestoff inni et skall av protein.</p>
+    <p>Et virus kan ikke spise eller vokse alene. Det må inn i en levende celle for å lage nye virus. Cellen som viruset går inn i, kalles en <b>vertscelle</b>.</p>
+    <p>Mange forskere sier derfor at virus ikke er levende.</p>
+  </div>
+  <h3>Slik formerer et virus seg – trykk «Neste steg»</h3>
+  <svg class="svgfig" id="virusSvg" viewBox="0 0 560 220" role="img" aria-label="Animasjon av hvordan et virus formerer seg i en celle">
+    <ellipse cx="300" cy="115" rx="200" ry="90" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
+    <circle cx="300" cy="115" r="30" fill="var(--accent)" opacity=".25"/>
+    <text x="300" y="120" text-anchor="middle" style="font-size:11px">cellekjerne</text>
+    <text x="440" y="200" text-anchor="middle" style="font-size:12px">vertscelle</text>
+    <g id="vparts"></g>
+  </svg>
+  <p id="vstepText" class="easy" aria-live="polite"></p>
+  <div class="toolbar"><button id="vprev">← Forrige</button><button class="primary" id="vnext">Neste steg →</button></div>
+  <div class="easy"><b>Kort sagt:</b> Et virus går inn i cellen vår. Det bruker cellen til å lage mange nye virus. Så går de nye virusene ut og smitter flere celler.</div>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="step">6</span> Bakterie eller virus?</h2>
+  <p class="goal">Mål: Jeg kan sammenligne bakterier og virus.</p>
+  <div class="grid2">
+    <div class="box b"><h4>🦠 Bakterie</h4>
+      <ul class="clean"><li>Er en celle</li><li>Lever og formerer seg selv</li><li>Ca. 0,001–0,005 mm</li><li><b>Antibiotika</b> kan virke</li></ul></div>
+    <div class="box v"><h4>🧬 Virus</h4>
+      <ul class="clean"><li>Er ikke en celle</li><li>Trenger en vertscelle</li><li>Ca. 100 ganger mindre</li><li><b>Antibiotika virker ikke</b></li></ul></div>
+  </div>
+  <h3>Sorter: Hva skyldes sykdommen?</h3>
+  <div id="sortBV"></div>
+  <div class="feedback" id="sortBVfb"></div>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="step">7</span> Smittekjeden</h2>
+  <p class="goal">Mål: Jeg kan forklare smittekjeden og hvordan vi kan bryte den.</p>
+  <div class="toolbar"><button class="listen small" data-read="r7">Les høyt</button></div>
+  <div id="r7">
+    <p><span class="ord" data-k="smitte">Smitte</span> betyr at mikroorganismer går fra én person eller ting til en annen. Veien smitten går, kaller vi <span class="ord" data-k="smittekjede">smittekjeden</span>. Den har seks ledd.</p>
+    <p>Hvis vi bryter <b>ett</b> ledd i kjeden, stopper smitten. Det kaller vi <span class="ord" data-k="smittevern">smittevern</span>.</p>
+  </div>
+  <div class="chain" id="chain"></div>
+  <h3>Bryt kjeden!</h3>
+  <p>1) Velg et tiltak. 2) Trykk på leddet i kjeden som tiltaket bryter.</p>
+  <div class="measures" id="measures"></div>
+  <div class="feedback" id="chainFb" aria-live="polite"></div>
+  <p class="tip">Prøv også <a href="https://ndla.no/r/naturfag-hs/utforsk-smittekjeden/5ba01a8a5e" target="_blank" rel="noopener">«Utforsk smittekjeden» på NDLA</a>.</p>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="step">8</span> Håndhygiene</h2>
+  <p class="goal">Mål: Jeg vet når og hvordan jeg skal vaske eller sprite hendene.</p>
+  <div class="toolbar"><button class="listen small" data-read="r8">Les høyt</button></div>
+  <div id="r8">
+    <p><span class="ord" data-k="handhygiene">Håndhygiene</span> er det enkleste, billigste og viktigste tiltaket mot smitte. Det betyr å vaske hendene med såpe og vann, eller å bruke <span class="ord" data-k="desinfisere">hånddesinfeksjon</span> (sprit).</p>
+    <p><b>Vask med såpe og vann</b> når hendene er synlig skitne, etter toalettbesøk, og ved omgangssyke (oppkast og diaré). Sprit virker dårlig mot norovirus, som gir omgangssyke.</p>
+    <p><b>Bruk sprit</b> når hendene ser rene ut, for eksempel før og etter du hjelper en person.</p>
+  </div>
+  <h3>Sett stegene i riktig rekkefølge</h3>
+  <p>Trykk på stegene i den rekkefølgen du gjør dem når du vasker hendene.</p>
+  <ol class="answer-list" id="washAnswer"></ol>
+  <ul class="order-list" id="washSteps"></ul>
+  <div class="toolbar"><button id="washReset">Start på nytt</button></div>
+  <div class="feedback" id="washFb"></div>
+  <h3>Såpe eller sprit?</h3>
+  <div id="soapQ"></div>
+</section>
+
+<!-- 9 -->
+<section class="card" id="s9">
+  <h2><span class="step">9</span> Kroppens forsvar, vaksiner og antibiotika</h2>
+  <p class="goal">Mål: Jeg kan forklare hva vaksiner og antibiotika gjør.</p>
+  <div class="toolbar"><button class="listen small" data-read="r9">Les høyt</button></div>
+  <div id="r9">
+    <p>Kroppen har et forsvar mot sykdom. Det heter <span class="ord" data-k="immunforsvar">immunforsvaret</span>. Huden og slimhinnene stopper mange mikroorganismer. Hvite blodceller angriper dem som kommer inn i kroppen.</p>
+    <p>Kroppen lager <span class="ord" data-k="antistoff">antistoffer</span> mot hver type mikroorganisme. Den lager også <b>hukommelsesceller</b>. De husker smittestoffet. Neste gang blir du ikke syk, eller bare litt syk.</p>
+    <p>En <span class="ord" data-k="vaksine">vaksine</span> inneholder ufarlige deler av et virus eller en bakterie. Kroppen lærer å kjenne igjen smittestoffet, uten at du blir syk. Da er du beskyttet.</p>
+    <p><span class="ord" data-k="antibiotika">Antibiotika</span> er medisin som dreper bakterier eller stopper veksten deres. Antibiotika virker <b>ikke</b> mot virus. Hvis vi bruker for mye antibiotika, kan bakteriene bli <span class="ord" data-k="resistens">resistente</span>. Da virker ikke medisinen lenger.</p>
+  </div>
+  <h3>Riktig bruk av antibiotika – sant eller usant?</h3>
+  <div id="abQ"></div>
+</section>
+
+<!-- 10 -->
+<section class="card" id="s10">
+  <h2><span class="step">10</span> I yrket: Helse og oppvekst</h2>
+  <p class="goal">Mål: Jeg kan bruke kunnskapen i en arbeidssituasjon.</p>
+  <h3>Fyll inn riktig ord</h3>
+  <div class="wordbank" id="bank"></div>
+  <div class="cloze" id="cloze"></div>
+  <div class="toolbar"><button class="primary" id="clozeCheck">Sjekk svarene</button></div>
+  <div class="feedback" id="clozeFb"></div>
+
+  <h3>Case: Omgangssyke i barnehagen</h3>
+  <div class="box">
+    <p>Du er lærling i en barnehage. Tre barn har kastet opp i dag. Leder tror det er <b>omgangssyke</b> (norovirus). Viruset smitter lett via hender, leker og overflater.</p>
+    <p><b>Hva gjør du? Velg alle gode tiltak.</b></p>
+    <div id="caseOpts"></div>
+    <div class="toolbar"><button class="primary" id="caseCheck">Sjekk</button></div>
+    <div class="feedback" id="caseFb"></div>
+  </div>
+
+  <h3>Snakk sammen to og to</h3>
+  <ol>
+    <li>Hvorfor er håndhygiene så viktig i barnehage, på sykehjem og i hjemmetjenesten?</li>
+    <li>En venn vil ha antibiotika mot forkjølelse. Hva sier du?</li>
+    <li>Fortell om noe du har lært om smittevern i ditt hjemland eller i en jobb.</li>
+  </ol>
+  <p>Bruk setningsstarterne:</p>
+  <div class="starters">
+    <span>Jeg tror at …</span><span>Det er viktig fordi …</span><span>Bakterier er … mens virus er …</span><span>For å bryte smittekjeden kan vi …</span><span>Jeg er enig / uenig fordi …</span><span>Et eksempel er …</span>
+  </div>
+  <label for="notes"><b>Skriv 3–5 setninger om hva du har lært:</b></label>
+  <textarea id="notes" placeholder="I dag har jeg lært at …"></textarea>
+  <p style="font-size:.85rem;color:var(--muted)">Teksten lagres bare i din egen nettleser.</p>
+</section>
+
+<!-- 11 -->
+<section class="card" id="s11">
+  <h2><span class="step">11</span> Quiz – sjekk deg selv</h2>
+  <p class="goal">Mål: Jeg vet hva jeg kan, og hva jeg må øve mer på.</p>
+  <div id="quiz"></div>
+  <div class="toolbar"><span class="score" id="quizScore" aria-live="polite"></span><button id="quizReset">Prøv igjen</button></div>
+  <h3>Se tilbake: Svarte du riktig i starten?</h3>
+  <div id="pretestReview"></div>
+</section>
+
+<section class="card" id="kilder">
+  <h2>📚 Kilder og les mer på NDLA</h2>
+  <p>Innholdet bygger på disse sidene på ndla.no. Les dem for å lære mer. Mange sider på NDLA kan leses høyt, og du kan få ordforklaringer.</p>
+  <h3>Naturfag (helse- og oppvekstfag)</h3>
+  <ul class="sources">
+    <li><a href="https://ndla.no/nb/r/naturfag-hs/mikrobiologi/4c286570fe" target="_blank" rel="noopener">Mikrobiologi – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/r/naturfag-hs/hva-er-mikroorganismer/68cb88c018" target="_blank" rel="noopener">Hva er mikroorganismer? – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/nb/e/naturfag-hs/mikroorganismer/863f13424a" target="_blank" rel="noopener">Mikroorganismer – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/nb/r/naturfag-hs/virus/4d6a962be8" target="_blank" rel="noopener">Virus – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/nb/r/naturfag-hs/handhygiene/e0fffc630b" target="_blank" rel="noopener">Håndhygiene – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/r/naturfag-hs/utforsk-smittekjeden/5ba01a8a5e" target="_blank" rel="noopener">Utforsk smittekjeden – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/r/naturfag-hs/forsok-undersok-mikroorganismer/638818bb20" target="_blank" rel="noopener">Forsøk: Undersøk mikroorganismer – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/r/naturfag-hs/oppsummeringsoppgaver-om-mikroorganismer/8f837cb25d" target="_blank" rel="noopener">Oppsummeringsoppgaver om mikroorganismer – Naturfag (HS)</a></li>
+  </ul>
+  <h3>Helsefremmende arbeid (Vg1) og andre fag</h3>
+  <ul class="sources">
+    <li><a href="https://ndla.no/r/helsefremmende-arbeid-hs-hsf-vg1/mikroorganismer/c9d15969f8" target="_blank" rel="noopener">Mikroorganismer – Helsefremmende arbeid (HS-HSF vg1)</a></li>
+    <li><a href="https://ndla.no/r/helsefremmende-arbeid-hs-hsf-vg1/e-forelesning-bakterier/b3b1a146f9" target="_blank" rel="noopener">E-forelesning: Bakterier – Helsefremmende arbeid (HS-HSF vg1)</a></li>
+    <li><a href="https://ndla.no/nb/r/helsefremmende-arbeid-hs-hsf-vg1/immunforsvaret/e1bdf7ea6a" target="_blank" rel="noopener">Immunforsvaret – Helsefremmende arbeid (HS-HSF vg1)</a></li>
+    <li><a href="https://ndla.no/en/r/helsefremmende-arbeid-hs-hsf-vg1/virus-og-vaksiner/577c3d1fa8" target="_blank" rel="noopener">Virus og vaksiner – Helsefremmende arbeid (HS-HSF vg1)</a></li>
+    <li><a href="https://ndla.no/nb/r/helsefremmende-arbeid-hs-hea-vg2/handhygiene-som-grunnleggende-smittevernrutine/543e4f6164" target="_blank" rel="noopener">Håndhygiene som grunnleggende smittevernrutine – Helsefremmende arbeid (HS-HEA vg2)</a></li>
+    <li><a href="https://ndla.no/r/biologi-1/antibiotikaresistens/e495328761" target="_blank" rel="noopener">Antibiotikaresistens – Biologi 1</a></li>
+  </ul>
+  <p class="tip">Lærer: Lenkene er hentet fra NDLA i oktober 2026. NDLA flytter av og til sider. Søk på tittelen på ndla.no hvis en lenke ikke virker.</p>
+</section>
+
+</main>
+
+<div id="pop" role="tooltip"></div>
+
+<footer>
+  Opplegg i naturfag for Vg1 helse- og oppvekstfag, tilpasset elever med norsk som andrespråk. Faginnhold basert på NDLA (ndla.no), lisensiert under CC BY-SA.
+</footer>
+
+<script>
+(function(){
+"use strict";
+const store={get(k){try{return localStorage.getItem("mikro_"+k)}catch(e){return null}},set(k,v){try{localStorage.setItem("mikro_"+k,v)}catch(e){}}};
+const $=s=>document.querySelector(s);
+const el=(tag,attrs={},html)=>{const e=document.createElement(tag);for(const k in attrs){if(k==="class")e.className=attrs[k];else e.setAttribute(k,attrs[k])}if(html!==undefined)e.innerHTML=html;return e};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ---------- Glossary ---------- */
+const RTL={ar:1,fa:1};
+const G={
+ mikroorganisme:{no:"mikroorganisme",def:"veldig liten levende ting",en:"microorganism",ar:"كائن حي دقيق",uk:"мікроорганізм",so:"noole aad u yar (jeermis)",ti:"ንእሽተይ ህያው (ማይክሮኦርጋኒዝም)",fa:"میکروارگانیزم / ریزجاندار",pl:"mikroorganizm"},
+ bakterie:{no:"bakterie",def:"en liten celle uten cellekjerne",en:"bacterium (bacteria)",ar:"بكتيريا",uk:"бактерія",so:"bakteeriya",ti:"ባክተርያ",fa:"باکتری",pl:"bakteria"},
+ virus:{no:"virus",def:"smittestoff som trenger en celle for å lage nye virus",en:"virus",ar:"فيروس",uk:"вірус",so:"fayras",ti:"ቫይረስ",fa:"ویروس",pl:"wirus"},
+ sopp:{no:"sopp",def:"f.eks. mugg og gjær",en:"fungus",ar:"فطر",uk:"гриб",so:"fangas",ti:"ፈንገስ",fa:"قارچ",pl:"grzyb"},
+ celle:{no:"celle",def:"den minste levende delen i alt som lever",en:"cell",ar:"خلية",uk:"клітина",so:"unug",ti:"ዋህዮ",fa:"حجره / سلول",pl:"komórka"},
+ formere:{no:"formere seg",def:"lage flere av seg selv",en:"to reproduce, multiply",ar:"يتكاثر",uk:"розмножуватися",so:"tarmid / tarmo",ti:"ምብዛሕ",fa:"تکثیر شدن",pl:"rozmnażać się"},
+ naering:{no:"næring",def:"mat som gir energi og byggestoff",en:"nutrients, food",ar:"غذاء",uk:"поживні речовини",so:"nafaqo",ti:"መግቢ",fa:"مواد غذایی",pl:"składniki odżywcze"},
+ smitte:{no:"smitte",def:"når en sykdom går fra én til en annen",en:"infection, contagion",ar:"انتقال العدوى",uk:"зараження",so:"faafitaan cudur",ti:"ለበዳ",fa:"سرایت",pl:"zakażenie"},
+ smittekjede:{no:"smittekjede",def:"veien smitten går, i seks ledd",en:"chain of infection",ar:"سلسلة العدوى",uk:"ланцюг інфекції",so:"silsiladda faafitaanka",ti:"ሰንሰለት ለበዳ",fa:"زنجیره سرایت",pl:"łańcuch zakażenia"},
+ smittevern:{no:"smittevern",def:"alt vi gjør for å hindre smitte",en:"infection control",ar:"الوقاية من العدوى",uk:"профілактика інфекцій",so:"ka hortagga faafitaanka",ti:"ምክልኻል ለበዳ",fa:"پیشگیری از سرایت",pl:"zapobieganie zakażeniom"},
+ infeksjon:{no:"infeksjon",def:"når mikroorganismer formerer seg i kroppen og gjør deg syk",en:"infection",ar:"عدوى / التهاب",uk:"інфекція",so:"caabuq",ti:"ረኽሲ",fa:"عفونت",pl:"infekcja"},
+ symptom:{no:"symptom",def:"tegn på sykdom, f.eks. feber",en:"symptom",ar:"عَرَض",uk:"симптом",so:"calaamad",ti:"ምልክት",fa:"علامت / نشانه",pl:"objaw"},
+ handhygiene:{no:"håndhygiene",def:"å vaske eller sprite hendene",en:"hand hygiene",ar:"نظافة اليدين",uk:"гігієна рук",so:"nadaafadda gacmaha",ti:"ጽሬት ኢድ",fa:"بهداشت دست",pl:"higiena rąk"},
+ desinfisere:{no:"desinfisere / hånddesinfeksjon",def:"drepe mikroorganismer, f.eks. med sprit",en:"to disinfect / hand sanitizer",ar:"تطهير / معقم اليدين",uk:"дезінфікувати / антисептик для рук",so:"jeermis-dile gacmaha",ti:"ምጽራይ ካብ ጀርም / ናይ ኢድ ጸረ-ጀርም",fa:"ضدعفونی کردن / ضدعفونی دست",pl:"dezynfekować / płyn do dezynfekcji rąk"},
+ immunforsvar:{no:"immunforsvar",def:"kroppens forsvar mot sykdom",en:"immune system",ar:"جهاز المناعة",uk:"імунна система",so:"habdhiska difaaca jirka",ti:"ስርዓተ ምክልኻል ሰብነት",fa:"سیستم معافیت (ایمنی)",pl:"układ odpornościowy"},
+ antistoff:{no:"antistoff",def:"stoff kroppen lager for å angripe smittestoff",en:"antibody",ar:"جسم مضاد",uk:"антитіло",so:"unugyada difaaca (antibody)",ti:"ኣንቲቦዲ",fa:"پادتن",pl:"przeciwciało"},
+ vaksine:{no:"vaksine",def:"gir beskyttelse mot en sykdom før du blir smittet",en:"vaccine",ar:"لقاح",uk:"вакцина",so:"tallaal",ti:"ክታበት",fa:"واکسین",pl:"szczepionka"},
+ antibiotika:{no:"antibiotika",def:"medisin mot bakterier – ikke mot virus",en:"antibiotics",ar:"مضادات حيوية",uk:"антибіотики",so:"antibiyootig",ti:"ኣንቲባዮቲክ",fa:"انتی‌بیوتیک",pl:"antybiotyki"},
+ resistens:{no:"resistens / resistent",def:"når bakterier tåler medisinen, og den ikke virker",en:"resistance / resistant",ar:"مقاومة / مقاوم",uk:"стійкість / стійкий",so:"adkeysi (dawadu ma shaqeyso)",ti:"ተጻዋርነት",fa:"مقاومت / مقاوم",pl:"oporność / oporny"}
+};
+const ORDER=Object.keys(G);
+let lang=store.get("lang")||"en";
+const langSel=$("#lang"); langSel.value=lang;
+function trSpan(k){const t=G[k][lang]||"";return `<span dir="${RTL[lang]?"rtl":"ltr"}" lang="${lang}">${t}</span>`}
+function renderGloss(){
+  const t=$("#glossTable");
+  let h=`<thead><tr><th>Norsk</th><th>${langSel.options[langSel.selectedIndex].text}</th><th>Forklaring</th><th></th></tr></thead><tbody>`;
+  ORDER.forEach(k=>{h+=`<tr><td><b>${G[k].no}</b></td><td class="tr">${trSpan(k)}</td><td>${G[k].def}</td><td><button class="small" data-say="${G[k].no}" aria-label="Hør ${G[k].no}">🔊</button></td></tr>`});
+  t.innerHTML=h+"</tbody>";
+}
+langSel.addEventListener("change",()=>{lang=langSel.value;store.set("lang",lang);renderGloss();showCard();hidePop()});
+
+/* ---------- Speech ---------- */
+let voice=null;
+function pickVoice(){if(!("speechSynthesis"in window))return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/^(nb|no|nn)/i.test(v.lang))||null}
+if("speechSynthesis"in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+function say(text){
+  if(!("speechSynthesis"in window)){const n=document.createElement("div");n.className="tip";n.textContent="Nettleseren din kan ikke lese høyt. Prøv Chrome, Edge eller Safari.";document.querySelector("main").prepend(n);setTimeout(()=>n.remove(),5000);return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);u.lang="nb-NO";u.rate=.9;if(voice)u.voice=voice;speechSynthesis.speak(u);
+}
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-say]");if(s){say(s.dataset.say);return}
+  const r=e.target.closest("[data-read]");if(r){say($("#"+r.dataset.read).innerText);}
+});
+
+/* ---------- Word popover ---------- */
+const pop=$("#pop");
+function hidePop(){pop.style.display="none"}
+function showPop(target){
+  const k=target.dataset.k;if(!G[k])return;
+  pop.innerHTML=`<b>${G[k].no}</b><div class="tr">${trSpan(k)}</div><div class="def">${G[k].def}</div><button class="small" data-say="${G[k].no}" style="margin-top:6px">🔊 Hør</button>`;
+  pop.style.display="block";
+  const r=target.getBoundingClientRect();
+  const w=Math.min(280,window.innerWidth-32);
+  let left=r.left+window.scrollX;left=Math.max(16,Math.min(left,window.scrollX+window.innerWidth-w-16));
+  pop.style.left=left+"px";pop.style.top=(r.bottom+window.scrollY+6)+"px";
+}
+document.querySelectorAll(".ord").forEach(o=>{o.tabIndex=0;o.setAttribute("role","button")});
+document.addEventListener("click",e=>{
+  const o=e.target.closest(".ord");
+  if(o){showPop(o);e.stopPropagation();return}
+  if(!e.target.closest("#pop"))hidePop();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")hidePop();
+  const o=e.target.closest&&e.target.closest(".ord");
+  if(o&&(e.key==="Enter"||e.key===" ")){e.preventDefault();showPop(o)}
+});
+
+/* ---------- Progress ---------- */
+const done=new Set(JSON.parse(store.get("done")||"[]"));
+function mark(sec){done.add(sec);store.set("done",JSON.stringify([...done]));updProg()}
+function updProg(){
+  document.querySelectorAll("nav.toc a[data-sec]").forEach(a=>a.classList.toggle("done",done.has(a.dataset.sec)));
+  $("#progbar").style.width=(done.size/11*100)+"%";
+}
+if("IntersectionObserver"in window){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting&&["s2","s3","s5","s9"].includes(en.target.id)){/* reading sections count after time */const id=en.target.id;setTimeout(()=>mark(id),8000)}}),{threshold:.4});
+  ["s2","s3","s5","s9"].forEach(id=>io.observe(document.getElementById(id)));
+}
+
+/* ---------- Generic true/false or choice block ---------- */
+function choiceBlock(container,items,opts,sec,onAnswer){
+  // items: {q, a (index of opts), why}
+  let answered=0;
+  items.forEach((it,i)=>{
+    const d=el("div",{class:"q"});
+    d.appendChild(el("p",{},it.q));
+    const o=el("div",{class:"opts"});
+    (it.opts||opts).forEach((label,j)=>{
+      const b=el("button",{},label);
+      b.addEventListener("click",()=>{
+        if(d.dataset.done)return;d.dataset.done=1;
+        const right=j===it.a;
+        b.classList.add(right?"right":"wrong");
+        if(!right)o.children[it.a].classList.add("right");
+        b.insertAdjacentHTML("beforeend",`<span class="check">${right?"✓":"✗"}</span>`);
+        const w=d.querySelector(".why");if(w)w.style.display="block";
+        answered++;if(onAnswer)onAnswer(i,right);
+        if(answered===items.length&&sec)mark(sec);
+      });
+      o.appendChild(b);
+    });
+    d.appendChild(o);
+    if(it.why)d.appendChild(el("div",{class:"why"},"💬 "+it.why));
+    container.appendChild(d);
+  });
+}
+const TF=["Sant","Usant"];
+
+/* 1 pretest */
+const PRE=[
+ {q:"Alle bakterier er farlige.",a:1,why:"Usant. De fleste bakterier er ufarlige eller nyttige, for eksempel bakteriene i tarmen og i yoghurt."},
+ {q:"Antibiotika hjelper mot forkjølelse.",a:1,why:"Usant. Forkjølelse skyldes virus. Antibiotika virker bare mot bakterier."},
+ {q:"Et virus er mindre enn en bakterie.",a:0,why:"Sant. Et virus er omtrent 100 ganger mindre enn en bakterie."},
+ {q:"Å vaske hendene er et viktig tiltak mot smitte.",a:0,why:"Sant. Håndhygiene er det viktigste tiltaket mot smitte."}
+];
+const preAns=JSON.parse(store.get("pre")||"{}");
+choiceBlock($("#pretest"),PRE,TF,"s1",(i,r)=>{preAns[i]=r;store.set("pre",JSON.stringify(preAns));renderPreReview()});
+function renderPreReview(){
+  const c=$("#pretestReview");
+  c.innerHTML="<ul class='clean'>"+PRE.map((p,i)=>`<li>${p.q} <b>${TF[p.a]}</b>${i in preAns?(preAns[i]?" – du svarte riktig ✓":" – nå vet du svaret 💪"):""}</li>`).join("")+"</ul>";
+}
+renderPreReview();
+
+/* 2 flashcards */
+let fi=0;
+const flash=$("#flash");
+function showCard(){
+  const k=ORDER[fi];flash.classList.remove("flipped");
+  $("#fl-word").textContent=G[k].no;$("#fl-count").textContent=`${fi+1} av ${ORDER.length}`;
+  $("#fl-tr").innerHTML=trSpan(k);$("#fl-def").textContent=G[k].def;
+}
+let seen=new Set();
+function flip(){flash.classList.toggle("flipped");seen.add(fi);if(seen.size>=8)mark("s2")}
+flash.addEventListener("click",flip);
+flash.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip()}});
+$("#fl-next").onclick=()=>{fi=(fi+1)%ORDER.length;showCard()};
+$("#fl-prev").onclick=()=>{fi=(fi-1+ORDER.length)%ORDER.length;showCard()};
+$("#fl-say").onclick=()=>say(G[ORDER[fi]].no);
+renderGloss();showCard();
+
+/* 3 useful vs harmful */
+choiceBlock($("#usefulSort"),[
+ {q:"🥛 Bakterier som lager yoghurt av melk",a:0,why:"Nyttig. Melkesyrebakterier lager yoghurt og surmelk."},
+ {q:"🍂 Bakterier og sopp som bryter ned døde blader",a:0,why:"Nyttig. De er nedbrytere og gir næring tilbake til jorda."},
+ {q:"🤢 Salmonella i kylling som ikke er godt stekt",a:1,why:"Skadelig. Salmonella gir matforgiftning."},
+ {q:"🫃 Bakterier i tarmen vår",a:0,why:"Nyttig. Tarmbakteriene hjelper oss å fordøye maten og beskytter mot farlige bakterier."},
+ {q:"🤧 Influensavirus",a:1,why:"Skadelig. Influensa gir feber og kan være farlig for eldre og syke."}
+],["Nyttig","Skadelig"],"s3");
+
+/* 4 simulator */
+const cv=$("#dish"),ctx=cv.getContext("2d");
+let temp=37;
+const DOUBLE={4:null,20:60,37:20,100:-1}; // minutes per doubling; null = nearly none; -1 = dies
+const pts=[];for(let i=0;i<4000;i++){const a=Math.random()*Math.PI*2,r=Math.sqrt(Math.random())*195;pts.push([210+Math.cos(a)*r,210+Math.sin(a)*r])}
+function count(t,h){
+  const min=h*60;
+  if(DOUBLE[t]===-1)return 0;
+  if(DOUBLE[t]===null)return min>=240?2:1; // veldig sakte
+  return Math.pow(2,Math.floor(min/DOUBLE[t]));
+}
+function fmt(n){return n.toLocaleString("nb-NO")}
+function drawSim(){
+  const h=parseFloat($("#time").value);
+  $("#timeLbl").textContent=(h===1?"1 time":String(h).replace(".",",")+" timer");
+  const n=count(temp,h);
+  const css=getComputedStyle(document.documentElement);
+  ctx.clearRect(0,0,420,420);
+  const show=Math.min(n,4000);
+  ctx.fillStyle=css.getPropertyValue("--bact").trim();
+  // when huge, draw large colony blobs
+  const rad=n>4000?3.2:2.6;
+  for(let i=0;i<show;i++){ctx.beginPath();ctx.ellipse(pts[i][0],pts[i][1],rad*1.6,rad,(i%7)/7*Math.PI,0,Math.PI*2);ctx.fill()}
+  let txt;
+  if(temp===100)txt=`0 levende bakterier<small>Koking dreper bakteriene.</small>`;
+  else if(temp===4)txt=`${fmt(n)} ${n===1?"bakterie":"bakterier"}<small>I kjøleskapet vokser bakteriene veldig sakte.</small>`;
+  else txt=`${fmt(n)} bakterier<small>${temp===37?"En bakterie deler seg ca. hvert 20. minutt ved 37 °C.":"Ved romtemperatur vokser bakteriene, men saktere enn ved 37 °C."}${n>4000?" Skåla viser bare en del av dem.":""}</small>`;
+  $("#stat").innerHTML=txt;
+}
+$("#temps").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;temp=+b.dataset.t;$("#temps").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));drawSim()});
+$("#time").addEventListener("input",drawSim);
+drawSim();
+window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").addEventListener("change",drawSim);
+choiceBlock($("#simQ"),[
+ {q:"Hvor mange bakterier blir det etter 2 timer ved 37 °C?",opts:["12","64","1 000"],a:1,why:"2 timer = 120 minutter. 120 : 20 = 6 delinger. 2×2×2×2×2×2 = 64."},
+ {q:"Hvorfor skal mat stå i kjøleskapet?",opts:["Kulde dreper alle bakterier","Kulde gjør at bakteriene vokser sakte","Maten smaker bedre"],a:1,why:"Kulde dreper ikke bakteriene, men de formerer seg veldig sakte."},
+ {q:"Middagsrester står på kjøkkenbenken hele natten. Hva skjer?",opts:["Ingenting","Bakteriene får tid til å formere seg","Bakteriene dør"],a:1,why:"Romtemperatur, fukt, næring og tid gir bakteriene gode vilkår."}
+],null,"s4");
+
+/* 5 virus steps */
+const VSTEPS=[
+ "1. Viruset fester seg til utsiden av vertscellen.",
+ "2. Viruset slipper arvestoffet sitt inn i cellen.",
+ "3. Arvestoffet til viruset tar over cellen. Cellen lager nye virusdeler.",
+ "4. Delene settes sammen til mange nye virus.",
+ "5. De nye virusene går ut av cellen. Cellen kan dø. Virusene smitter nye celler."
+];
+let vs=0;
+function vir(x,y,s=1){return `<g transform="translate(${x} ${y}) scale(${s})"><circle r="14" fill="var(--virus-soft)" stroke="var(--virus)" stroke-width="3"/>${[0,45,90,135,180,225,270,315].map(a=>`<line x1="${14*Math.cos(a*Math.PI/180)}" y1="${14*Math.sin(a*Math.PI/180)}" x2="${21*Math.cos(a*Math.PI/180)}" y2="${21*Math.sin(a*Math.PI/180)}" stroke="var(--virus)" stroke-width="3" stroke-linecap="round"/>`).join("")}<path d="M-6 -2 q3 -6 6 0 t6 0" fill="none" stroke="var(--virus)" stroke-width="2"/></g>`}
+const rna=(x,y)=>`<path d="M${x} ${y} q8 -10 16 0 t16 0 t16 0" fill="none" stroke="var(--virus)" stroke-width="3"/>`;
+function drawVirus(){
+  let g="";
+  if(vs===0)g=vir(70,60);
+  if(vs===1)g=vir(108,80,.9)+rna(130,100);
+  if(vs===2)g=rna(230,150)+rna(330,70)+`<circle cx="250" cy="80" r="8" fill="var(--virus-soft)" stroke="var(--virus)" stroke-width="2"/><circle cx="360" cy="150" r="8" fill="var(--virus-soft)" stroke="var(--virus)" stroke-width="2"/><circle cx="380" cy="100" r="8" fill="var(--virus-soft)" stroke="var(--virus)" stroke-width="2"/>`;
+  if(vs===3)g=[[220,70],[380,90],[230,160],[370,160],[300,60],[430,125]].map(p=>vir(p[0],p[1],.7)).join("");
+  if(vs===4)g=[[520,40],[530,120],[520,195],[60,190],[40,110],[90,30]].map(p=>vir(p[0],p[1],.75)).join("")+`<text x="300" y="20" text-anchor="middle" style="font-size:12px">nye virus går ut</text>`;
+  $("#vparts").innerHTML=g;$("#vstepText").textContent=VSTEPS[vs];
+  $("#vprev").disabled=vs===0;$("#vnext").textContent=vs===4?"Start på nytt ↺":"Neste steg →";
+  if(vs===4)mark("s5");
+}
+$("#vnext").onclick=()=>{vs=vs===4?0:vs+1;drawVirus()};
+$("#vprev").onclick=()=>{if(vs>0){vs--;drawVirus()}};
+drawVirus();
+
+/* 6 sort */
+const SORT=shuffle([
+ ["Forkjølelse","v"],["Influensa","v"],["Covid-19","v"],["Vannkopper","v"],["Omgangssyke (norovirus)","v"],
+ ["Halsbetennelse (streptokokker)","b"],["Urinveisinfeksjon","b"],["Salmonella (matforgiftning)","b"],["Tuberkulose","b"]
+]);
+let sortRight=0,sortDone=0;
+SORT.forEach(([name,ans])=>{
+  const row=el("div",{class:"sort-card"},`<span>${name}</span>`);
+  const btns=el("div",{class:"btns"});
+  [["b","🦠 Bakterie","btn-b"],["v","🧬 Virus","btn-v"]].forEach(([v,l,c])=>{
+    const b=el("button",{class:"small "+c},l);
+    b.onclick=()=>{
+      if(row.dataset.done)return;row.dataset.done=1;
+      const ok=v===ans;row.classList.add(ok?"right":"wrong");
+      if(!ok)row.querySelector("span").insertAdjacentHTML("beforeend",` → <b>${ans==="b"?"bakterie":"virus"}</b>`);
+      sortDone++;if(ok)sortRight++;
+      if(sortDone===SORT.length){const f=$("#sortBVfb");f.className="feedback "+(sortRight>=7?"ok":"bad");f.textContent=`Du fikk ${sortRight} av ${SORT.length} riktig. Husk: antibiotika hjelper bare mot sykdommene som skyldes bakterier.`;mark("s6")}
+    };
+    btns.appendChild(b);
+  });
+  row.appendChild(btns);$("#sortBV").appendChild(row);
+});
+
+/* 7 chain */
+const LINKS=[
+ {t:"Smittestoff",e:"bakterie eller virus"},
+ {t:"Smittekilde",e:"syk person, mat, overflate"},
+ {t:"Utgangsport",e:"nese, munn, sår, avføring"},
+ {t:"Smittevei",e:"hender, luft, mat, ting"},
+ {t:"Inngangsport",e:"munn, nese, øyne, sår"},
+ {t:"Mottakelig person",e:"barn, eldre, syke"}
+];
+const MEAS=[
+ {t:"🧴 Vaske og sprite hendene",l:3},
+ {t:"🤧 Hoste i albuen",l:2},
+ {t:"🩹 Dekke til sår med plaster",l:4},
+ {t:"💉 Vaksinere",l:5},
+ {t:"🍗 Steke kyllingen godt",l:0},
+ {t:"🏠 Bli hjemme når du er syk",l:1}
+];
+const chain=$("#chain");
+LINKS.forEach((L,i)=>{const d=el("button",{class:"link","data-i":i},`<span class="n">Ledd ${i+1}</span><span class="t">${L.t}</span><span class="e">${L.e}</span>`);chain.appendChild(d)});
+let selM=null,broken=0;
+MEAS.forEach((m,i)=>{const b=el("button",{"aria-pressed":"false"},m.t);b.onclick=()=>{selM=i;$("#measures").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b))};$("#measures").appendChild(b)});
+chain.addEventListener("click",e=>{
+  const l=e.target.closest(".link");if(!l)return;const fb=$("#chainFb");
+  if(selM===null){fb.className="feedback bad";fb.textContent="Velg et tiltak under kjeden først.";return}
+  const m=MEAS[selM],i=+l.dataset.i;
+  if(m.l===i){
+    l.classList.add("broken");fb.className="feedback ok";
+    fb.textContent=`Riktig! «${m.t.slice(2).trim()}» bryter leddet «${LINKS[i].t}».`;
+    const mb=$("#measures").children[selM];mb.disabled=true;mb.setAttribute("aria-pressed","false");selM=null;broken++;
+    if(broken===MEAS.length){fb.textContent+=" Du har brutt hele kjeden! Husk: Det holder å bryte ett ledd for å stoppe smitten.";mark("s7")}
+  }else{fb.className="feedback bad";fb.textContent=`Ikke helt. Tenk: Hvilket ledd stopper «${m.t.slice(2).trim()}»? Prøv et annet ledd.`}
+});
+
+/* 8 hand wash order */
+const WASH=["Gjør hendene våte","Ta på såpe","Gni håndflatene mot hverandre","Gni mellom fingrene og rundt tomlene","Gni fingertuppene og neglene","Skyll av såpen med vann","Tørk hendene med papir","Steng kranen med papiret"];
+let washPos=0,washErr=0;
+function initWash(){
+  washPos=0;washErr=0;$("#washAnswer").innerHTML="";$("#washFb").className="feedback";
+  const ul=$("#washSteps");ul.innerHTML="";
+  shuffle(WASH.map((s,i)=>[s,i])).forEach(([s,i])=>{
+    const li=el("li");const b=el("button",{},s);
+    b.onclick=()=>{
+      if(i===washPos){b.disabled=true;$("#washAnswer").appendChild(el("li",{},s));washPos++;
+        if(washPos===WASH.length){const f=$("#washFb");f.className="feedback ok";f.textContent=`Flott! Du fikk alle stegene på plass${washErr?` (med ${washErr} feil underveis)`:""}. Vask grundig, i omtrent 30 sekunder.`;mark("s8")}}
+      else{washErr++;const f=$("#washFb");f.className="feedback bad";f.textContent="Ikke dette steget ennå. Hva gjør du først?";}
+    };
+    li.appendChild(b);ul.appendChild(li);
+  });
+}
+$("#washReset").onclick=initWash;initWash();
+choiceBlock($("#soapQ"),[
+ {q:"Et barn har kastet opp, og du har hjulpet til.",a:0,why:"Såpe og vann. Sprit virker dårlig mot norovirus (omgangssyke)."},
+ {q:"Du skal hjelpe en eldre person med å ta på seg en jakke. Hendene dine ser rene ut.",a:1,why:"Sprit er raskt og virker godt når hendene ser rene ut."},
+ {q:"Du har vært på toalettet.",a:0,why:"Vask alltid med såpe og vann etter toalettbesøk."},
+ {q:"Du har jord på hendene etter tur i skogen med barna.",a:0,why:"Synlig skitne hender skal vaskes med såpe og vann."}
+],["🧼 Såpe og vann","🧴 Sprit"],null);
+
+/* 9 antibiotics */
+choiceBlock($("#abQ"),[
+ {q:"Antibiotika virker mot influensa.",a:1,why:"Usant. Influensa skyldes virus."},
+ {q:"Du skal ta hele kuren med antibiotika, selv om du blir frisk før.",a:0,why:"Sant. Følg alltid det legen sier. Da blir alle bakteriene drept."},
+ {q:"Det er greit å gi rester av antibiotika til en venn.",a:1,why:"Usant. Bare legen kan bestemme hvem som skal ha antibiotika, og hvilken type."},
+ {q:"For mye bruk av antibiotika kan gjøre bakterier resistente.",a:0,why:"Sant. Det beste tiltaket mot resistens er å bruke mindre antibiotika."},
+ {q:"En vaksine gjør at kroppen lager hukommelsesceller.",a:0,why:"Sant. Hukommelsescellene kjenner igjen smittestoffet hvis du blir smittet senere."}
+],TF,"s9");
+
+/* 10 cloze */
+const CLOZE=[
+ ["Bakterier formerer seg ved", "todeling", ". En bakterie kan dele seg hvert 20. minutt."],
+ ["Et virus trenger en", "vertscelle", "for å lage nye virus."],
+ ["Det viktigste tiltaket mot smitte er", "håndhygiene", "."],
+ ["Medisin som virker mot bakterier, heter", "antibiotika", "."],
+ ["En", "vaksine", "lærer immunforsvaret å kjenne igjen et smittestoff."],
+ ["Når bakterier tåler medisinen, sier vi at de er", "resistente", "."]
+];
+const words=shuffle(CLOZE.map(c=>c[1]));
+$("#bank").innerHTML=words.map(w=>`<span>${w}</span>`).join("");
+const cz=$("#cloze");
+CLOZE.forEach((c,i)=>{
+  const p=el("p");p.append(`${i+1}. ${c[0]} `);
+  const s=el("select",{"aria-label":"Velg ord "+(i+1)});s.innerHTML=`<option value="">– velg –</option>`+words.map(w=>`<option>${w}</option>`).join("");
+  p.appendChild(s);p.append(/^[.,]/.test(c[2])?c[2]:" "+c[2]);p.appendChild(el("span",{class:"check"}));cz.appendChild(p);
+});
+$("#clozeCheck").onclick=()=>{
+  let r=0;cz.querySelectorAll("p").forEach((p,i)=>{const ok=p.querySelector("select").value===CLOZE[i][1];if(ok)r++;const c=p.querySelector(".check");c.textContent=ok?"✓":"✗";c.style.color=ok?"var(--ok)":"var(--bad)"});
+  const f=$("#clozeFb");f.className="feedback "+(r===CLOZE.length?"ok":"bad");f.textContent=r===CLOZE.length?"Alle riktige! 🎉":`${r} av ${CLOZE.length} riktige. Endre de som har ✗ og sjekk igjen.`;
+  if(r===CLOZE.length)mark("s10");
+};
+
+/* case */
+const CASE=[
+ ["Vaske hendene med såpe og vann ofte",1],
+ ["Bruke bare sprit på hendene",0],
+ ["Vaske leker, bord og dørhåndtak",1],
+ ["Si til foreldrene at syke barn skal være hjemme til de har vært friske i 48 timer",1],
+ ["Gi barna antibiotika",0],
+ ["Bruke hansker når du tørker opp oppkast",1]
+];
+const co=$("#caseOpts");
+CASE.forEach(([t],i)=>{const l=el("label",{style:"display:block;margin:6px 0"});l.innerHTML=`<input type="checkbox" data-i="${i}"> ${t}`;co.appendChild(l)});
+$("#caseCheck").onclick=()=>{
+  let ok=true;co.querySelectorAll("input").forEach(c=>{const want=!!CASE[c.dataset.i][1];const lab=c.parentElement;lab.style.color=c.checked===want?"":"var(--bad)";if(c.checked!==want)ok=false});
+  const f=$("#caseFb");f.className="feedback "+(ok?"ok":"bad");
+  f.textContent=ok?"Riktig! Norovirus smitter lett. Såpe og vann, renhold og hansker bryter smittekjeden. Antibiotika virker ikke mot virus.":"Ikke helt. Det røde er feil. Tips: Sprit virker dårlig mot norovirus, og antibiotika virker ikke mot virus.";
+};
+const notes=$("#notes");notes.value=store.get("notes")||"";notes.addEventListener("input",()=>store.set("notes",notes.value));
+
+/* 11 quiz */
+const QUIZ=[
+ {q:"Hva er en mikroorganisme?",opts:["Et lite dyr, som en maur","En levende ting vi bare kan se i mikroskop","En type medisin"],a:1},
+ {q:"Hva mangler en bakteriecelle?",opts:["Cellekjerne","DNA","Cellevegg"],a:0,why:"Bakterier har DNA, men det ligger fritt i cellen. De har ingen cellekjerne."},
+ {q:"Hva trenger bakterier for å vokse?",opts:["Kulde, tørke og lys","Varme, fukt, næring og tid","Bare oksygen"],a:1},
+ {q:"Hvordan formerer et virus seg?",opts:["Det deler seg i to","Det bruker en vertscelle til å lage nye virus","Det legger egg"],a:1},
+ {q:"Hvilken sykdom skyldes et virus?",opts:["Urinveisinfeksjon","Influensa","Salmonella"],a:1},
+ {q:"Hva er det viktigste tiltaket mot smitte?",opts:["Håndhygiene","Å ta antibiotika","Å åpne vinduet"],a:0},
+ {q:"Hvilket ledd i smittekjeden bryter en vaksine?",opts:["Smittevei","Utgangsport","Mottakelig person"],a:2,why:"Vaksinen gjør at personen ikke lenger er mottakelig for smittestoffet."},
+ {q:"Hvorfor skal vi ikke bruke antibiotika unødvendig?",opts:["Det er dyrt","Bakteriene kan bli resistente","Det smaker vondt"],a:1},
+ {q:"Hva gjør en vaksine?",opts:["Dreper alle bakterier i kroppen","Lærer immunforsvaret å kjenne igjen et smittestoff","Gir deg sykdommen"],a:1},
+ {q:"Et barn har omgangssyke. Hva er best for hendene dine?",opts:["Sprit","Såpe og vann","Bare vann"],a:1,why:"Sprit virker dårlig mot norovirus."}
+];
+let qRight=0,qDone=0;
+function initQuiz(){
+  qRight=0;qDone=0;$("#quiz").innerHTML="";$("#quizScore").textContent="";
+  choiceBlock($("#quiz"),QUIZ,null,"s11",(i,r)=>{qDone++;if(r)qRight++;$("#quizScore").textContent=`${qRight} av ${qDone} riktige`+(qDone===QUIZ.length?(qRight>=8?" – supert! 🎉":" – les mer på NDLA og prøv igjen."):"")});
+}
+$("#quizReset").onclick=initQuiz;initQuiz();
+
+updProg();
+})();
+</script>
+</body>
+</html>
