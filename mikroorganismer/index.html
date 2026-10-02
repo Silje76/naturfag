@@ -19,7 +19,7 @@
     --accent:#4fc3a8; --accent-soft:#16332d; --accent-ink:#0c1512;
     --virus:#b98cff; --virus-soft:#2a1f40; --bact:#ff9a62; --bact-soft:#3a2418;
     --ok:#5fd27a; --ok-soft:#173222; --bad:#ff7b6e; --bad-soft:#3b1d1a;
-    --warn-soft:#3a3218; --shadow:none;
+    --warn-soft:#3a3218; --shadow:none; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
@@ -27,7 +27,7 @@
   --accent:#4fc3a8; --accent-soft:#16332d; --accent-ink:#0c1512;
   --virus:#b98cff; --virus-soft:#2a1f40; --bact:#ff9a62; --bact-soft:#3a2418;
   --ok:#5fd27a; --ok-soft:#173222; --bad:#ff7b6e; --bad-soft:#3b1d1a;
-  --warn-soft:#3a3218; --shadow:none;
+  --warn-soft:#3a3218; --shadow:none; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -37,7 +37,7 @@ header.top{background:var(--accent);color:var(--accent-ink);padding:28px 16px 22
 header.top .wrap{max-width:900px;margin:0 auto}
 header.top h1{margin:0 0 6px;font-size:clamp(1.6rem,4.5vw,2.3rem);line-height:1.2}
 header.top p{margin:0;opacity:.92}
-nav.toc{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
 nav.toc .wrap{max-width:900px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;padding:8px 16px;scrollbar-width:thin}
 nav.toc a{white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.88rem;padding:5px 10px;border-radius:999px;border:1px solid var(--line)}
 nav.toc a.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
@@ -529,7 +529,7 @@ let voice=null;
 function pickVoice(){if(!("speechSynthesis"in window))return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/^(nb|no|nn)/i.test(v.lang))||null}
 if("speechSynthesis"in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
 function say(text){
-  if(!("speechSynthesis"in window)){alert("Nettleseren din kan ikke lese høyt.");return}
+  if(!("speechSynthesis"in window)){const n=document.createElement("div");n.className="tip";n.textContent="Nettleseren din kan ikke lese høyt. Prøv Chrome, Edge eller Safari.";document.querySelector("main").prepend(n);setTimeout(()=>n.remove(),5000);return}
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);u.lang="nb-NO";u.rate=.9;if(voice)u.voice=voice;speechSynthesis.speak(u);
 }
