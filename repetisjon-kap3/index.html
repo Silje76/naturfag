@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kapittel 3 – repetisjon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Noto+Sans+Arabic:wght@400;600&family=Noto+Sans+Ethiopic:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column under a sticky bar (language + tabs); the pH scale is the page's signature element. */
+:root{
+  --bg:#eef4f5; --surface:#ffffff; --ink:#10252c; --muted:#4f6b74; --line:#cfdfe3;
+  --water:#156f93; --water-soft:#d9edf4; --fat:#e9b72c; --fat-soft:#fbefc8;
+  --ok:#23804f; --ok-soft:#dcf1e5; --bad:#b8372f; --bad-soft:#f8e0dd;
+  --o:#d0473f; --h:#e6ecee; --h-stroke:#8aa0a7; --na:#7457c9; --cl:#3c9a5f;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --arabic:"Noto Sans Arabic","Atkinson Hyperlegible",Tahoma,sans-serif;
+  --ethiopic:"Noto Sans Ethiopic","Nyala","Abyssinica SIL",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1a1f; --surface:#132730; --ink:#e2eef1; --muted:#93afb7; --line:#24434d;
+  --water:#5bb6dc; --water-soft:#163847; --fat:#f0c64b; --fat-soft:#3a3115;
+  --ok:#5fcf8f; --ok-soft:#173a29; --bad:#f08178; --bad-soft:#41201d;
+  --o:#ee6a61; --h:#d5dee1; --h-stroke:#6f8c95; --na:#a68cf0; --cl:#62c287;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1a1f; --surface:#132730; --ink:#e2eef1; --muted:#93afb7; --line:#24434d;
+  --water:#5bb6dc; --water-soft:#163847; --fat:#f0c64b; --fat-soft:#3a3115;
+  --ok:#5fcf8f; --ok-soft:#173a29; --bad:#f08178; --bad-soft:#41201d;
+  --o:#ee6a61; --h:#d5dee1; --h-stroke:#6f8c95; --na:#a68cf0; --cl:#62c287;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,6vw,44px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:26px;font-weight:800}
+h3{font-size:20px;font-weight:600}
+p{margin:0}
+a{color:var(--water)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--water);outline-offset:2px;border-radius:6px}
+
+/* Hero */
+.hero{display:grid;gap:14px;padding-block:28px 18px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.phstrip{display:grid;grid-template-columns:repeat(15,1fr);height:12px;border-radius:6px;overflow:hidden}
+.lede{max-width:62ch;color:var(--muted)}
+
+/* Sticky bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:grid;gap:10px}
+.langs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.langs .lbl{font-size:13px;color:var(--muted);margin-inline-end:4px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:15px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--water);background:var(--water);color:var(--surface)}
+.chip.ar{font-family:var(--arabic)} .chip.et{font-family:var(--ethiopic)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tab{border:0;background:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;white-space:nowrap;color:var(--muted);display:grid;justify-items:center;line-height:1.2}
+.tab small{font-weight:400;font-size:12px}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:inset 0 -3px 0 var(--water)}
+
+/* Translation block */
+.tl{margin-top:8px;padding:8px 12px;border-inline-start:3px solid var(--water);background:var(--water-soft);border-radius:4px;font-size:16px;line-height:1.7}
+.tl[dir="rtl"]{font-family:var(--arabic)}
+.tl:lang(ti){font-family:var(--ethiopic)}
+.tl b{font-weight:700}
+.tl.inline{display:inline-block;margin:0;padding:1px 8px;font-size:14px;border-inline-start-width:2px}
+
+section.panel{display:grid;gap:20px;padding-top:24px}
+.intro{color:var(--muted);max-width:62ch}
+
+/* Learn */
+.chapter{display:grid;gap:14px}
+.chhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding-top:12px}
+.chnum{font-family:var(--display);font-weight:800;font-size:15px;color:var(--surface);background:var(--ink);padding:2px 9px;border-radius:6px}
+.pages{color:var(--muted);font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:10px;scroll-margin-top:140px}
+.card.hl{box-shadow:0 0 0 3px var(--water)}
+.card p+p{margin-top:2px}
+.fig{overflow-x:auto;background:var(--bg);border-radius:8px}
+.fig svg{display:block;width:100%;height:auto;min-width:300px;max-width:560px;margin:0 auto}
+.fig text{fill:var(--ink);font-family:var(--body);font-size:13px}
+.fig .mut{fill:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:14px;padding:3px 10px;border-radius:999px;background:var(--fat-soft);border:1px solid var(--line)}
+.src{font-size:14px;color:var(--muted)}
+.mut{color:var(--muted)}
+
+/* pH tool */
+.phtool{display:grid;gap:12px}
+.phbar{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:2px}
+.phcell{border:0;padding:8px 0;font-weight:700;font-variant-numeric:tabular-nums;cursor:pointer;border-radius:4px;font-size:14px}
+.phcell[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:1px}
+.phscale-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.phread{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
+.phbig{width:84px;height:84px;border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:38px;font-variant-numeric:tabular-nums}
+.phinfo{display:grid;gap:4px;min-width:0}
+.phinfo .k{font-family:var(--display);font-weight:600;font-size:20px}
+input[type=range]{width:100%;accent-color:var(--water)}
+
+/* Flashcards */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1.5px solid var(--ink);background:var(--surface);border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:700}
+.btn.primary{background:var(--ink);color:var(--surface)}
+.btn:disabled{opacity:.45;cursor:default}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.fcard{text-align:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;display:grid;gap:6px;align-content:start;min-height:120px;min-width:0}
+.fcard .term{font-family:var(--display);font-weight:600;font-size:21px}
+.fcard .side{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fcard.flipped{background:var(--water-soft);border-color:var(--water)}
+.fcard .back{display:none}
+.fcard.flipped .back{display:grid;gap:6px}
+.fcard.flipped .front-only{display:none}
+@media (prefers-reduced-motion:no-preference){.fcard.flipped .back{animation:fade .25s ease}}
+@keyframes fade{from{opacity:.2;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* Quiz */
+.qbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px}
+.qmeta{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--water);transition:width .3s}
+.qtext{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.25}
+.opts{display:grid;gap:8px}
+.opt{text-align:start;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 14px;cursor:pointer;display:flex;gap:10px;align-items:flex-start}
+.opt .ltr{font-weight:800;color:var(--muted);min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--water)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.fb{border-radius:10px;padding:12px 14px;display:grid;gap:4px}
+.fb.right{background:var(--ok-soft)} .fb.wrong{background:var(--bad-soft)}
+.fb strong{font-family:var(--display)}
+.score{font-family:var(--display);font-weight:800;font-size:56px;font-variant-numeric:tabular-nums;line-height:1}
+
+/* Sort */
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:12px;border:1.5px dashed var(--line);border-radius:12px;background:var(--surface)}
+.item{border:1.5px solid var(--ink);background:var(--surface);border-radius:8px;padding:6px 12px;cursor:pointer;display:grid;text-align:start;line-height:1.3}
+.item small{font-size:13px;color:var(--muted)}
+.item small[dir="rtl"]{font-family:var(--arabic)}
+.item small:lang(ti){font-family:var(--ethiopic)}
+.item[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.item[aria-pressed="true"] small{color:var(--surface)}
+.item.done{border-style:solid;cursor:default;background:var(--ok-soft);border-color:var(--ok)}
+.buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.bucket{border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);display:grid;gap:8px;align-content:start;cursor:pointer;text-align:start;min-height:120px}
+.bucket .bh{font-family:var(--display);font-weight:800;font-size:19px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.bucket .bh span{font-family:var(--body);font-weight:400;font-size:13px;color:var(--muted)}
+.bucket .in{display:flex;flex-wrap:wrap;gap:6px}
+.bucket.ready{border-color:var(--water);border-style:dashed}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+.msg{min-height:1.5em;font-weight:700}
+.msg.right{color:var(--ok)} .msg.wrong{color:var(--bad)}
+
+/* Checklist */
+.cl{display:grid;gap:8px}
+.ci{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.ci input{width:22px;height:22px;margin-top:2px;accent-color:var(--ok)}
+.ci .txt{min-width:0}
+.ci.checked{background:var(--ok-soft);border-color:var(--ok)}
+.ci .go{font-size:14px;white-space:nowrap;border:0;background:none;color:var(--water);text-decoration:underline;cursor:pointer;padding:2px}
+.meter{display:flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums}
+.meter .prog{flex:1;height:10px;border-radius:5px}
+.meter .prog i{background:var(--ok)}
+
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);display:grid;gap:6px}
+@media (max-width:480px){body{font-size:16px}.qtext{font-size:19px}.phbig{width:68px;height:68px;font-size:30px}.phcell{font-size:11px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Naturfag · Kapittel 3.1 – 3.3</div>
+    <h1>Vann, løselighet, emulgatorer, syrer og baser</h1>
+    <div class="phstrip" id="phstrip" aria-hidden="true"></div>
+    <p class="lede" id="lede">Repetisjon til prøven. Norsk tekst står alltid først. Velg språket ditt under for å få hjelp på morsmålet.</p>
+  </header>
+
+  <div class="bar">
+    <div class="langs" id="langs" role="group" aria-label="Velg språk"><span class="lbl">Hjelp på:</span></div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+  </div>
+
+  <main>
+    <section class="panel" id="p-laer" role="tabpanel"></section>
+    <section class="panel" id="p-begreper" role="tabpanel" hidden></section>
+    <section class="panel" id="p-quiz" role="tabpanel" hidden></section>
+    <section class="panel" id="p-sorter" role="tabpanel" hidden></section>
+    <section class="panel" id="p-sjekk" role="tabpanel" hidden></section>
+  </main>
+
+  <footer>
+    <p>Bygger på momentlisten for kapittel 3.1–3.3 og fagstoff fra <a href="https://ndla.no/search?query=naturfag%20helse-%20og%20oppvekstfag" target="_blank" rel="noopener">NDLA – naturfag for helse- og oppvekstfag</a>.</p>
+    <p>Oversettelsene er laget med hjelp av KI. Spør gjerne en morsmålslærer hvis noe er uklart.</p>
+  </footer>
+</div>
+
+<script>
+/* ---------- Languages ---------- */
+const LANGS=[
+  {id:"no",name:"Bare norsk"},
+  {id:"ku",name:"کوردی (سۆرانی)",code:"ckb",dir:"rtl"},
+  {id:"tr",name:"Türkçe",code:"tr",dir:"ltr"},
+  {id:"fa",name:"دری",code:"prs",dir:"rtl"},
+  {id:"uk",name:"Українська",code:"uk",dir:"ltr"},
+  {id:"ti",name:"ትግርኛ",code:"ti",dir:"ltr"},
+  {id:"ar",name:"العربية",code:"ar",dir:"rtl"}
+];
+const IDX={ku:0,tr:1,fa:2,uk:3,ti:4,ar:5};
+let lang="no";
+try{const s=localStorage.getItem("kap3-lang");if(s&&LANGS.some(l=>l.id===s))lang=s}catch(e){}
+const L=()=>LANGS.find(l=>l.id===lang);
+const pick=a=>a&&lang!=="no"?a[IDX[lang]]:"";
+function tl(a,cls=""){
+  if(lang==="no"||!a)return"";
+  let s=a[IDX[lang]];const i=s.indexOf(" — ");
+  if(i>0)s="<b>"+s.slice(0,i)+"</b> — "+s.slice(i+3);
+  return `<div class="tl ${cls}" lang="${L().code}" dir="${L().dir}">${s}</div>`;
+}
+function sm(a){if(lang==="no"||!a)return"";return `<small lang="${L().code}" dir="${L().dir}">${a[IDX[lang]]}</small>`}
+
+/* ---------- UI strings ---------- */
+const UI={
+  lede:["دووبارەکردنەوە بۆ تاقیکردنەوەی زانستە سروشتییەکان: بەشی 3.1–3.3. دەقی نەرویجی هەمیشە یەکەم دێت.","Fen bilimleri sınavı için tekrar: bölüm 3.1–3.3. Norveççe metin her zaman önce gelir.","تکرار برای امتحان علوم طبیعی: فصل ۳٫۱ تا ۳٫۳. متن نارویژی همیشه اول می‌آید.","Повторення до контрольної з природознавства: розділи 3.1–3.3. Норвезький текст завжди йде першим.","ንፈተና ሳይንስ ምድጋም፡ ምዕራፍ 3.1–3.3። ጽሑፍ ብኖርወይኛ ኩሉ ግዜ ቀዳማይ ይመጽእ።","مراجعة لاختبار العلوم الطبيعية: الفصول 3.1–3.3. النص النرويجي يأتي دائمًا أولًا."],
+  laer:["فێربوون","Öğren","یادگیری","Вчити","ምምሃር","تعلّم"],
+  begreper:["چەمکەکان","Kavramlar","مفاهیم","Поняття","ቃላት","المفاهيم"],
+  quiz:["تاقیکردنەوە","Test","آزمونک","Тест","ፈተና","اختبار"],
+  sorter:["پۆلێنکردن","Sınıflandır","دسته‌بندی","Сортування","ምፍላይ","تصنيف"],
+  sjekk:["لیستی خاڵەکان","Kontrol listesi","فهرست بررسی","Список тем","ዝርዝር","قائمة التحقق"],
+  laerIntro:["هەر بەشێک بخوێنەوە. وێنەکان و پێوەری pH بەکاربهێنە.","Her bölümü oku. Çizimleri ve pH ölçeğini kullan.","هر بخش را بخوانید. از تصویرها و مقیاس pH استفاده کنید.","Прочитай кожен розділ. Користуйся малюнками та шкалою pH.","ነፍሲ ወከፍ ክፋል ኣንብብ። ስእልታትን መለክዒ pH ን ተጠቐም።","اقرأ كل قسم. استخدم الرسوم ومقياس pH."],
+  flip:["کلیک لەسەر کارتەکە بکە بۆ بینینی ڕوونکردنەوە.","Açıklamayı görmek için karta dokun.","برای دیدن توضیح روی کارت بزنید.","Натисни на картку, щоб побачити пояснення.","መግለጺ ንምርኣይ ኣብታ ካርድ ጠውቕ።","اضغط على البطاقة لترى الشرح."],
+  quizIntro:["وەڵامی دروست هەڵبژێرە. وەڵامەکان بە نەرویجین، وەک لە تاقیکردنەوەکەدا.","Doğru cevabı seç. Seçenekler sınavdaki gibi Norveççedir.","جواب درست را انتخاب کنید. گزینه‌ها مثل امتحان به زبان نارویژی هستند.","Обери правильну відповідь. Варіанти відповідей норвезькою, як на контрольній.","ቅኑዕ መልሲ ምረጽ። ኣማራጺታት ከም ኣብ ፈተና ብኖርወይኛ እዮም።","اختر الإجابة الصحيحة. الخيارات بالنرويجية كما في الاختبار."],
+  right:["ڕاستە!","Doğru!","درست است!","Правильно!","ቅኑዕ!","صحيح!"],
+  wrong:["تەواو نییە.","Tam değil.","کاملاً درست نیست.","Не зовсім.","ምሉእ ብምሉእ ኣይኮነን።","ليس تمامًا."],
+  result:["{s} لە {n} وەڵامت ڕاست بوو.","{n} sorudan {s} tanesini doğru cevapladın.","شما {s} از {n} سؤال را درست جواب دادید.","Ти правильно відповів(-ла) на {s} з {n}.","ካብ {n} ሕቶታት {s} ብቕንዕና መሊስካ።","أجبت إجابة صحيحة عن {s} من {n}."],
+  sortIntro:["کلیک لەسەر ماددەیەک بکە، پاشان کلیک لەسەر گروپی دروست بکە.","Bir maddeye dokun, sonra doğru gruba dokun.","روی یک ماده بزنید، بعد روی گروه درست بزنید.","Натисни на речовину, а потім на правильну групу.","ኣብ ሓደ ነገር ጠውቕ፡ ድሕሪኡ ኣብቲ ቅኑዕ ጉጅለ ጠውቕ።","اضغط على مادة، ثم اضغط على المجموعة الصحيحة."],
+  checkIntro:["لیستی خاڵەکان لە مامۆستاوە. ئەوەی دەتوانیت بە وشەی خۆت ڕوونی بکەیتەوە نیشانە بکە.","Öğretmenin konu listesi. Kendi sözlerinle açıklayabildiklerini işaretle.","فهرست موضوعات از معلم. چیزهایی را که می‌توانید با کلمات خود توضیح دهید علامت بزنید.","Список тем від учителя. Відміть те, що можеш пояснити своїми словами.","ዝርዝር ኣርእስታት ካብ መምህር። ብቓላትካ ክትገልጾ እትኽእል ምልክት ግበረሉ።","قائمة الموضوعات من المعلم. ضع علامة على ما تستطيع شرحه بكلماتك."],
+  slider:["کلیک لە ژمارەیەک بکە یان ڕایبکێشە بۆ بینینی ڕەنگ و نموونەکان.","Rengi ve örnekleri görmek için bir sayıya dokun ya da kaydır.","روی یک عدد بزنید یا بکشید تا رنگ و مثال‌ها را ببینید.","Натисни на число або потягни повзунок, щоб побачити колір і приклади.","ሕብርን ኣብነታትን ንምርኣይ ኣብ ቁጽሪ ጠውቕ ወይ ስሓቦ።","اضغط على رقم أو اسحب لترى اللون والأمثلة."]
+};
+
+/* ---------- pH colours (universal indicator) ---------- */
+const PHC=["#b5121b","#d8261c","#ec4f1f","#f4801f","#f9a91a","#f3d21c","#bfd231","#6cb944","#2e9f62","#1a9490","#1f78b4","#2c58a6","#3d3b94","#562a88","#68197a"];
+const phText=n=>(n>=3&&n<=8)?"#10252c":"#ffffff";
+
+/* ---------- Substances ---------- */
+const S={
+  batteri:{no:"Batterisyre",ph:0.5,t:["ترشی پاتری","akü asidi","اسید باتری","акумуляторна кислота","ኣሲድ ባተሪ","حمض البطارية"]},
+  mage:{no:"Magesyre",ph:1.5,t:["ترشی گەدە","mide asidi","اسید معده","шлунковий сік","ኣሲድ ከብዲ","حمض المعدة"]},
+  sitron:{no:"Sitronsaft",ph:2,t:["ئاوی لیمۆ","limon suyu","آب لیمو","лимонний сік","ጽማቕ ለሚን","عصير الليمون"]},
+  cola:{no:"Cola",ph:2.5,t:["کۆلا","kola","کوکاکولا","кола","ኮካ ኮላ","الكولا"]},
+  eddik:{no:"Eddik",ph:3,t:["سرکە","sirke","سرکه","оцет","ኣቸቶ","الخل"]},
+  tomat:{no:"Tomatjuice",ph:4,t:["ئاوی تەماتە","domates suyu","آب بادنجان رومی","томатний сік","ጽማቕ ኮሚደረ","عصير الطماطم"]},
+  kaffe:{no:"Kaffe",ph:5,t:["قاوە","kahve","قهوه","кава","ቡን","القهوة"]},
+  melk:{no:"Melk",ph:6.5,t:["شیر","süt","شیر","молоко","ጸባ","الحليب"]},
+  vann:{no:"Rent vann",ph:7,t:["ئاوی پاک","saf su","آب خالص","чиста вода","ንጹህ ማይ","الماء النقي"]},
+  saltvann:{no:"Saltvann",ph:7,t:["ئاوی خوێ","tuzlu su","آب نمک","солона вода","ጨዋማ ማይ","الماء المالح"]},
+  sukkervann:{no:"Sukkervann",ph:7,t:["ئاوی شەکر","şekerli su","آب قند","вода з цукром","ማይ ምስ ሽኮር","ماء بالسكر"]},
+  blod:{no:"Blod",ph:7.4,t:["خوێن","kan","خون","кров","ደም","الدم"]},
+  natron:{no:"Natron",ph:8.3,t:["سۆدای نان","karbonat","سودای نان","харчова сода","ሶዳ ባኒ","بيكربونات الصوديوم"]},
+  saape:{no:"Såpe",ph:10,t:["سابوون","sabun","صابون","мило","ሳሙና","الصابون"]},
+  salmiakk:{no:"Salmiakk (ammoniakk)",ph:11,t:["ئەمۆنیا","amonyak","آمونیا","нашатирний спирт","ኣሞንያ","الأمونيا"]},
+  avlop:{no:"Avløpsåpner",ph:13,t:["ماددەی کردنەوەی بۆری ئاو","lavabo açıcı","لوله‌بازکن","засіб для прочищення труб","መኽፈቲ ቱቦ ማይ","منظف المجاري"]},
+  lut:{no:"Natronlut (NaOH)",ph:14,t:["سۆدیۆم هایدرۆکسید","sodyum hidroksit","هیدروکسید سدیم","їдкий натр","ሶድየም ሃይድሮክሳይድ","هيدروكسيد الصوديوم"]}
+};
+
+/* ---------- Learn content ---------- */
+const CH=[
+{id:"c31",num:"3.1",title:"Vann og løselighet",pages:"s. 90–95",q:"vann og løselighet",
+ t:["ئاو و توانەوە","Su ve çözünürlük","آب و حل‌پذیری","Вода і розчинність","ማይን ምሕቃቕን","الماء والذوبانية"],
+ cards:[
+ {id:"l-polar",title:"Vannmolekylet er polart – en dipol",fig:"dipole",
+  html:`<p>Vann (H₂O) består av ett oksygenatom og to hydrogenatomer. Oksygen trekker sterkere på elektronene enn hydrogen. Derfor blir oksygen-siden litt negativ (δ−) og hydrogen-sidene litt positive (δ+).</p><p>Molekylet er <b>bøyd</b> (vinkel ca. 104,5°), så ladningene havner på hver sin side. Et molekyl med en positiv og en negativ ende kalles en <b>dipol</b>. Vann er altså <b>polart</b>.</p>`,
+  t:["مۆلیکولی ئاو جەمسەرییە (دوو جەمسەر) — ئاو (H₂O) یەک گەردیلەی ئۆکسجین و دوو گەردیلەی هایدرۆجینی هەیە. ئۆکسجین ئەلیکترۆنەکان بە هێزتر ڕادەکێشێت، بۆیە لای ئۆکسجین کەمێک نەرێنی (δ−) دەبێت و لای هایدرۆجینەکان کەمێک ئەرێنی (δ+). مۆلیکولەکە چەماوەیە، بۆیە لایەکی ئەرێنی و لایەکی نەرێنی هەیە. ئەمە پێی دەوترێت دوو جەمسەر (دایپۆڵ).",
+     "Su molekülü polardır (dipol) — Su (H₂O) bir oksijen ve iki hidrojen atomundan oluşur. Oksijen elektronları daha güçlü çeker; bu yüzden oksijen tarafı biraz negatif (δ−), hidrojen tarafları biraz pozitif (δ+) olur. Molekül bükük olduğu için bir pozitif ve bir negatif ucu vardır. Buna dipol denir.",
+     "مولکول آب قطبی است (دوقطبی) — آب (H₂O) از یک اتم اکسیجن و دو اتم هایدروجن ساخته شده است. اکسیجن الکترون‌ها را قوی‌تر به طرف خود می‌کشد، پس طرف اکسیجن کمی منفی (δ−) و طرف هایدروجن‌ها کمی مثبت (δ+) می‌شود. مولکول خمیده است، پس یک سر مثبت و یک سر منفی دارد. به این دوقطبی می‌گویند.",
+     "Молекула води полярна (диполь) — Вода (H₂O) складається з одного атома кисню і двох атомів водню. Кисень сильніше притягує електрони, тому бік кисню трохи негативний (δ−), а боки водню трохи позитивні (δ+). Молекула зігнута, тому має позитивний і негативний кінці. Таку молекулу називають диполем.",
+     "ሞለኪዩል ማይ ፖላር እዩ (ዳይፖል) — ማይ (H₂O) ሓደ ኣቶም ኦክስጅንን ክልተ ኣቶም ሃይድሮጅንን ኣለዎ። ኦክስጅን ንኤሌክትሮናት ብዝበለጸ ሓይሊ ይስሕቦም። ስለዚ ወገን ኦክስጅን ቁሩብ ኣሉታዊ (δ−)፡ ወገን ሃይድሮጅን ድማ ቁሩብ ኣወንታዊ (δ+) ይኸውን። እቲ ሞለኪዩል ዝተዓጽፈ ስለዝኾነ ኣወንታውን ኣሉታውን ጫፍ ኣለዎ። እዚ ዳይፖል ይበሃል።",
+     "جزيء الماء قطبي (ثنائي القطب) — يتكوّن الماء (H₂O) من ذرة أكسجين وذرتي هيدروجين. يجذب الأكسجين الإلكترونات بقوة أكبر، لذلك يصبح جانب الأكسجين سالبًا قليلًا (δ−) وجانبا الهيدروجين موجبين قليلًا (δ+). الجزيء منحنٍ، فيكون له طرف موجب وطرف سالب، ويُسمّى ثنائي القطب."]},
+ {id:"l-hbind",title:"Hydrogenbindinger",fig:"hbond",
+  html:`<p>Den positive H-enden på ett vannmolekyl blir tiltrukket av den negative O-enden på et annet vannmolekyl. Denne tiltrekningen kalles en <b>hydrogenbinding</b>.</p><p>Hydrogenbindingene holder vannmolekylene sammen. Det er grunnen til at vann har høyt kokepunkt og overflatespenning.</p>`,
+  t:["بەندی هایدرۆجینی — لای ئەرێنی (H) لە مۆلیکولێکی ئاو ڕادەکێشرێت بۆ لای نەرێنی (O) لە مۆلیکولێکی تری ئاو. ئەم ڕاکێشانە پێی دەوترێت بەندی هایدرۆجینی. ئەم بەندانە مۆلیکولەکانی ئاو بە یەکەوە دەگرن.",
+     "Hidrojen bağları — Bir su molekülünün pozitif H ucu, başka bir su molekülünün negatif O ucu tarafından çekilir. Bu çekime hidrojen bağı denir. Hidrojen bağları su moleküllerini bir arada tutar.",
+     "پیوندهای هیدروژنی — سر مثبت (H) یک مولکول آب به سر منفی (O) مولکول دیگر آب کشیده می‌شود. این کشش را پیوند هیدروژنی می‌گویند. این پیوندها مولکول‌های آب را کنار هم نگه می‌دارند.",
+     "Водневі зв'язки — Позитивний кінець H однієї молекули води притягується до негативного кінця O іншої молекули. Це притягання називають водневим зв'язком. Водневі зв'язки утримують молекули води разом.",
+     "ሃይድሮጅናዊ ምትእስሳር — ኣወንታዊ ጫፍ (H) ናይ ሓደ ሞለኪዩል ማይ ብኣሉታዊ ጫፍ (O) ናይ ካልእ ሞለኪዩል ማይ ይስሓብ። እዚ ምስሓብ ሃይድሮጅናዊ ምትእስሳር ይበሃል። ንሞለኪዩላት ማይ ብሓባር ይሕዞም።",
+     "الروابط الهيدروجينية — ينجذب الطرف الموجب (H) لجزيء ماء إلى الطرف السالب (O) لجزيء ماء آخر. يُسمّى هذا التجاذب رابطة هيدروجينية، وهي تُبقي جزيئات الماء متماسكة معًا."]},
+ {id:"l-likt",title:"Likt løser likt",
+  html:`<p><b>Polare</b> stoffer løser seg i polare løsemidler, som vann. <b>Upolare</b> stoffer løser seg i upolare løsemidler, som bensin eller olje.</p><p>Salt og sukker løser seg i vann. Fett løser seg ikke i vann, men det løser seg i bensin. Derfor kan du fjerne en fettflekk med et upolart løsemiddel.</p>`,
+  t:["وەک یەک، وەک یەک دەتوێنێتەوە — ماددە جەمسەرییەکان لە شلە جەمسەرییەکاندا (وەک ئاو) دەتوێنەوە. ماددە ناجەمسەرییەکان لە شلە ناجەمسەرییەکاندا (وەک بەنزین یان ڕۆن) دەتوێنەوە. خوێ و شەکر لە ئاودا دەتوێنەوە، بەڵام چەوری ناتوێتەوە.",
+     "Benzer benzeri çözer — Polar maddeler polar çözücülerde (su gibi) çözünür. Apolar maddeler apolar çözücülerde (benzin veya yağ gibi) çözünür. Tuz ve şeker suda çözünür, yağ çözünmez.",
+     "همانند، همانند را حل می‌کند — مواد قطبی در حلال‌های قطبی (مثل آب) حل می‌شوند. مواد غیرقطبی در حلال‌های غیرقطبی (مثل بنزین یا روغن) حل می‌شوند. نمک و قند در آب حل می‌شوند، اما چربی حل نمی‌شود.",
+     "Подібне розчиняється в подібному — Полярні речовини розчиняються в полярних розчинниках (як вода). Неполярні речовини розчиняються в неполярних розчинниках (як бензин чи олія). Сіль і цукор розчиняються у воді, а жир — ні.",
+     "ተመሳሳሊ ንተመሳሳሊ የሕቅቕ — ፖላር ነገራት ኣብ ፖላር ፈሳሲ (ከም ማይ) ይሓቕቑ። ዘይፖላር ነገራት ኣብ ዘይፖላር ፈሳሲ (ከም ቤንዚን ወይ ዘይቲ) ይሓቕቑ። ጨውን ሽኮርን ኣብ ማይ ይሓቕቑ፡ ስብሒ ግን ኣይሓቅቕን።",
+     "الشبيه يذيب الشبيه — تذوب المواد القطبية في المذيبات القطبية (مثل الماء)، وتذوب المواد غير القطبية في المذيبات غير القطبية (مثل البنزين أو الزيت). الملح والسكر يذوبان في الماء، أما الدهون فلا تذوب."]},
+ {id:"l-salt",title:"Salt løses i vann",fig:"salt",
+  html:`<p>Bordsalt (NaCl) består av <b>ioner</b>: positive natriumioner (Na⁺) og negative kloridioner (Cl⁻). I fast salt sitter ionene i et ordnet mønster som kalles et <b>saltgitter</b>.</p><p>Når saltet kommer i vann, trekker O-endene (δ−) i vannmolekylene på Na⁺, og H-endene (δ+) trekker på Cl⁻. Ionene rives løs fra gitteret og blir omringet av vannmolekyler. Saltet er der fortsatt – du kan smake det, og det kommer tilbake hvis vannet fordamper.</p>`,
+  t:["خوێ لە ئاودا — خوێی خواردن (NaCl) لە ئایۆن پێکهاتووە: ئایۆنی ئەرێنی سۆدیۆم (Na⁺) و ئایۆنی نەرێنی کلۆراید (Cl⁻). لە خوێی ڕەقدا ئایۆنەکان بە ڕیزێکی ڕێکخراو دانیشتوون کە پێی دەوترێت تۆڕی خوێ. لە ئاودا لای نەرێنی (O) ی مۆلیکولەکانی ئاو Na⁺ ڕادەکێشێت و لای ئەرێنی (H) Cl⁻ ڕادەکێشێت. ئایۆنەکان لە تۆڕەکە جیا دەبنەوە و مۆلیکولی ئاو دەوریان دەدات.",
+     "Tuz suda — Sofra tuzu (NaCl) iyonlardan oluşur: pozitif sodyum iyonları (Na⁺) ve negatif klorür iyonları (Cl⁻). Katı tuzda iyonlar düzenli bir yapıda durur; buna tuz kristal örgüsü denir. Suda, su moleküllerinin negatif O uçları Na⁺'yı, pozitif H uçları Cl⁻'yi çeker. İyonlar örgüden koparılır ve su molekülleriyle çevrilir.",
+     "نمک در آب — نمک طعام (NaCl) از یون‌ها ساخته شده است: یون‌های مثبت سدیم (Na⁺) و یون‌های منفی کلراید (Cl⁻). در نمک جامد، یون‌ها به شکل منظمی کنار هم قرار دارند که به آن شبکه‌ی بلوری نمک می‌گویند. در آب، سر منفی (O) مولکول‌های آب Na⁺ را می‌کشد و سر مثبت (H) آن‌ها Cl⁻ را. یون‌ها از شبکه جدا شده و مولکول‌های آب دورشان را می‌گیرند.",
+     "Сіль у воді — Кухонна сіль (NaCl) складається з йонів: позитивних йонів натрію (Na⁺) і негативних хлорид-йонів (Cl⁻). У твердій солі йони розміщені впорядковано — це кристалічна ґратка. У воді негативні кінці O молекул води притягують Na⁺, а позитивні кінці H — Cl⁻. Йони відриваються від ґратки й оточуються молекулами води.",
+     "ጨው ኣብ ማይ — ጨው (NaCl) ካብ ኣዮናት እዩ ዝቖመ፡ ኣወንታዊ ኣዮናት ሶድየም (Na⁺)ን ኣሉታዊ ኣዮናት ክሎራይድ (Cl⁻)ን። ኣብ ደረቕ ጨው እቶም ኣዮናት ብስሩዕ ኣገባብ ተሰሪዖም ኣለዉ፡ እዚ መርበብ ጨው ይበሃል። ኣብ ማይ፡ ኣሉታዊ ጫፍ (O) ናይ ሞለኪዩላት ማይ ንNa⁺ ይስሕብ፡ ኣወንታዊ ጫፍ (H) ድማ ንCl⁻ ይስሕብ። ኣዮናት ካብቲ መርበብ ይፍለዩ እሞ ሞለኪዩላት ማይ ይኸቡዎም።",
+     "الملح في الماء — يتكوّن ملح الطعام (NaCl) من أيونات: أيونات صوديوم موجبة (Na⁺) وأيونات كلوريد سالبة (Cl⁻). في الملح الصلب تترتب الأيونات بنمط منتظم يُسمّى الشبكة البلورية. في الماء، تجذب الأطراف السالبة (O) لجزيئات الماء أيونات Na⁺، وتجذب الأطراف الموجبة (H) أيونات Cl⁻، فتنفصل الأيونات عن الشبكة وتحيط بها جزيئات الماء."]},
+ {id:"l-hydro",title:"Polar og upolar – hydrofil og hydrofob",
+  html:`<p><b>Polar:</b> molekylet har en positiv og en negativ ende (vann, sukker, salt).<br><b>Upolar:</b> ladningen er jevnt fordelt, uten tydelige ender (fett, olje, bensin, voks).</p><p><b>Hydrofil</b> betyr «vannelskende»: stoffet blander seg godt med vann. <b>Hydrofob</b> betyr «vannskyende»: stoffet holder seg unna vann. Polare stoffer er ofte hydrofile, upolare stoffer er hydrofobe.</p>`,
+  t:["جەمسەری و ناجەمسەری – ئاوخۆشەویست و ئاوگریز — جەمسەری: مۆلیکولەکە لایەکی ئەرێنی و لایەکی نەرێنی هەیە (ئاو، شەکر، خوێ). ناجەمسەری: بارگەکە یەکسان دابەش بووە (چەوری، ڕۆن، بەنزین، مۆم). هایدرۆفیل واتە «ئاوخۆشەویست»: ماددەکە باش لەگەڵ ئاو تێکەڵ دەبێت. هایدرۆفۆب واتە «ئاوگریز»: ماددەکە لەگەڵ ئاو تێکەڵ نابێت.",
+     "Polar ve apolar – hidrofil ve hidrofob — Polar: molekülün bir pozitif ve bir negatif ucu vardır (su, şeker, tuz). Apolar: yük eşit dağılmıştır, belirgin uç yoktur (yağ, benzin, mum). Hidrofil \"suyu seven\" demektir: madde suyla iyi karışır. Hidrofob \"sudan kaçan\" demektir: madde suyla karışmaz.",
+     "قطبی و غیرقطبی – آب‌دوست و آب‌گریز — قطبی: مولکول یک سر مثبت و یک سر منفی دارد (آب، قند، نمک). غیرقطبی: بار به طور یکسان پخش شده است (چربی، روغن، بنزین، موم). آب‌دوست (هیدروفیل) یعنی ماده به خوبی با آب مخلوط می‌شود. آب‌گریز (هیدروفوب) یعنی ماده با آب مخلوط نمی‌شود.",
+     "Полярний і неполярний – гідрофільний і гідрофобний — Полярна молекула має позитивний і негативний кінці (вода, цукор, сіль). У неполярній заряд розподілений рівномірно (жир, олія, бензин, віск). Гідрофільний означає «той, що любить воду»: речовина добре змішується з водою. Гідрофобний — «той, що уникає води»: речовина не змішується з водою.",
+     "ፖላርን ዘይፖላርን – ሃይድሮፊልን ሃይድሮፎብን — ፖላር፡ እቲ ሞለኪዩል ኣወንታውን ኣሉታውን ጫፍ ኣለዎ (ማይ፡ ሽኮር፡ ጨው)። ዘይፖላር፡ ጾር ብማዕረ ዝተዘርግሐ እዩ (ስብሒ፡ ዘይቲ፡ ቤንዚን፡ ሽምዓ)። ሃይድሮፊል ማለት «ማይ ፈታዊ»፡ እቲ ነገር ምስ ማይ ጽቡቕ ይሕወስ። ሃይድሮፎብ ማለት «ማይ ጸላኢ»፡ እቲ ነገር ምስ ማይ ኣይሕወስን።",
+     "قطبي وغير قطبي – محب للماء وكاره للماء — القطبي: للجزيء طرف موجب وطرف سالب (الماء، السكر، الملح). غير القطبي: الشحنة موزعة بالتساوي (الدهون، الزيت، البنزين، الشمع). محب للماء (هيدروفيلي) يعني أن المادة تختلط جيدًا بالماء. كاره للماء (هيدروفوبي) يعني أن المادة لا تختلط بالماء."]},
+ {id:"l-fett",title:"Fett og olje er upolare",fig:"oil",
+  html:`<p>Fett- og oljemolekyler består mest av lange kjeder med karbon (C) og hydrogen (H). C og H trekker omtrent like mye på elektronene, så molekylene blir <b>upolare</b>.</p><p>Vannmolekylene holder seg heller sammen med hverandre (hydrogenbindinger) enn med fettet. Derfor blander ikke olje seg med vann. Olje har lavere <b>tetthet</b> enn vann (ca. 0,9 g/cm³ mot 1,0 g/cm³), så den flyter oppå.</p>`,
+  t:["چەوری و ڕۆن ناجەمسەرین — مۆلیکولەکانی چەوری و ڕۆن زۆربەیان زنجیرەی درێژی کاربۆن و هایدرۆجینن. C و H نزیکەی وەک یەک ئەلیکترۆن ڕادەکێشن، بۆیە مۆلیکولەکان ناجەمسەرین. مۆلیکولەکانی ئاو زیاتر بە یەکەوە دەلکێن (بەندی هایدرۆجینی) نەک لەگەڵ چەوری. بۆیە ڕۆن لەگەڵ ئاو تێکەڵ نابێت. چڕی ڕۆن کەمترە لە ئاو (0.9 بەرامبەر 1.0 g/cm³)، بۆیە لەسەر ئاو دەمێنێتەوە.",
+     "Yağ apolardır — Yağ molekülleri çoğunlukla uzun karbon ve hidrojen zincirlerinden oluşur. C ve H elektronları yaklaşık eşit çeker, bu yüzden moleküller apolardır. Su molekülleri yağ yerine birbirleriyle bağ kurmayı (hidrojen bağı) tercih eder. Bu nedenle yağ suyla karışmaz. Yağın yoğunluğu sudan düşüktür (0,9 g/cm³'e karşı 1,0 g/cm³), bu yüzden suyun üstünde yüzer.",
+     "چربی و روغن غیرقطبی هستند — مولکول‌های چربی و روغن بیشتر زنجیره‌های دراز کاربن و هایدروجن هستند. C و H تقریباً به یک اندازه الکترون‌ها را می‌کشند، پس مولکول‌ها غیرقطبی‌اند. مولکول‌های آب ترجیح می‌دهند با هم بچسپند (پیوند هیدروژنی) تا با چربی. به همین دلیل روغن با آب مخلوط نمی‌شود. چگالی روغن کمتر از آب است (۰٫۹ در برابر ۱٫۰ گرم بر سانتی‌متر مکعب)، پس روی آب شناور می‌ماند.",
+     "Жир і олія неполярні — Молекули жиру й олії складаються переважно з довгих ланцюгів вуглецю й водню. C і H притягують електрони майже однаково, тому молекули неполярні. Молекули води краще тримаються одна за одну (водневі зв'язки), ніж за жир. Тому олія не змішується з водою. Густина олії менша, ніж у води (0,9 г/см³ проти 1,0 г/см³), тому вона плаває зверху.",
+     "ስብሕን ዘይትን ዘይፖላር እዮም — ሞለኪዩላት ስብሕን ዘይትን ብዙሕ ግዜ ነዋሕቲ ሰንሰለታት ካርቦንን ሃይድሮጅንን እዮም። C ን H ን ንኤሌክትሮናት ብተቐራራቢ ሓይሊ ይስሕቡ፡ ስለዚ እቶም ሞለኪዩላት ዘይፖላር እዮም። ሞለኪዩላት ማይ ምስ ስብሒ ዘይኮነስ ምስ ነንሓድሕዶም ክተኣሳሰሩ ይመርጹ። ስለዚ ዘይቲ ምስ ማይ ኣይሕወስን። ዘይቲ ካብ ማይ ዝተሓተ ጽዕቀት ስለዘለዎ (0.9 ኣንጻር 1.0 g/cm³) ኣብ ልዕሊ ማይ ይንሳፈፍ።",
+     "الدهون والزيوت غير قطبية — تتكوّن جزيئات الدهون والزيوت غالبًا من سلاسل طويلة من الكربون والهيدروجين. يجذب C وH الإلكترونات بشكل متساوٍ تقريبًا، لذلك تكون الجزيئات غير قطبية. تفضّل جزيئات الماء الارتباط ببعضها (روابط هيدروجينية) بدلًا من الدهون، لذلك لا يختلط الزيت بالماء. كثافة الزيت أقل من كثافة الماء (0.9 مقابل 1.0 غ/سم³)، لذلك يطفو فوقه."]},
+ {id:"l-saape",title:"Slik virker såpe på fett",fig:"soap",
+  html:`<p>Et såpemolekyl har to deler: et <b>hydrofilt hode</b> (ladd og polart) og en lang <b>hydrofob hale</b> (upolar).</p><p>Halen fester seg i fettet, mens hodet vender ut mot vannet. Mange såpemolekyler omringer en fettdråpe og lager en liten kule (en <b>micelle</b>). Kulene skylles bort med vannet, og fettet blir med. Vaskemidler virker på samme måte.</p>`,
+  t:["سابوون چۆن کار لە چەوری دەکات — مۆلیکولی سابوون دوو بەشی هەیە: «سەرێک»ی ئاوخۆشەویست (بارگەدار) و «کلکێک»ی درێژی ئاوگریز. کلکەکە دەچێتە ناو چەورییەکە و سەرەکە ڕوو لە ئاو دەکات. زۆر مۆلیکولی سابوون دەوری دڵۆپێکی چەوری دەدەن و تۆپێکی بچووک دروست دەکەن (مایسێل). ئاو ئەم تۆپانە دەبات و چەورییەکەش لەگەڵیان دەڕوات.",
+     "Sabun yağ üzerinde nasıl çalışır — Sabun molekülünün iki kısmı vardır: hidrofil (yüklü) bir \"baş\" ve uzun hidrofob bir \"kuyruk\". Kuyruk yağa tutunur, baş suya döner. Birçok sabun molekülü bir yağ damlasını sararak küçük bir top (misel) oluşturur. Su bu topları götürür ve yağ da onlarla birlikte gider.",
+     "صابون چگونه روی چربی کار می‌کند — مولکول صابون دو بخش دارد: یک «سر» آب‌دوست (باردار) و یک «دم» دراز آب‌گریز. دم به چربی می‌چسپد و سر به طرف آب است. مولکول‌های زیاد صابون دور یک قطره‌ی چربی را می‌گیرند و یک گلوله‌ی کوچک (میسل) می‌سازند. آب این گلوله‌ها را با خود می‌برد و چربی هم همراه آن‌ها شسته می‌شود.",
+     "Як мило діє на жир — Молекула мила має дві частини: гідрофільну (заряджену) «голівку» і довгий гідрофобний «хвіст». Хвіст чіпляється за жир, а голівка повернута до води. Багато молекул мила оточують краплю жиру й утворюють маленьку кульку (міцелу). Вода змиває ці кульки разом із жиром.",
+     "ሳሙና ኣብ ስብሒ ብኸመይ ይሰርሕ — ሞለኪዩል ሳሙና ክልተ ክፋል ኣለዎ፡ ማይ ፈታዊ (ጾር ዘለዎ) «ርእሲ»ን ነዊሕ ማይ ጸላኢ «ጭራ»ን። እቲ ጭራ ኣብ ስብሒ ይጣበቕ፡ እቲ ርእሲ ድማ ናብ ማይ ይጥምት። ብዙሓት ሞለኪዩላት ሳሙና ንሓንቲ ነጠብጣብ ስብሒ ከቢቦም ንእሽቶ ኩዕሶ (ማይሰል) ይሰርሑ። ማይ ነዘን ኩዕሶታት የሕጽበን፡ እቲ ስብሒ'ውን ምሳአን ይኸይድ።",
+     "كيف يعمل الصابون على الدهون — لجزيء الصابون جزآن: «رأس» محب للماء (مشحون) و«ذيل» طويل كاره للماء. يلتصق الذيل بالدهون ويتجه الرأس نحو الماء. تحيط جزيئات صابون كثيرة بقطرة الدهن وتكوّن كرة صغيرة (مذيلة). يجرف الماء هذه الكرات ومعها الدهون."]}
+ ]},
+{id:"c32",num:"3.2",title:"Emulgator",pages:"s. 96",q:"emulgator",
+ t:["ئیمولسیفایەر","Emülgatör","امولسیفایر","Емульгатор","ኢሙልጋቶር","المستحلِب"],
+ cards:[
+ {id:"l-emul",title:"Emulsjon og emulgator",fig:"emulsion",
+  html:`<p>En <b>emulsjon</b> er en blanding av to væsker som vanligvis ikke blander seg, for eksempel olje og vann. Den ene væsken finnes som bittesmå dråper i den andre. Uten hjelp skiller væskene seg igjen.</p><p>En <b>emulgator</b> er et stoff som holder emulsjonen stabil. Den virker som såpe: én del av molekylet er hydrofil og en annen del er hydrofob, så den kan «holde i» både vann og fett.</p>`,
+  t:["ئیمولشن و ئیمولسیفایەر — ئیمولشن تێکەڵەیەکە لە دوو شلە کە بە ئاسایی تێکەڵ نابن، وەک ڕۆن و ئاو. یەکێکیان وەک دڵۆپی زۆر بچووک لە ناو ئەوی تردایە. ئیمولسیفایەر ماددەیەکە کە ئیمولشنەکە جێگیر دەهێڵێتەوە بۆ ئەوەی شلەکان لێک جیا نەبنەوە. وەک سابوون کار دەکات: بەشێکی ئاوخۆشەویستە و بەشێکی ئاوگریز.",
+     "Emülsiyon ve emülgatör — Emülsiyon, normalde birbirine karışmayan iki sıvının (örneğin yağ ve su) karışımıdır. Sıvılardan biri diğerinin içinde çok küçük damlacıklar halinde bulunur. Emülgatör, emülsiyonu kararlı tutan ve sıvıların ayrılmasını önleyen maddedir. Sabun gibi çalışır: bir kısmı hidrofil, bir kısmı hidrofobdur.",
+     "امولسیون و امولسیفایر — امولسیون مخلوطی از دو مایع است که به طور معمول با هم مخلوط نمی‌شوند، مثل روغن و آب. یکی از مایع‌ها به شکل قطره‌های بسیار کوچک در دیگری پخش است. امولسیفایر ماده‌ای است که امولسیون را پایدار نگه می‌دارد تا مایع‌ها از هم جدا نشوند. مثل صابون کار می‌کند: یک بخش آن آب‌دوست و بخش دیگر آب‌گریز است.",
+     "Емульсія та емульгатор — Емульсія — це суміш двох рідин, які зазвичай не змішуються, наприклад олії та води. Одна рідина розподілена в іншій дрібними краплями. Емульгатор — речовина, яка робить емульсію стійкою, щоб рідини не розділялися. Він діє як мило: одна частина гідрофільна, інша — гідрофобна.",
+     "ኢሙልሽንን ኢሙልጋቶርን — ኢሙልሽን ሕውስዋስ ናይ ክልተ ብልሙድ ዘይሕወሱ ፈሳሲታት እዩ፡ ንኣብነት ዘይትን ማይን። ሓደ ፈሳሲ ኣብቲ ካልእ ከም ኣዝየን ንኣሽቱ ነጠብጣባት ይርከብ። ኢሙልጋቶር ነቲ ኢሙልሽን ዘረጋግእ ነገር እዩ፡ ፈሳሲታት ከይፋለዩ ይገብር። ከም ሳሙና ይሰርሕ፡ ሓደ ክፋሉ ማይ ፈታዊ፡ እቲ ካልእ ድማ ማይ ጸላኢ እዩ።",
+     "المستحلَب والمستحلِب — المستحلَب خليط من سائلين لا يختلطان عادةً، مثل الزيت والماء، حيث يوجد أحدهما على شكل قطرات صغيرة جدًا داخل الآخر. المستحلِب (عامل الاستحلاب) مادة تحافظ على ثبات الخليط فلا ينفصل السائلان. يعمل مثل الصابون: جزء منه محب للماء وجزء كاره للماء."]},
+ {id:"l-eks",title:"Eksempler på blandinger med emulgator",
+  html:`<div class="tags"><span class="tag">Majones</span><span class="tag">Melk</span><span class="tag">Hudkrem og bodylotion</span><span class="tag">Salatdressing</span><span class="tag">Iskrem</span><span class="tag">Sjokolade</span><span class="tag">Margarin</span></div><p>I <b>majones</b> er det olje og eggeplomme. Lecitin i eggeplommen er emulgatoren. I <b>melk</b> er det små fettdråper i vann, og proteiner holder dråpene på plass. På matpakninger står emulgatoren ofte som lecitin (E322) eller E471.</p>`,
+  t:["نموونەکانی تێکەڵەی خاوەن ئیمولسیفایەر — مایۆنێز (ڕۆن + زەردێنەی هێلکە؛ لێسیتین لە زەردێنەی هێلکەدا ئیمولسیفایەرە)، شیر، کرێمی پێست، سۆسی زەڵاتە، بەستەنی، چوکلێت، مارگارین. لەسەر پاکەتەکان زۆرجار لێسیتین (E322) یان E471 نووسراوە.",
+     "Emülgatör içeren karışımlara örnekler — mayonez (yağ + yumurta sarısı; yumurta sarısındaki lesitin emülgatördür), süt, cilt kremi, salata sosu, dondurma, çikolata, margarin. Paketlerde sık sık lesitin (E322) veya E471 yazar.",
+     "مثال‌هایی از مخلوط‌های دارای امولسیفایر — مایونیز (روغن + زردی تخم؛ لسیتین در زردی تخم امولسیفایر است)، شیر، کریم پوست، سس سالاد، آیس‌کریم، چاکلیت، مارگارین. روی بسته‌ها اکثراً لسیتین (E322) یا E471 نوشته شده است.",
+     "Приклади сумішей з емульгатором — майонез (олія + жовток; лецитин у жовтку — емульгатор), молоко, крем для шкіри, салатна заправка, морозиво, шоколад, маргарин. На упаковках часто пишуть лецитин (E322) або E471.",
+     "ኢሙልጋቶር ዘለዎም ሕውስዋሳት ኣብነታት — ማዮኔዝ (ዘይቲ + ብጫ እንቋቑሖ፡ ኣብ ብጫ እንቋቑሖ ዘሎ ሌሲቲን ኢሙልጋቶር እዩ)፡ ጸባ፡ ክሬም ቆርበት፡ ሶስ ሳላጣ፡ ኣይስክሪም፡ ቸኮሌት፡ ማርጋሪን። ኣብ ፓኬታት ብዙሕ ግዜ ሌሲቲን (E322) ወይ E471 ተጻሒፉ ይርከብ።",
+     "أمثلة على خلائط تحتوي على مستحلِب — المايونيز (زيت + صفار البيض؛ الليسيثين في صفار البيض هو المستحلِب)، الحليب، كريم البشرة، صلصة السلطة، الآيس كريم، الشوكولاتة، المارجرين. غالبًا ما يُكتب على العبوة ليسيثين (E322) أو E471."]}
+ ]},
+{id:"c33",num:"3.3",title:"Syrer og baser",pages:"s. 97–98",q:"syrer og baser",
+ t:["ئەسید و بەیس","Asitler ve bazlar","اسیدها و بازها","Кислоти й основи","ኣሲዳትን ቤዛትን","الأحماض والقواعد"],
+ cards:[
+ {id:"l-surbas",title:"Sure og basiske stoffer",
+  html:`<p><b>Sure stoffer</b> (syrer) har pH under 7. Mange smaker surt, som sitron og eddik. Syrer gir fra seg hydrogenioner (H⁺) når de løses i vann.</p><p><b>Basiske stoffer</b> (baser) har pH over 7. De kjennes ofte glatte og såpeaktige. Baser tar opp H⁺ (eller gir fra seg hydroksidioner, OH⁻).</p><p>Sterke syrer og sterke baser er <b>etsende</b>. Bruk vernebriller og hansker!</p>`,
+  t:["ماددە ترش و بەیسییەکان — ماددە ترشەکان (ئەسیدەکان) pH یان لە خوار 7 ە. زۆریان تامی ترشیان هەیە، وەک لیمۆ و سرکە. ئەسیدەکان لە ئاودا ئایۆنی هایدرۆجین (H⁺) دەدەن. ماددە بەیسییەکان pH یان لە سەرووی 7 ە و زۆرجار وەک سابوون لووسن. بەیسەکان H⁺ وەردەگرن (یان ئایۆنی هایدرۆکسید OH⁻ دەدەن). ئەسید و بەیسی بەهێز دەسووتێنن – چاویلکە و دەستکێش بەکاربهێنە!",
+     "Asidik ve bazik maddeler — Asitlerin pH'ı 7'nin altındadır. Birçoğu limon ve sirke gibi ekşi tadındadır. Asitler suda hidrojen iyonu (H⁺) verir. Bazların pH'ı 7'nin üstündedir; genellikle kaygan, sabunumsu hissedilir. Bazlar H⁺ alır (veya hidroksit iyonu OH⁻ verir). Güçlü asitler ve bazlar yakıcıdır – koruyucu gözlük ve eldiven kullan!",
+     "مواد اسیدی و بازی — اسیدها pH کمتر از ۷ دارند. بسیاری از آن‌ها مزه‌ی ترش دارند، مثل لیمو و سرکه. اسیدها در آب یون هیدروژن (H⁺) آزاد می‌کنند. بازها pH بیشتر از ۷ دارند و اکثراً لغزنده و صابون‌مانند هستند. بازها H⁺ را می‌گیرند (یا یون هیدروکسید OH⁻ آزاد می‌کنند). اسیدها و بازهای قوی سوزاننده هستند – عینک محافظ و دستکش بپوشید!",
+     "Кислі та основні речовини — Кислоти мають pH нижче 7. Багато з них кислі на смак, як лимон і оцет. У воді кислоти віддають йони водню (H⁺). Основи (луги) мають pH вище 7 і часто слизькі на дотик, як мило. Основи приймають H⁺ (або віддають гідроксид-йони OH⁻). Сильні кислоти й луги їдкі — одягай захисні окуляри й рукавички!",
+     "ኣሲዳውን ቤዛውን ነገራት — ኣሲዳት pH ትሕቲ 7 ኣለዎም። ብዙሓት ከም ለሚንን ኣቸቶን መጺጽ ጣዕሚ ኣለዎም። ኣሲዳት ኣብ ማይ ኣዮናት ሃይድሮጅን (H⁺) ይህቡ። ቤዛት pH ልዕሊ 7 ኣለዎም፡ ብዙሕ ግዜ ከም ሳሙና ሕሉኽ ይስምዑ። ቤዛት H⁺ ይቕበሉ (ወይ ኣዮናት ሃይድሮክሳይድ OH⁻ ይህቡ)። ሓያላት ኣሲዳትን ቤዛትን የቃጽሉ – መከላኸሊ መነጽርን ጓንትን ተጠቐሙ!",
+     "المواد الحمضية والقاعدية — الأحماض لها pH أقل من 7، وكثير منها طعمه حامض مثل الليمون والخل. تطلق الأحماض أيونات الهيدروجين (H⁺) في الماء. القواعد لها pH أكبر من 7، وغالبًا ما تكون زلقة الملمس مثل الصابون. تستقبل القواعد H⁺ (أو تطلق أيونات الهيدروكسيد OH⁻). الأحماض والقواعد القوية كاوية – استخدم نظارات واقية وقفازات!"]},
+ {id:"l-phskala",title:"pH-skalaen og eksempler",fig:"ph",
+  html:`<p>pH-skalaen går fra 0 til 14. Jo <b>lavere</b> pH, jo <b>surere</b>. pH 7 er <b>nøytralt</b>. Jo <b>høyere</b> pH, jo mer <b>basisk</b>.</p><p>Hvert trinn betyr ti ganger: pH 3 er ti ganger surere enn pH 4. <b>Rent vann har pH 7 og er nøytralt.</b></p>`,
+  t:["پێوەری pH و نموونەکان — پێوەری pH لە 0 ەوە تا 14 ە. تا pH کەمتر بێت، ترشترە. pH 7 بێلایەنە. تا pH زیاتر بێت، بەیسیترە. هەر پلەیەک واتە دە هێندە: pH 3 دە هێندە ترشترە لە pH 4. ئاوی پاک pH ی 7 ە و بێلایەنە.",
+     "pH ölçeği ve örnekler — pH ölçeği 0'dan 14'e kadardır. pH ne kadar düşükse madde o kadar asidiktir. pH 7 nötrdür. pH ne kadar yüksekse o kadar baziktir. Her basamak on kat demektir: pH 3, pH 4'ten on kat daha asidiktir. Saf suyun pH'ı 7'dir ve nötrdür.",
+     "مقیاس pH و مثال‌ها — مقیاس pH از ۰ تا ۱۴ است. هر چه pH کمتر باشد، ماده اسیدی‌تر است. pH ۷ خنثی است. هر چه pH بیشتر باشد، ماده بازی‌تر است. هر درجه یعنی ده برابر: pH ۳ ده برابر اسیدی‌تر از pH ۴ است. آب خالص pH ۷ دارد و خنثی است.",
+     "Шкала pH і приклади — Шкала pH іде від 0 до 14. Чим нижчий pH, тим кисліша речовина. pH 7 — нейтральний. Чим вищий pH, тим більш основна (лужна) речовина. Кожен крок означає «у десять разів»: pH 3 у десять разів кисліший за pH 4. Чиста вода має pH 7 і є нейтральною.",
+     "መለክዒ pH ን ኣብነታትን — መለክዒ pH ካብ 0 ክሳብ 14 እዩ። pH ክሳብ ዝተሓተ፡ ኣሲዳዊ ይኸውን። pH 7 ገለልተኛ እዩ። pH ክሳብ ዝለዓለ፡ ቤዛዊ ይኸውን። ነፍሲ ወከፍ ደረጃ ዓሰርተ ዕጽፊ ማለት እዩ፡ pH 3 ካብ pH 4 ዓሰርተ ዕጽፊ ኣሲዳዊ እዩ። ንጹህ ማይ pH 7 ኣለዎ፡ ገለልተኛ እዩ።",
+     "مقياس pH وأمثلة — يمتد مقياس pH من 0 إلى 14. كلما انخفض الرقم كانت المادة أكثر حمضية. الرقم 7 متعادل. كلما ارتفع الرقم كانت المادة أكثر قاعدية. كل درجة تعني عشرة أضعاف: pH 3 أكثر حمضية بعشر مرات من pH 4. الماء النقي له pH 7 وهو متعادل."]},
+ {id:"l-ind",title:"pH-indikator",fig:"indicator",
+  html:`<p>En <b>pH-indikator</b> er et stoff som skifter farge etter hvor surt eller basisk noe er.</p><p><b>Lakmuspapir</b> blir rødt i sur løsning og blått i basisk løsning. <b>Rødkålsaft</b> blir rød i sur, lilla i nøytral og grønn/gul i basisk løsning. <b>Universalindikator</b> og pH-papir gir en egen farge for hvert pH-tall, slik som fargene på skalaen over.</p>`,
+  t:["نیشاندەری pH — نیشاندەری pH ماددەیەکە کە ڕەنگی دەگۆڕێت بەپێی ئەوەی شتێک چەند ترش یان بەیسییە. کاغەزی لیتمەس لە ترشدا سوور دەبێت و لە بەیسیدا شین. ئاوی کەلەمی سوور لە ترشدا سوور، لە بێلایەندا مۆر و لە بەیسیدا سەوز/زەرد دەبێت. نیشاندەری گشتی و کاغەزی pH بۆ هەر ژمارەیەکی pH ڕەنگێکی تایبەت دەدەن.",
+     "pH indikatörü — pH indikatörü, bir maddenin ne kadar asidik veya bazik olduğuna göre renk değiştiren bir maddedir. Turnusol kâğıdı asitte kırmızı, bazda mavi olur. Kırmızı lahana suyu asitte kırmızı, nötrde mor, bazda yeşil/sarı olur. Üniversal indikatör ve pH kâğıdı her pH değeri için ayrı bir renk verir.",
+     "شناساگر pH — شناساگر pH ماده‌ای است که بسته به اسیدی یا بازی بودن محلول رنگش را تغییر می‌دهد. کاغذ لیتموس در اسید سرخ و در باز آبی می‌شود. آب کرم سرخ در اسید سرخ، در محلول خنثی بنفش و در باز سبز/زرد می‌شود. شناساگر عمومی و کاغذ pH برای هر عدد pH رنگ جداگانه می‌دهند.",
+     "Індикатор pH — Індикатор pH — це речовина, яка змінює колір залежно від того, наскільки кислий чи лужний розчин. Лакмусовий папір червоніє в кислоті й синіє в лузі. Сік червоної капусти червоний у кислоті, фіолетовий у нейтральному розчині й зелений/жовтий у лузі. Універсальний індикатор і pH-папір дають окремий колір для кожного значення pH.",
+     "ኣመልካቲ pH — ኣመልካቲ pH ሓደ ነገር ክንደይ ኣሲዳዊ ወይ ቤዛዊ ምዃኑ ብምርኣይ ሕብሪ ዝቕይር ነገር እዩ። ወረቐት ሊትመስ ኣብ ኣሲድ ቀይሕ፡ ኣብ ቤዝ ድማ ሰማያዊ ይኸውን። ማይ ቀይሕ ካውሎ ኣብ ኣሲድ ቀይሕ፡ ኣብ ገለልተኛ ወይናይ፡ ኣብ ቤዝ ድማ ቀጠልያ/ብጫ ይኸውን። ዩኒቨርሳል ኣመልካቲን ወረቐት pH ን ንነፍሲ ወከፍ ቁጽሪ pH ፍሉይ ሕብሪ ይህቡ።",
+     "كاشف pH — كاشف pH مادة يتغيّر لونها حسب درجة حمضية أو قاعدية المحلول. يحمرّ ورق تبّاع الشمس في الحمض ويزرقّ في القاعدة. يصبح عصير الملفوف الأحمر أحمر في الحمض، وبنفسجيًا في المحلول المتعادل، وأخضر/أصفر في القاعدة. يعطي الكاشف العام وورق pH لونًا خاصًا لكل رقم pH."]}
+ ]}
+];
+
+/* ---------- Terms ---------- */
+const TERMS=[
+ ["Løselighet","Hvor godt (hvor mye av) et stoff kan løse seg i et annet stoff, for eksempel i vann.",
+  ["توانەوە — ئەوەی چەند لە ماددەیەک دەتوانێت لە ماددەیەکی تردا بتوێتەوە، بۆ نموونە لە ئاودا.","Çözünürlük — Bir maddenin başka bir maddede (örneğin suda) ne kadar çözünebildiği.","حل‌پذیری — اینکه چه مقدار از یک ماده می‌تواند در ماده‌ی دیگری، مثلاً در آب، حل شود.","Розчинність — скільки речовини може розчинитися в іншій речовині, наприклад у воді.","ምሕቃቕ — ክንደይ ካብ ሓደ ነገር ኣብ ካልእ ነገር (ንኣብነት ኣብ ማይ) ክሓቅቕ ከም ዝኽእል።","الذوبانية — مقدار ما يمكن أن يذوب من مادة في مادة أخرى، مثل الماء."]],
+ ["Polar","Molekylet har en litt positiv ende og en litt negativ ende. Vann er polart.",
+  ["جەمسەری — مۆلیکولەکە لایەکی کەمێک ئەرێنی و لایەکی کەمێک نەرێنی هەیە. ئاو جەمسەرییە.","Polar — Molekülün biraz pozitif ve biraz negatif bir ucu vardır. Su polardır.","قطبی — مولکول یک سر کمی مثبت و یک سر کمی منفی دارد. آب قطبی است.","Полярний — молекула має трохи позитивний і трохи негативний кінці. Вода полярна.","ፖላር — እቲ ሞለኪዩል ቁሩብ ኣወንታውን ቁሩብ ኣሉታውን ጫፍ ኣለዎ። ማይ ፖላር እዩ።","قطبي — للجزيء طرف موجب قليلًا وطرف سالب قليلًا. الماء قطبي."]],
+ ["Upolar","Ladningen er jevnt fordelt, så molekylet har ingen positive eller negative ender. Fett, olje og bensin er upolare.",
+  ["ناجەمسەری — بارگەکە یەکسان دابەش بووە، بۆیە مۆلیکولەکە لای ئەرێنی و نەرێنی نییە. چەوری، ڕۆن و بەنزین ناجەمسەرین.","Apolar — Yük eşit dağılmıştır; molekülün pozitif veya negatif ucu yoktur. Yağ ve benzin apolardır.","غیرقطبی — بار به طور یکسان پخش شده و مولکول سر مثبت یا منفی ندارد. چربی، روغن و بنزین غیرقطبی‌اند.","Неполярний — заряд розподілений рівномірно, немає позитивного чи негативного кінця. Жир, олія і бензин неполярні.","ዘይፖላር — ጾር ብማዕረ ተዘርጊሑ ስለዘሎ ኣወንታዊ ወይ ኣሉታዊ ጫፍ የብሉን። ስብሒ፡ ዘይትን ቤንዚንን ዘይፖላር እዮም።","غير قطبي — الشحنة موزعة بالتساوي، فلا يوجد طرف موجب أو سالب. الدهون والزيت والبنزين غير قطبية."]],
+ ["Ladning","Elektrisk ladning kan være positiv (+) eller negativ (−). Protoner er positive, elektroner er negative. Pluss og minus tiltrekker hverandre.",
+  ["بارگە — بارگەی کارەبایی دەتوانێت ئەرێنی (+) یان نەرێنی (−) بێت. پرۆتۆن ئەرێنییە و ئەلیکترۆن نەرێنی. ئەرێنی و نەرێنی یەکتر ڕادەکێشن.","Yük — Elektrik yükü pozitif (+) veya negatif (−) olabilir. Protonlar pozitif, elektronlar negatiftir. Artı ve eksi birbirini çeker.","بار — بار برقی می‌تواند مثبت (+) یا منفی (−) باشد. پروتون مثبت و الکترون منفی است. مثبت و منفی یکدیگر را جذب می‌کنند.","Заряд — електричний заряд буває позитивним (+) або негативним (−). Протони позитивні, електрони негативні. Плюс і мінус притягуються.","ጾር — ኤሌክትሪካዊ ጾር ኣወንታዊ (+) ወይ ኣሉታዊ (−) ክኸውን ይኽእል። ፕሮቶናት ኣወንታውያን፡ ኤሌክትሮናት ኣሉታውያን እዮም። ፕላስን ማይነስን ይሳሓሓቡ።","الشحنة — قد تكون الشحنة الكهربائية موجبة (+) أو سالبة (−). البروتونات موجبة والإلكترونات سالبة. الموجب والسالب يتجاذبان."]],
+ ["Hydrogenbinding","Tiltrekning mellom H (δ+) i ett molekyl og O (δ−) i et annet molekyl.",
+  ["بەندی هایدرۆجینی — ڕاکێشان لە نێوان H (δ+) لە مۆلیکولێک و O (δ−) لە مۆلیکولێکی تر.","Hidrojen bağı — Bir moleküldeki H (δ+) ile başka bir moleküldeki O (δ−) arasındaki çekim.","پیوند هیدروژنی — کشش بین H (δ+) در یک مولکول و O (δ−) در مولکول دیگر.","Водневий зв'язок — притягання між H (δ+) однієї молекули та O (δ−) іншої молекули.","ሃይድሮጅናዊ ምትእስሳር — ምስሓብ ኣብ መንጎ H (δ+) ናይ ሓደ ሞለኪዩልን O (δ−) ናይ ካልእ ሞለኪዩልን።","رابطة هيدروجينية — تجاذب بين H (δ+) في جزيء وO (δ−) في جزيء آخر."]],
+ ["Tetthet","Hvor tungt et stoff er i forhold til hvor mye plass det tar (masse per volum, g/cm³). Stoffet med lavest tetthet legger seg øverst. Olje: 0,9 – vann: 1,0.",
+  ["چڕی — ماددەیەک چەند قورسە بەراورد بە ئەو شوێنەی دەیگرێت (بارستە بۆ هەر قەبارەیەک، g/cm³). ماددەی کەمترین چڕی دەچێتە سەرەوە. ڕۆن: 0.9 – ئاو: 1.0.","Yoğunluk — Bir maddenin kapladığı hacme göre ne kadar ağır olduğu (kütle/hacim, g/cm³). Yoğunluğu düşük olan üste çıkar. Yağ: 0,9 – su: 1,0.","چگالی — اینکه یک ماده نسبت به حجمش چقدر سنگین است (جرم تقسیم بر حجم، g/cm³). ماده‌ی با چگالی کمتر بالا قرار می‌گیرد. روغن: ۰٫۹ – آب: ۱٫۰.","Густина — наскільки важка речовина відносно свого об'єму (маса/об'єм, г/см³). Речовина з меншою густиною опиняється зверху. Олія: 0,9 – вода: 1,0.","ጽዕቀት — ሓደ ነገር ምስ ዝሕዞ ቦታ ተነጻጺሩ ክንደይ ከቢድ ምዃኑ (ክብደት ብዓቐን፡ g/cm³)። እቲ ዝተሓተ ጽዕቀት ዘለዎ ኣብ ላዕሊ ይኸውን። ዘይቲ፡ 0.9 – ማይ፡ 1.0።","الكثافة — مدى ثقل المادة مقارنة بالحيّز الذي تشغله (الكتلة ÷ الحجم، غ/سم³). المادة الأقل كثافة تكون في الأعلى. الزيت: 0.9 – الماء: 1.0."]],
+ ["Ioner","Atomer eller grupper av atomer med elektrisk ladning, fordi de har fått eller mistet elektroner. Eksempel: Na⁺ og Cl⁻.",
+  ["ئایۆنەکان — گەردیلە یان کۆمەڵە گەردیلەی خاوەن بارگەی کارەبایی، چونکە ئەلیکترۆنیان وەرگرتووە یان لەدەستداوە. نموونە: Na⁺ و Cl⁻.","İyonlar — Elektron kazandıkları veya kaybettikleri için elektrik yükü taşıyan atomlar ya da atom grupları. Örnek: Na⁺ ve Cl⁻.","یون‌ها — اتم‌ها یا گروه‌هایی از اتم‌ها که بار برقی دارند، چون الکترون گرفته یا از دست داده‌اند. مثال: Na⁺ و Cl⁻.","Йони — атоми або групи атомів з електричним зарядом, бо вони отримали або втратили електрони. Приклад: Na⁺ і Cl⁻.","ኣዮናት — ኤሌክትሮናት ስለዝወሰኹ ወይ ስለዘጥፍኡ ኤሌክትሪካዊ ጾር ዘለዎም ኣቶማት ወይ ጉጅለ ኣቶማት። ኣብነት፡ Na⁺ን Cl⁻ን።","الأيونات — ذرات أو مجموعات ذرات لها شحنة كهربائية لأنها اكتسبت إلكترونات أو فقدتها. مثال: Na⁺ وCl⁻."]],
+ ["Saltgitter","Det ordnede mønsteret av positive og negative ioner i et fast salt, for eksempel NaCl.",
+  ["تۆڕی خوێ — ڕیزبەندی ڕێکخراوی ئایۆنە ئەرێنی و نەرێنییەکان لە خوێی ڕەقدا، وەک NaCl.","Tuz kristal örgüsü — Katı bir tuzdaki (örneğin NaCl) pozitif ve negatif iyonların düzenli yerleşimi.","شبکه‌ی بلوری نمک — نظم و ترتیب یون‌های مثبت و منفی در نمک جامد، مثلاً NaCl.","Кристалічна ґратка солі — упорядковане розміщення позитивних і негативних йонів у твердій солі, наприклад NaCl.","መርበብ ጨው — ስሩዕ ኣሰራርዓ ኣወንታውን ኣሉታውን ኣዮናት ኣብ ደረቕ ጨው፡ ንኣብነት NaCl።","الشبكة البلورية للملح — الترتيب المنتظم للأيونات الموجبة والسالبة في الملح الصلب، مثل NaCl."]],
+ ["Hydrofil","«Vannelskende». Stoffet eller delen av molekylet blander seg godt med vann. Eksempel: salt, sukker, hodet på såpemolekylet.",
+  ["هایدرۆفیل (ئاوخۆشەویست) — ماددەکە یان بەشێک لە مۆلیکولەکە باش لەگەڵ ئاو تێکەڵ دەبێت. نموونە: خوێ، شەکر، سەری مۆلیکولی سابوون.","Hidrofil (suyu seven) — Madde veya molekülün bir kısmı suyla iyi karışır. Örnek: tuz, şeker, sabun molekülünün başı.","آب‌دوست (هیدروفیل) — ماده یا بخشی از مولکول به خوبی با آب مخلوط می‌شود. مثال: نمک، قند، سر مولکول صابون.","Гідрофільний («той, що любить воду») — речовина або частина молекули добре змішується з водою. Приклад: сіль, цукор, голівка молекули мила.","ሃይድሮፊል (ማይ ፈታዊ) — እቲ ነገር ወይ ክፋል ሞለኪዩል ምስ ማይ ጽቡቕ ይሕወስ። ኣብነት፡ ጨው፡ ሽኮር፡ ርእሲ ሞለኪዩል ሳሙና።","محب للماء (هيدروفيلي) — المادة أو جزء الجزيء يختلط جيدًا بالماء. مثال: الملح، السكر، رأس جزيء الصابون."]],
+ ["Hydrofob","«Vannskyende». Stoffet eller delen av molekylet blander seg ikke med vann. Eksempel: olje, fett, halen på såpemolekylet.",
+  ["هایدرۆفۆب (ئاوگریز) — ماددەکە یان بەشێک لە مۆلیکولەکە لەگەڵ ئاو تێکەڵ نابێت. نموونە: ڕۆن، چەوری، کلکی مۆلیکولی سابوون.","Hidrofob (sudan kaçan) — Madde veya molekülün bir kısmı suyla karışmaz. Örnek: yağ, sabun molekülünün kuyruğu.","آب‌گریز (هیدروفوب) — ماده یا بخشی از مولکول با آب مخلوط نمی‌شود. مثال: روغن، چربی، دم مولکول صابون.","Гідрофобний («той, що уникає води») — речовина або частина молекули не змішується з водою. Приклад: олія, жир, хвіст молекули мила.","ሃይድሮፎብ (ማይ ጸላኢ) — እቲ ነገር ወይ ክፋል ሞለኪዩል ምስ ማይ ኣይሕወስን። ኣብነት፡ ዘይቲ፡ ስብሒ፡ ጭራ ሞለኪዩል ሳሙና።","كاره للماء (هيدروفوبي) — المادة أو جزء الجزيء لا يختلط بالماء. مثال: الزيت، الدهون، ذيل جزيء الصابون."]],
+ ["Såpe og vaskemidler","Stoffer med et hydrofilt hode og en hydrofob hale. De løsner fett slik at det kan skylles bort med vann.",
+  ["سابوون و ماددەی شوشتن — ماددەگەلێک کە سەرێکی ئاوخۆشەویست و کلکێکی ئاوگریزیان هەیە. چەوری جیا دەکەنەوە بۆ ئەوەی بە ئاو بشۆردرێتەوە.","Sabun ve deterjanlar — Hidrofil bir başı ve hidrofob bir kuyruğu olan maddeler. Yağı çözerek suyla yıkanıp gitmesini sağlarlar.","صابون و مواد شوینده — موادی با یک سر آب‌دوست و یک دم آب‌گریز. چربی را جدا می‌کنند تا با آب شسته شود.","Мило та миючі засоби — речовини з гідрофільною голівкою і гідрофобним хвостом. Вони відокремлюють жир, щоб його можна було змити водою.","ሳሙናን መሕጸቢ ነገራትን — ማይ ፈታዊ ርእስን ማይ ጸላኢ ጭራን ዘለዎም ነገራት። ስብሒ ብማይ ክሕጸብ ይገብሩ።","الصابون والمنظفات — مواد لها رأس محب للماء وذيل كاره للماء. تفصل الدهون لكي تُشطف بالماء."]],
+ ["Emulsjon","En blanding av to væsker som vanligvis ikke blander seg, der den ene finnes som små dråper i den andre. Eksempel: melk, majones.",
+  ["ئیمولشن — تێکەڵەی دوو شلە کە بە ئاسایی تێکەڵ نابن، یەکێکیان وەک دڵۆپی بچووک لە ناو ئەوی تردایە. نموونە: شیر، مایۆنێز.","Emülsiyon — Normalde karışmayan iki sıvının karışımı; biri diğerinin içinde küçük damlacıklar halindedir. Örnek: süt, mayonez.","امولسیون — مخلوط دو مایع که معمولاً مخلوط نمی‌شوند و یکی به شکل قطره‌های کوچک در دیگری است. مثال: شیر، مایونیز.","Емульсія — суміш двох рідин, що зазвичай не змішуються; одна з них у вигляді дрібних крапель в іншій. Приклад: молоко, майонез.","ኢሙልሽን — ሕውስዋስ ክልተ ብልሙድ ዘይሕወሱ ፈሳሲታት፡ ሓደ ኣብቲ ካልእ ከም ንኣሽቱ ነጠብጣባት ይርከብ። ኣብነት፡ ጸባ፡ ማዮኔዝ።","المستحلَب — خليط من سائلين لا يختلطان عادةً، أحدهما على شكل قطرات صغيرة في الآخر. مثال: الحليب، المايونيز."]],
+ ["Emulgator","Et stoff som holder en emulsjon stabil, så væskene ikke skiller seg. Eksempel: lecitin i eggeplomme.",
+  ["ئیمولسیفایەر — ماددەیەک کە ئیمولشن جێگیر دەهێڵێتەوە بۆ ئەوەی شلەکان جیا نەبنەوە. نموونە: لێسیتین لە زەردێنەی هێلکەدا.","Emülgatör — Emülsiyonu kararlı tutan, sıvıların ayrılmasını önleyen madde. Örnek: yumurta sarısındaki lesitin.","امولسیفایر — ماده‌ای که امولسیون را پایدار نگه می‌دارد تا مایع‌ها جدا نشوند. مثال: لسیتین در زردی تخم.","Емульгатор — речовина, що робить емульсію стійкою, щоб рідини не розділялися. Приклад: лецитин у жовтку.","ኢሙልጋቶር — ፈሳሲታት ከይፋለዩ ንኢሙልሽን ዘረጋግእ ነገር። ኣብነት፡ ኣብ ብጫ እንቋቑሖ ዘሎ ሌሲቲን።","المستحلِب — مادة تحافظ على ثبات المستحلَب فلا ينفصل السائلان. مثال: الليسيثين في صفار البيض."]],
+ ["Syre","Et stoff som gir fra seg H⁺-ioner i vann. Syrer har pH under 7. Eksempel: sitronsyre, eddiksyre, saltsyre.",
+  ["ئەسید (ترشەڵۆک) — ماددەیەک کە لە ئاودا ئایۆنی H⁺ دەدات. pH ی ئەسیدەکان لە خوار 7 ە. نموونە: ترشی لیمۆ، ترشی سرکە.","Asit — Suda H⁺ iyonu veren madde. Asitlerin pH'ı 7'nin altındadır. Örnek: sitrik asit, asetik asit (sirke).","اسید — ماده‌ای که در آب یون H⁺ آزاد می‌کند. اسیدها pH کمتر از ۷ دارند. مثال: اسید لیمو، اسید سرکه.","Кислота — речовина, що віддає йони H⁺ у воді. Кислоти мають pH нижче 7. Приклад: лимонна кислота, оцтова кислота.","ኣሲድ — ኣብ ማይ ኣዮናት H⁺ ዝህብ ነገር። ኣሲዳት pH ትሕቲ 7 ኣለዎም። ኣብነት፡ ኣሲድ ለሚን፡ ኣሲድ ኣቸቶ።","الحمض — مادة تطلق أيونات H⁺ في الماء. للأحماض pH أقل من 7. مثال: حمض الليمون، حمض الخل."]],
+ ["Base","Et stoff som tar opp H⁺ (eller gir OH⁻) i vann. Baser har pH over 7. Eksempel: natron, salmiakk, lut.",
+  ["بەیس — ماددەیەک کە لە ئاودا H⁺ وەردەگرێت (یان OH⁻ دەدات). pH ی بەیسەکان لە سەرووی 7 ە. نموونە: سۆدای نان، ئەمۆنیا.","Baz — Suda H⁺ alan (veya OH⁻ veren) madde. Bazların pH'ı 7'nin üstündedir. Örnek: karbonat, amonyak.","باز — ماده‌ای که در آب H⁺ را می‌گیرد (یا OH⁻ آزاد می‌کند). بازها pH بیشتر از ۷ دارند. مثال: سودای نان، آمونیا.","Основа (луг) — речовина, що приймає H⁺ (або віддає OH⁻) у воді. Основи мають pH вище 7. Приклад: харчова сода, нашатирний спирт.","ቤዝ — ኣብ ማይ H⁺ ዝቕበል (ወይ OH⁻ ዝህብ) ነገር። ቤዛት pH ልዕሊ 7 ኣለዎም። ኣብነት፡ ሶዳ ባኒ፡ ኣሞንያ።","القاعدة — مادة تستقبل H⁺ (أو تطلق OH⁻) في الماء. للقواعد pH أكبر من 7. مثال: بيكربونات الصوديوم، الأمونيا."]],
+ ["pH og pH-skala","pH er et tall som viser hvor surt eller basisk noe er. Skalaen går fra 0 til 14.",
+  ["pH و پێوەری pH — pH ژمارەیەکە کە نیشان دەدات شتێک چەند ترش یان بەیسییە. پێوەرەکە لە 0 ەوە تا 14 ە.","pH ve pH ölçeği — pH, bir şeyin ne kadar asidik veya bazik olduğunu gösteren sayıdır. Ölçek 0'dan 14'e kadardır.","pH و مقیاس pH — pH عددی است که نشان می‌دهد چیزی چقدر اسیدی یا بازی است. مقیاس از ۰ تا ۱۴ است.","pH і шкала pH — pH — це число, яке показує, наскільки щось кисле чи лужне. Шкала від 0 до 14.","pH ን መለክዒ pH ን — pH ሓደ ነገር ክንደይ ኣሲዳዊ ወይ ቤዛዊ ምዃኑ ዘርኢ ቁጽሪ እዩ። እቲ መለክዒ ካብ 0 ክሳብ 14 እዩ።","pH ومقياس pH — pH رقم يبيّن مدى حمضية أو قاعدية الشيء. يمتد المقياس من 0 إلى 14."]],
+ ["pH-indikator","Et stoff som skifter farge avhengig av pH. Eksempel: lakmus, rødkålsaft, universalindikator.",
+  ["نیشاندەری pH — ماددەیەک کە بەپێی pH ڕەنگ دەگۆڕێت. نموونە: لیتمەس، ئاوی کەلەمی سوور.","pH indikatörü — pH'a göre renk değiştiren madde. Örnek: turnusol, kırmızı lahana suyu, üniversal indikatör.","شناساگر pH — ماده‌ای که بسته به pH رنگ عوض می‌کند. مثال: لیتموس، آب کرم سرخ، شناساگر عمومی.","Індикатор pH — речовина, що змінює колір залежно від pH. Приклад: лакмус, сік червоної капусти, універсальний індикатор.","ኣመልካቲ pH — ብመሰረት pH ሕብሪ ዝቕይር ነገር። ኣብነት፡ ሊትመስ፡ ማይ ቀይሕ ካውሎ።","كاشف pH — مادة يتغيّر لونها حسب pH. مثال: تبّاع الشمس، عصير الملفوف الأحمر، الكاشف العام."]],
+ ["Sur","pH under 7. Eksempel: sitronsaft, eddik, cola.",
+  ["ترش — pH لە خوار 7. نموونە: ئاوی لیمۆ، سرکە، کۆلا.","Asidik (ekşi) — pH 7'nin altında. Örnek: limon suyu, sirke, kola.","اسیدی (ترش) — pH کمتر از ۷. مثال: آب لیمو، سرکه، کوکاکولا.","Кислий — pH нижче 7. Приклад: лимонний сік, оцет, кола.","ኣሲዳዊ (መጺጽ) — pH ትሕቲ 7። ኣብነት፡ ጽማቕ ለሚን፡ ኣቸቶ፡ ኮካ ኮላ።","حمضي — pH أقل من 7. مثال: عصير الليمون، الخل، الكولا."]],
+ ["Nøytral","pH = 7. Verken surt eller basisk. Eksempel: rent vann.",
+  ["بێلایەن — pH = 7. نە ترشە و نە بەیسی. نموونە: ئاوی پاک.","Nötr — pH = 7. Ne asidik ne bazik. Örnek: saf su.","خنثی — pH = 7. نه اسیدی و نه بازی. مثال: آب خالص.","Нейтральний — pH = 7. Ні кислий, ні лужний. Приклад: чиста вода.","ገለልተኛ — pH = 7። ኣሲዳዊ ኮነ ቤዛዊ ኣይኮነን። ኣብነት፡ ንጹህ ማይ።","متعادل — pH = 7. ليس حمضيًا ولا قاعديًا. مثال: الماء النقي."]],
+ ["Basisk","pH over 7. Eksempel: såpe, natron, salmiakk.",
+  ["بەیسی — pH لە سەرووی 7. نموونە: سابوون، سۆدای نان، ئەمۆنیا.","Bazik — pH 7'nin üstünde. Örnek: sabun, karbonat, amonyak.","بازی — pH بیشتر از ۷. مثال: صابون، سودای نان، آمونیا.","Основний (лужний) — pH вище 7. Приклад: мило, харчова сода, нашатирний спирт.","ቤዛዊ — pH ልዕሊ 7። ኣብነት፡ ሳሙና፡ ሶዳ ባኒ፡ ኣሞንያ።","قاعدي — pH أكبر من 7. مثال: الصابون، بيكربونات الصوديوم، الأمونيا."]]
+];
+
+/* ---------- Quiz ---------- */
+const QUIZ=[
+ {q:"Hvorfor er vannmolekylet polart?",o:["Oksygen trekker sterkere på elektronene enn hydrogen, og molekylet er bøyd","Vann inneholder alltid litt salt","Hydrogenatomene er større enn oksygenatomet","Vannmolekylet er rett som en strek"],
+  e:"Oksygen trekker elektronene mot seg og blir δ−. Hydrogen blir δ+. Fordi molekylet er bøyd, får det en negativ og en positiv side: en dipol.",
+  tq:["بۆچی مۆلیکولی ئاو جەمسەرییە؟","Su molekülü neden polardır?","چرا مولکول آب قطبی است؟","Чому молекула води полярна?","ስለምንታይ እዩ ሞለኪዩል ማይ ፖላር?","لماذا جزيء الماء قطبي؟"],
+  te:["ئۆکسجین ئەلیکترۆنەکان ڕادەکێشێت و دەبێتە δ−، هایدرۆجین دەبێتە δ+. چونکە مۆلیکولەکە چەماوەیە، لایەکی نەرێنی و لایەکی ئەرێنی هەیە: دوو جەمسەر.","Oksijen elektronları kendine çeker ve δ− olur, hidrojen δ+ olur. Molekül bükük olduğu için negatif ve pozitif bir tarafı vardır: dipol.","اکسیجن الکترون‌ها را به طرف خود می‌کشد و δ− می‌شود، هایدروجن δ+ می‌شود. چون مولکول خمیده است، یک طرف منفی و یک طرف مثبت دارد: دوقطبی.","Кисень притягує електрони й стає δ−, водень стає δ+. Молекула зігнута, тому має негативний і позитивний боки — це диполь.","ኦክስጅን ንኤሌክትሮናት ይስሕብ እሞ δ− ይኸውን፡ ሃይድሮጅን δ+ ይኸውን። እቲ ሞለኪዩል ዝተዓጽፈ ስለዝኾነ ኣሉታውን ኣወንታውን ወገን ኣለዎ፡ ዳይፖል።","يجذب الأكسجين الإلكترونات فيصبح δ−، ويصبح الهيدروجين δ+. ولأن الجزيء منحنٍ يكون له جانب سالب وجانب موجب: ثنائي القطب."]},
+ {q:"Hva betyr «likt løser likt»?",o:["Polare stoffer løser seg i polare løsemidler, og upolare i upolare","Alle stoffer løser seg i vann","Bare stoffer med samme farge kan blandes","Stoffer med lik tetthet løser hverandre"],
+  e:"Vann (polart) løser salt og sukker (polare). Bensin (upolart) løser fett (upolart). Vann løser ikke fett.",
+  tq:["«وەک یەک وەک یەک دەتوێنێتەوە» واتای چییە؟","\"Benzer benzeri çözer\" ne demektir?","«همانند همانند را حل می‌کند» یعنی چه؟","Що означає «подібне розчиняється в подібному»?","«ተመሳሳሊ ንተመሳሳሊ የሕቅቕ» እንታይ ማለት እዩ?","ماذا تعني عبارة «الشبيه يذيب الشبيه»؟"],
+  te:["ئاو (جەمسەری) خوێ و شەکر (جەمسەری) دەتوێنێتەوە. بەنزین (ناجەمسەری) چەوری (ناجەمسەری) دەتوێنێتەوە. ئاو چەوری ناتوێنێتەوە.","Su (polar) tuzu ve şekeri (polar) çözer. Benzin (apolar) yağı (apolar) çözer. Su yağı çözmez.","آب (قطبی) نمک و قند (قطبی) را حل می‌کند. بنزین (غیرقطبی) چربی (غیرقطبی) را حل می‌کند. آب چربی را حل نمی‌کند.","Вода (полярна) розчиняє сіль і цукор (полярні). Бензин (неполярний) розчиняє жир (неполярний). Вода жир не розчиняє.","ማይ (ፖላር) ንጨውን ሽኮርን (ፖላር) የሕቅቕ። ቤንዚን (ዘይፖላር) ንስብሒ (ዘይፖላር) የሕቅቕ። ማይ ንስብሒ ኣየሕቅቕን።","الماء (قطبي) يذيب الملح والسكر (قطبيان). البنزين (غير قطبي) يذيب الدهون (غير قطبية). الماء لا يذيب الدهون."]},
+ {q:"Hva er en hydrogenbinding?",o:["Tiltrekning mellom H (δ+) i ett vannmolekyl og O (δ−) i et annet","Bindingen mellom de to hydrogenatomene i H₂","En reaksjon som lager hydrogengass","Et ion med positiv ladning"],
+  e:"Hydrogenbindinger virker mellom molekyler. Den positive H-enden blir tiltrukket av den negative O-enden i nabomolekylet.",
+  tq:["بەندی هایدرۆجینی چییە؟","Hidrojen bağı nedir?","پیوند هیدروژنی چیست؟","Що таке водневий зв'язок?","ሃይድሮጅናዊ ምትእስሳር እንታይ እዩ?","ما هي الرابطة الهيدروجينية؟"],
+  te:["بەندی هایدرۆجینی لە نێوان مۆلیکولەکاندایە. لای ئەرێنی H بۆ لای نەرێنی O لە مۆلیکولی دراوسێدا ڕادەکێشرێت.","Hidrojen bağları moleküller arasında etki eder. Pozitif H ucu, komşu moleküldeki negatif O ucu tarafından çekilir.","پیوندهای هیدروژنی بین مولکول‌ها عمل می‌کنند. سر مثبت H به سر منفی O در مولکول همسایه کشیده می‌شود.","Водневі зв'язки діють між молекулами. Позитивний кінець H притягується до негативного кінця O сусідньої молекули.","ሃይድሮጅናዊ ምትእስሳር ኣብ መንጎ ሞለኪዩላት እዩ ዝሰርሕ። ኣወንታዊ ጫፍ H ብኣሉታዊ ጫፍ O ናይ ጎረቤት ሞለኪዩል ይስሓብ።","تعمل الروابط الهيدروجينية بين الجزيئات؛ إذ ينجذب طرف H الموجب إلى طرف O السالب في الجزيء المجاور."]},
+ {q:"Hva skjer når salt (NaCl) løses i vann?",o:["Ionene (Na⁺ og Cl⁻) rives løs fra saltgitteret og omringes av vannmolekyler","Saltet forsvinner for alltid","Saltet blir til sukker","Saltet legger seg som et lag oppå vannet"],
+  e:"Vannmolekylene trekker i ionene: O-enden (δ−) mot Na⁺ og H-endene (δ+) mot Cl⁻. Saltet er der fortsatt – det kommer tilbake hvis vannet fordamper.",
+  tq:["چی ڕوودەدات کاتێک خوێ (NaCl) لە ئاودا دەتوێتەوە؟","Tuz (NaCl) suda çözündüğünde ne olur?","وقتی نمک (NaCl) در آب حل می‌شود چه اتفاقی می‌افتد؟","Що відбувається, коли сіль (NaCl) розчиняється у воді?","ጨው (NaCl) ኣብ ማይ ክሓቅቕ ከሎ እንታይ ይኸውን?","ماذا يحدث عندما يذوب الملح (NaCl) في الماء؟"],
+  te:["مۆلیکولەکانی ئاو ئایۆنەکان ڕادەکێشن: لای O (δ−) بەرەو Na⁺ و لای H (δ+) بەرەو Cl⁻. خوێکە هێشتا هەیە – ئەگەر ئاوەکە بەهەڵم بێت دەگەڕێتەوە.","Su molekülleri iyonları çeker: O ucu (δ−) Na⁺'ya, H uçları (δ+) Cl⁻'ye doğru. Tuz hâlâ oradadır – su buharlaşınca geri gelir.","مولکول‌های آب یون‌ها را می‌کشند: سر O (δ−) به طرف Na⁺ و سرهای H (δ+) به طرف Cl⁻. نمک هنوز وجود دارد – اگر آب بخار شود دوباره پیدا می‌شود.","Молекули води тягнуть йони: кінець O (δ−) до Na⁺, кінці H (δ+) до Cl⁻. Сіль нікуди не зникає — вона з'явиться знову, коли вода випарується.","ሞለኪዩላት ማይ ንኣዮናት ይስሕቡ፡ ጫፍ O (δ−) ናብ Na⁺፡ ጫፍ H (δ+) ናብ Cl⁻። እቲ ጨው ገና ኣሎ – ማይ ምስ ዝትንን ተመሊሱ ይርአ።","تجذب جزيئات الماء الأيونات: طرف O (δ−) نحو Na⁺ وطرفا H (δ+) نحو Cl⁻. يبقى الملح موجودًا – ويعود إذا تبخّر الماء."]},
+ {q:"Hva betyr hydrofob?",o:["Vannskyende – blander seg ikke med vann","Vannelskende – blander seg godt med vann","Syreelskende","Lett som luft"],
+  e:"Hydro = vann, fob = frykt. Fett og olje er hydrofobe. Hydrofil betyr vannelskende.",
+  tq:["هایدرۆفۆب واتای چییە؟","Hidrofob ne demektir?","آب‌گریز (هیدروفوب) یعنی چه؟","Що означає «гідрофобний»?","ሃይድሮፎብ እንታይ ማለት እዩ?","ماذا تعني كلمة «كاره للماء» (هيدروفوبي)؟"],
+  te:["Hydro = ئاو، fob = ترس. چەوری و ڕۆن هایدرۆفۆبن. هایدرۆفیل واتە ئاوخۆشەویست.","Hydro = su, fob = korku. Yağlar hidrofobdur. Hidrofil \"suyu seven\" demektir.","Hydro = آب، fob = ترس. چربی و روغن آب‌گریز هستند. آب‌دوست (هیدروفیل) یعنی دوستدار آب.","Hydro — вода, fob — страх. Жири й олії гідрофобні. Гідрофільний означає «той, що любить воду».","Hydro = ማይ፡ fob = ፍርሒ። ስብሕን ዘይትን ሃይድሮፎብ እዮም። ሃይድሮፊል ማለት ማይ ፈታዊ።","Hydro = ماء، fob = خوف. الدهون والزيوت كارهة للماء. أما «محب للماء» فيعني أنه يختلط بالماء."]},
+ {q:"Hvorfor blander ikke olje seg med vann?",o:["Olje er upolar, og vannmolekylene holder heller sammen med hverandre","Olje er polar akkurat som vann","Olje er en sterk syre","Vann er for kaldt"],
+  e:"Vannmolekylene er polare og lager hydrogenbindinger med hverandre. De upolare oljemolekylene blir «presset ut».",
+  tq:["بۆچی ڕۆن لەگەڵ ئاو تێکەڵ نابێت؟","Yağ neden suyla karışmaz?","چرا روغن با آب مخلوط نمی‌شود؟","Чому олія не змішується з водою?","ስለምንታይ ዘይቲ ምስ ማይ ዘይሕወስ?","لماذا لا يختلط الزيت بالماء؟"],
+  te:["مۆلیکولەکانی ئاو جەمسەرین و لە نێوان خۆیاندا بەندی هایدرۆجینی دروست دەکەن. مۆلیکولە ناجەمسەرییەکانی ڕۆن «دەردەپاڵدرێن».","Su molekülleri polardır ve birbirleriyle hidrojen bağı kurar. Apolar yağ molekülleri dışarıda kalır.","مولکول‌های آب قطبی‌اند و با یکدیگر پیوند هیدروژنی می‌سازند. مولکول‌های غیرقطبی روغن بیرون رانده می‌شوند.","Молекули води полярні й утворюють водневі зв'язки одна з одною. Неполярні молекули олії «виштовхуються».","ሞለኪዩላት ማይ ፖላር እዮም፡ ምስ ነንሓድሕዶም ሃይድሮጅናዊ ምትእስሳር ይገብሩ። ዘይፖላር ሞለኪዩላት ዘይቲ ንወጻኢ ይድፍኡ።","جزيئات الماء قطبية وتكوّن روابط هيدروجينية فيما بينها، فتُدفع جزيئات الزيت غير القطبية بعيدًا."]},
+ {q:"Hvorfor flyter olje oppå vann?",o:["Olje har lavere tetthet enn vann","Olje har høyere tetthet enn vann","Olje er polar","Olje inneholder salt"],
+  e:"Tetthet = masse per volum. Olje har ca. 0,9 g/cm³, vann har 1,0 g/cm³. Stoffet med lavest tetthet legger seg øverst.",
+  tq:["بۆچی ڕۆن لەسەر ئاو دەمێنێتەوە؟","Yağ neden suyun üstünde yüzer?","چرا روغن روی آب شناور می‌ماند؟","Чому олія плаває на поверхні води?","ስለምንታይ ዘይቲ ኣብ ልዕሊ ማይ ዝንሳፈፍ?","لماذا يطفو الزيت فوق الماء؟"],
+  te:["چڕی = بارستە بۆ هەر قەبارەیەک. ڕۆن نزیکەی 0.9 g/cm³، ئاو 1.0 g/cm³. ماددەی کەمترین چڕی دەچێتە سەرەوە.","Yoğunluk = kütle / hacim. Yağ yaklaşık 0,9 g/cm³, su 1,0 g/cm³. Yoğunluğu en düşük olan madde üste çıkar.","چگالی = جرم تقسیم بر حجم. روغن حدود ۰٫۹ و آب ۱٫۰ گرم بر سانتی‌متر مکعب است. ماده‌ای که چگالی کمتر دارد بالا می‌رود.","Густина — це маса на одиницю об'єму. Олія ≈ 0,9 г/см³, вода — 1,0 г/см³. Речовина з меншою густиною опиняється зверху.","ጽዕቀት = ክብደት ብዓቐን። ዘይቲ ኣስታት 0.9 g/cm³፡ ማይ 1.0 g/cm³። እቲ ዝተሓተ ጽዕቀት ዘለዎ ነገር ኣብ ላዕሊ ይኸውን።","الكثافة = الكتلة ÷ الحجم. كثافة الزيت نحو 0.9 غ/سم³ والماء 1.0 غ/سم³. المادة الأقل كثافة تطفو في الأعلى."]},
+ {q:"Hvordan virker såpe på fett?",o:["Den hydrofobe halen fester seg i fettet, og det hydrofile hodet vender mot vannet","Såpen gjør fettet om til vann","Såpen gjør vannet surt, så fettet forsvinner","Det hydrofile hodet fester seg i fettet"],
+  e:"Såpemolekylene lager små kuler (miceller) rundt fettdråpene. Hodene vender ut mot vannet, så kulene kan skylles bort.",
+  tq:["سابوون چۆن کار لە چەوری دەکات؟","Sabun yağ üzerinde nasıl etki eder?","صابون چگونه روی چربی اثر می‌کند؟","Як мило діє на жир?","ሳሙና ኣብ ስብሒ ብኸመይ ይሰርሕ?","كيف يعمل الصابون على الدهون؟"],
+  te:["مۆلیکولەکانی سابوون تۆپی بچووک (مایسێل) لە دەوری دڵۆپەکانی چەوری دروست دەکەن. سەرەکان ڕوو لە ئاون و تۆپەکان دەشۆردرێنەوە.","Sabun molekülleri yağ damlalarının etrafında küçük toplar (miseller) oluşturur. Başlar suya dönüktür ve toplar suyla yıkanıp gider.","مولکول‌های صابون دور قطره‌های چربی گلوله‌های کوچک (میسل) می‌سازند. سرها به طرف آب است و گلوله‌ها با آب شسته می‌شوند.","Молекули мила утворюють навколо крапель жиру маленькі кульки (міцели). Голівки повернуті до води, тож кульки легко змиваються.","ሞለኪዩላት ሳሙና ኣብ ዙርያ ነጠብጣባት ስብሒ ንኣሽቱ ኩዕሶታት (ማይሰል) ይሰርሑ። ርእስታት ናብ ማይ ይጥምቱ፡ ኩዕሶታት ድማ ብማይ ይሕጸባ።","تكوّن جزيئات الصابون كرات صغيرة (مذيلات) حول قطرات الدهن، وتتجه الرؤوس نحو الماء فتُشطف الكرات بعيدًا."]},
+ {q:"Hva er en emulgator?",o:["Et stoff som hindrer at en blanding av olje og vann skiller seg","Et stoff som gjør vann surt","En type salt som løser seg i olje","Et stoff som farger maten"],
+  e:"En emulgator har en hydrofil og en hydrofob del, akkurat som såpe. Den holder små oljedråper fordelt i vann (eller omvendt).",
+  tq:["ئیمولسیفایەر چییە؟","Emülgatör nedir?","امولسیفایر چیست؟","Що таке емульгатор?","ኢሙልጋቶር እንታይ እዩ?","ما هو المستحلِب (عامل الاستحلاب)؟"],
+  te:["ئیمولسیفایەر بەشێکی ئاوخۆشەویست و بەشێکی ئاوگریزی هەیە، وەک سابوون. دڵۆپە بچووکەکانی ڕۆن لە ناو ئاودا بە دابەشکراوی دەهێڵێتەوە.","Emülgatörün sabun gibi bir hidrofil ve bir hidrofob kısmı vardır. Küçük yağ damlacıklarını suyun içinde dağılmış halde tutar.","امولسیفایر مثل صابون یک بخش آب‌دوست و یک بخش آب‌گریز دارد. قطره‌های کوچک روغن را در آب پخش نگه می‌دارد.","Емульгатор, як і мило, має гідрофільну і гідрофобну частини. Він утримує дрібні краплі олії розподіленими у воді.","ኢሙልጋቶር ከም ሳሙና ማይ ፈታውን ማይ ጸላእን ክፋል ኣለዎ። ንኣሽቱ ነጠብጣባት ዘይቲ ኣብ ማይ ተዘርጊሖም ክጸንሑ ይገብር።","للمستحلِب جزء محب للماء وجزء كاره للماء مثل الصابون، فيُبقي قطرات الزيت الصغيرة موزعة في الماء."]},
+ {q:"Hvilken av disse inneholder en emulgator?",o:["Majones","Rent vann","Bordsalt","Eddik"],
+  e:"I majones holder lecitin fra eggeplommen oljedråpene fordelt. Andre eksempler: melk, hudkrem, iskrem, sjokolade.",
+  tq:["کامیان ئیمولسیفایەری تێدایە؟","Bunlardan hangisi emülgatör içerir?","کدام یک از این‌ها امولسیفایر دارد؟","Що з переліченого містить емульгатор?","ካብዚኦም ኣየናይ ኢሙልጋቶር ኣለዎ?","أيّ مما يلي يحتوي على مستحلِب؟"],
+  te:["لە مایۆنێزدا لێسیتینی زەردێنەی هێلکە دڵۆپەکانی ڕۆن دابەشکراو دەهێڵێتەوە. نموونەی تر: شیر، کرێمی پێست، بەستەنی، چوکلێت.","Mayonezde yumurta sarısındaki lesitin yağ damlacıklarını dağılmış tutar. Diğer örnekler: süt, krem, dondurma, çikolata.","در مایونیز، لسیتین زردی تخم قطره‌های روغن را پخش نگه می‌دارد. مثال‌های دیگر: شیر، کریم پوست، آیس‌کریم، چاکلیت.","У майонезі лецитин із жовтка утримує краплі олії рівномірно розподіленими. Інші приклади: молоко, крем, морозиво, шоколад.","ኣብ ማዮኔዝ ሌሲቲን ካብ ብጫ እንቋቑሖ ንነጠብጣባት ዘይቲ ተዘርጊሖም ክጸንሑ ይገብር። ካልኦት ኣብነታት፡ ጸባ፡ ክሬም፡ ኣይስክሪም፡ ቸኮሌት።","في المايونيز يُبقي الليسيثين من صفار البيض قطرات الزيت موزعة. أمثلة أخرى: الحليب، الكريم، الآيس كريم، الشوكولاتة."]},
+ {q:"Hvilken pH har rent vann?",o:["7","0","1","14"],
+  e:"Rent vann er nøytralt: pH = 7. Det er verken surt eller basisk.",
+  tq:["ئاوی پاک pH ی چەندە؟","Saf suyun pH değeri kaçtır?","pH آب خالص چند است؟","Який pH у чистої води?","ንጹህ ማይ ክንደይ pH ኣለዎ?","ما قيمة pH للماء النقي؟"],
+  te:["ئاوی پاک بێلایەنە: pH = 7. نە ترشە و نە بەیسی.","Saf su nötrdür: pH = 7. Ne asidik ne baziktir.","آب خالص خنثی است: pH = 7. نه اسیدی است و نه بازی.","Чиста вода нейтральна: pH = 7. Вона ні кисла, ні лужна.","ንጹህ ማይ ገለልተኛ እዩ፡ pH = 7። ኣሲዳዊ ኮነ ቤዛዊ ኣይኮነን።","الماء النقي متعادل: pH = 7، فهو ليس حمضيًا ولا قاعديًا."]},
+ {q:"Et stoff har pH 3. Hva slags stoff er det?",o:["Surt","Nøytralt","Basisk","Både surt og basisk"],
+  e:"Under 7 = surt. 7 = nøytralt. Over 7 = basisk. Eddik har pH rundt 3.",
+  tq:["ماددەیەک pH ی 3 ە. چ جۆرە ماددەیەکە؟","Bir maddenin pH'ı 3'tür. Bu nasıl bir maddedir?","یک ماده pH ۳ دارد. این چه نوع ماده‌ای است؟","Речовина має pH 3. Яка це речовина?","ሓደ ነገር pH 3 ኣለዎ። እንታይ ዓይነት ነገር እዩ?","مادة لها pH 3. ما نوع هذه المادة؟"],
+  te:["خوار 7 = ترش. 7 = بێلایەن. سەرووی 7 = بەیسی. سرکە pH ی نزیکەی 3 ە.","7'nin altı = asidik, 7 = nötr, 7'nin üstü = bazik. Sirkenin pH'ı yaklaşık 3'tür.","کمتر از ۷ = اسیدی، ۷ = خنثی، بیشتر از ۷ = بازی. سرکه pH حدود ۳ دارد.","Нижче 7 — кисле, 7 — нейтральне, вище 7 — основне (лужне). Оцет має pH близько 3.","ትሕቲ 7 = ኣሲዳዊ፡ 7 = ገለልተኛ፡ ልዕሊ 7 = ቤዛዊ። ኣቸቶ ኣስታት pH 3 ኣለዎ።","أقل من 7 = حمضي، 7 = متعادل، أكبر من 7 = قاعدي. الخل له pH نحو 3."]},
+ {q:"Hvilket stoff er basisk?",o:["Salmiakk (ammoniakk)","Sitronsaft","Eddik","Cola"],
+  e:"Salmiakk har pH rundt 11. Sitronsaft, eddik og cola er sure (pH 2–3). Andre baser: såpe, natron, avløpsåpner.",
+  tq:["کام ماددە بەیسییە؟","Hangi madde baziktir?","کدام ماده بازی است؟","Яка речовина основна (лужна)?","ኣየናይ ነገር ቤዛዊ እዩ?","أيّ مادة قاعدية؟"],
+  te:["ئەمۆنیا pH ی نزیکەی 11 ە. ئاوی لیمۆ، سرکە و کۆلا ترشن (pH 2–3). بەیسی تر: سابوون، سۆدای نان، ماددەی کردنەوەی بۆری.","Amonyağın pH'ı yaklaşık 11'dir. Limon suyu, sirke ve kola asidiktir (pH 2–3). Diğer bazlar: sabun, karbonat, lavabo açıcı.","آمونیا pH حدود ۱۱ دارد. آب لیمو، سرکه و کوکاکولا اسیدی‌اند (pH ۲–۳). بازهای دیگر: صابون، سودای نان، لوله‌بازکن.","Нашатирний спирт має pH близько 11. Лимонний сік, оцет і кола кислі (pH 2–3). Інші основи: мило, харчова сода, засіб для прочищення труб.","ኣሞንያ ኣስታት pH 11 ኣለዎ። ጽማቕ ለሚን፡ ኣቸቶን ኮካ ኮላን ኣሲዳውያን እዮም (pH 2–3)። ካልኦት ቤዛት፡ ሳሙና፡ ሶዳ ባኒ፡ መኽፈቲ ቱቦ።","للأمونيا pH نحو 11. عصير الليمون والخل والكولا حمضية (pH 2–3). قواعد أخرى: الصابون، بيكربونات الصوديوم، منظف المجاري."]},
+ {q:"Hva er en pH-indikator?",o:["Et stoff som skifter farge etter hvor surt eller basisk noe er","Et stoff som gjør alt nøytralt","Et termometer for væsker","En syre som finnes i magen"],
+  e:"Eksempler: lakmuspapir (rødt i sur, blått i basisk), rødkålsaft og universalindikator.",
+  tq:["نیشاندەری pH چییە؟","pH indikatörü nedir?","شناساگر pH چیست؟","Що таке індикатор pH?","ኣመልካቲ pH እንታይ እዩ?","ما هو كاشف pH؟"],
+  te:["نموونەکان: کاغەزی لیتمەس (لە ترشدا سوور، لە بەیسیدا شین)، ئاوی کەلەمی سوور و نیشاندەری گشتی.","Örnekler: turnusol kâğıdı (asitte kırmızı, bazda mavi), kırmızı lahana suyu ve üniversal indikatör.","مثال‌ها: کاغذ لیتموس (در اسید سرخ، در باز آبی)، آب کرم سرخ و شناساگر عمومی.","Приклади: лакмусовий папір (червоний у кислоті, синій у лузі), сік червоної капусти, універсальний індикатор.","ኣብነታት፡ ወረቐት ሊትመስ (ኣብ ኣሲድ ቀይሕ፡ ኣብ ቤዝ ሰማያዊ)፡ ማይ ቀይሕ ካውሎን ዩኒቨርሳል ኣመልካትን።","أمثلة: ورق تبّاع الشمس (أحمر في الحمض وأزرق في القاعدة)، عصير الملفوف الأحمر، والكاشف العام."]},
+ {q:"Hva er et ion?",o:["Et atom eller en atomgruppe med elektrisk ladning","Et atom uten ladning","Et vannmolekyl","En type fett"],
+  e:"Et ion har fått eller mistet elektroner, og har derfor positiv eller negativ ladning. Eksempler: Na⁺ og Cl⁻ i salt.",
+  tq:["ئایۆن چییە؟","İyon nedir?","یون چیست؟","Що таке йон?","ኣዮን እንታይ እዩ?","ما هو الأيون؟"],
+  te:["ئایۆن ئەلیکترۆنی وەرگرتووە یان لەدەستداوە، بۆیە بارگەی ئەرێنی یان نەرێنی هەیە. نموونە: Na⁺ و Cl⁻ لە خوێدا.","İyon elektron kazanmış veya kaybetmiştir, bu yüzden pozitif veya negatif yüklüdür. Örnek: tuzdaki Na⁺ ve Cl⁻.","یون الکترون گرفته یا از دست داده است، پس بار مثبت یا منفی دارد. مثال: Na⁺ و Cl⁻ در نمک.","Йон отримав або втратив електрони, тому має позитивний чи негативний заряд. Приклади: Na⁺ і Cl⁻ у солі.","ኣዮን ኤሌክትሮናት ወሲኹ ወይ ኣጥፊኡ ስለዝኾነ ኣወንታዊ ወይ ኣሉታዊ ጾር ኣለዎ። ኣብነት፡ ኣብ ጨው ዘለዉ Na⁺ን Cl⁻ን።","الأيون اكتسب إلكترونات أو فقدها، لذلك له شحنة موجبة أو سالبة. مثال: Na⁺ وCl⁻ في الملح."]}
+];
+
+/* ---------- Sort games ---------- */
+const SORTS={
+ ph:{name:"Sur – nøytral – basisk",
+  buckets:[
+   {id:"sur",no:"Sur",hint:"pH under 7",t:["ترش","Asidik","اسیدی","Кисле","ኣሲዳዊ","حمضي"]},
+   {id:"noy",no:"Nøytral",hint:"pH = 7",t:["بێلایەن","Nötr","خنثی","Нейтральне","ገለልተኛ","متعادل"]},
+   {id:"bas",no:"Basisk",hint:"pH over 7",t:["بەیسی","Bazik","بازی","Основне (лужне)","ቤዛዊ","قاعدي"]}],
+  items:["sitron","eddik","cola","mage","kaffe","vann","saltvann","sukkervann","natron","saape","salmiakk","avlop"].map(k=>({k,no:S[k].no,t:S[k].t,ph:S[k].ph,b:S[k].ph<6.8?"sur":S[k].ph>7.2?"bas":"noy"}))},
+ hyd:{name:"Hydrofil – hydrofob",
+  buckets:[
+   {id:"fil",no:"Hydrofil",hint:"blander seg med vann",t:["ئاوخۆشەویست","Hidrofil","آب‌دوست","Гідрофільне","ማይ ፈታዊ","محب للماء"]},
+   {id:"fob",no:"Hydrofob",hint:"blander seg ikke med vann",t:["ئاوگریز","Hidrofob","آب‌گریز","Гідрофобне","ማይ ጸላኢ","كاره للماء"]}],
+  items:[
+   {no:"Salt",b:"fil",t:["خوێ","tuz","نمک","сіль","ጨው","الملح"]},
+   {no:"Sukker",b:"fil",t:["شەکر","şeker","قند","цукор","ሽኮር","السكر"]},
+   {no:"Eddik",b:"fil",t:S.eddik.t},
+   {no:"Sprit (etanol)",b:"fil",t:["ئەلکهول","alkol (etanol)","الکول","спирт (етанол)","ኣልኮል","الكحول (الإيثانول)"]},
+   {no:"Hodet på såpemolekylet",b:"fil",t:["سەری مۆلیکولی سابوون","sabun molekülünün başı","سر مولکول صابون","голівка молекули мила","ርእሲ ሞለኪዩል ሳሙና","رأس جزيء الصابون"]},
+   {no:"Olivenolje",b:"fob",t:["ڕۆنی زەیتوون","zeytinyağı","روغن زیتون","оливкова олія","ዘይቲ ኣውሊዕ","زيت الزيتون"]},
+   {no:"Smør",b:"fob",t:["کەرە","tereyağı","مسکه","вершкове масло","ጠስሚ","الزبدة"]},
+   {no:"Bensin",b:"fob",t:["بەنزین","benzin","پطرول (بنزین)","бензин","ቤንዚን","البنزين"]},
+   {no:"Stearinlys (voks)",b:"fob",t:["مۆم","mum","شمع (موم)","свічка (віск)","ሽምዓ","الشمع"]},
+   {no:"Halen på såpemolekylet",b:"fob",t:["کلکی مۆلیکولی سابوون","sabun molekülünün kuyruğu","دم مولکول صابون","хвіст молекули мила","ጭራ ሞለኪዩል ሳሙና","ذيل جزيء الصابون"]}]}
+};
+
+/* ---------- Checklist ---------- */
+const CHECK=[
+ {ch:"3.1 Vann og løselighet",items:[
+  ["Kunne forklare fenomenet «likt løser likt»","l-likt",["بتوانم «وەک یەک وەک یەک دەتوێنێتەوە» ڕوون بکەمەوە","\"Benzer benzeri çözer\" olgusunu açıklayabilmek","بتوانم پدیده‌ی «همانند همانند را حل می‌کند» را توضیح دهم","Вміти пояснити принцип «подібне розчиняється в подібному»","«ተመሳሳሊ ንተመሳሳሊ የሕቅቕ» ክገልጽ ምኽኣል","أن أستطيع شرح ظاهرة «الشبيه يذيب الشبيه»"]],
+  ["Kunne forklare hvorfor vannmolekylet er polart","l-polar",["بتوانم ڕوون بکەمەوە بۆچی مۆلیکولی ئاو جەمسەرییە","Su molekülünün neden polar olduğunu açıklayabilmek","بتوانم توضیح دهم چرا مولکول آب قطبی است","Вміти пояснити, чому молекула води полярна","ስለምንታይ ሞለኪዩል ማይ ፖላር ምዃኑ ክገልጽ ምኽኣል","أن أستطيع شرح لماذا جزيء الماء قطبي"]],
+  ["Kunne tegne vannmolekylet og forklare at det er en dipol","l-polar",["بتوانم وێنەی مۆلیکولی ئاو بکێشم و ڕوون بکەمەوە کە دوو جەمسەرە","Su molekülünü çizebilmek ve dipol olduğunu açıklayabilmek","بتوانم مولکول آب را رسم کنم و توضیح دهم که دوقطبی است","Вміти намалювати молекулу води й пояснити, що вона є диполем","ሞለኪዩል ማይ ክስእልን ዳይፖል ምዃኑ ክገልጽን ምኽኣል","أن أستطيع رسم جزيء الماء وشرح أنه ثنائي القطب"]],
+  ["Forklare hva hydrogenbindinger er","l-hbind",["ڕوونکردنەوەی بەندی هایدرۆجینی","Hidrojen bağlarının ne olduğunu açıklamak","توضیح دادن اینکه پیوندهای هیدروژنی چیست","Пояснити, що таке водневі зв'язки","ሃይድሮጅናዊ ምትእስሳር እንታይ ምዃኑ ምግላጽ","شرح ما هي الروابط الهيدروجينية"]],
+  ["Forklare hva som skjer med salt når vi løser det i vann","l-salt",["ڕوونکردنەوەی ئەوەی چی بەسەر خوێدا دێت کاتێک لە ئاودا دەیتوێنینەوە","Tuzu suda çözdüğümüzde ne olduğunu açıklamak","توضیح دادن اینکه وقتی نمک را در آب حل می‌کنیم چه اتفاقی می‌افتد","Пояснити, що відбувається із сіллю, коли ми розчиняємо її у воді","ጨው ኣብ ማይ ክነሕቕቖ ከለና እንታይ ከም ዝኸውን ምግላጽ","شرح ما يحدث للملح عندما نذيبه في الماء"]],
+  ["Vite hva polar/upolar og hydrofil/hydrofob betyr","l-hydro",["زانینی واتای جەمسەری/ناجەمسەری و ئاوخۆشەویست/ئاوگریز","Polar/apolar ve hidrofil/hidrofob kelimelerinin anlamını bilmek","دانستن معنای قطبی/غیرقطبی و آب‌دوست/آب‌گریز","Знати, що означають полярний/неполярний і гідрофільний/гідрофобний","ትርጉም ፖላር/ዘይፖላርን ሃይድሮፊል/ሃይድሮፎብን ምፍላጥ","معرفة معنى قطبي/غير قطبي ومحب للماء/كاره للماء"]],
+  ["Forklare hvorfor fett/olje er upolart og hvorfor det ikke blander seg med vann","l-fett",["ڕوونکردنەوەی بۆچی چەوری/ڕۆن ناجەمسەرییە و بۆچی لەگەڵ ئاو تێکەڵ نابێت","Yağın neden apolar olduğunu ve neden suyla karışmadığını açıklamak","توضیح دادن اینکه چرا چربی/روغن غیرقطبی است و چرا با آب مخلوط نمی‌شود","Пояснити, чому жир/олія неполярні й чому не змішуються з водою","ስለምንታይ ስብሒ/ዘይቲ ዘይፖላር ምዃኑን ስለምንታይ ምስ ማይ ዘይሕወስን ምግላጽ","شرح لماذا الدهون/الزيت غير قطبية ولماذا لا تختلط بالماء"]],
+  ["Kjenne til oppbygningen av såpe og hvordan det virker på fett","l-saape",["ناسینی پێکهاتەی سابوون و چۆنیەتی کارکردنی لەسەر چەوری","Sabunun yapısını ve yağ üzerinde nasıl etki ettiğini bilmek","شناختن ساختار صابون و اینکه چگونه روی چربی اثر می‌کند","Знати будову мила і як воно діє на жир","ኣቃውማ ሳሙናን ኣብ ስብሒ ብኸመይ ከም ዝሰርሕን ምፍላጥ","معرفة تركيب الصابون وكيف يعمل على الدهون"]]]},
+ {ch:"3.2 Emulgator",items:[
+  ["Forklare hva emulgator betyr","l-emul",["ڕوونکردنەوەی واتای ئیمولسیفایەر","Emülgatörün ne demek olduğunu açıklamak","توضیح دادن معنای امولسیفایر","Пояснити, що означає «емульгатор»","ትርጉም ኢሙልጋቶር ምግላጽ","شرح معنى المستحلِب"]],
+  ["Gi noen eksempler på blandinger som inneholder emulgatorer","l-eks",["هێنانەوەی چەند نموونەیەک لە تێکەڵەکان کە ئیمولسیفایەریان تێدایە","Emülgatör içeren karışımlara birkaç örnek vermek","آوردن چند مثال از مخلوط‌هایی که امولسیفایر دارند","Навести кілька прикладів сумішей з емульгаторами","ኢሙልጋቶር ዘለዎም ሕውስዋሳት ገለ ኣብነታት ምሃብ","إعطاء أمثلة على خلائط تحتوي على مستحلِبات"]]]},
+ {ch:"3.3 Syrer og baser",items:[
+  ["Forklare hva sure og basiske stoffer er","l-surbas",["ڕوونکردنەوەی ماددە ترش و بەیسییەکان","Asidik ve bazik maddelerin ne olduğunu açıklamak","توضیح دادن اینکه مواد اسیدی و بازی چیستند","Пояснити, що таке кислі й основні (лужні) речовини","ኣሲዳውን ቤዛውን ነገራት እንታይ ምዃኖም ምግላጽ","شرح ما هي المواد الحمضية والقاعدية"]],
+  ["Kjenne til pH-skalaen","l-phskala",["ناسینی پێوەری pH","pH ölçeğini bilmek","شناختن مقیاس pH","Знати шкалу pH","መለክዒ pH ምፍላጥ","معرفة مقياس pH"]],
+  ["Kunne noen eksempler på stoffer som er sure eller basiske","l-phskala",["زانینی چەند نموونەیەک لە ماددە ترش یان بەیسییەکان","Asidik veya bazik maddelere birkaç örnek bilmek","دانستن چند مثال از مواد اسیدی یا بازی","Знати кілька прикладів кислих або основних речовин","ገለ ኣብነታት ኣሲዳውን ቤዛውን ነገራት ምፍላጥ","معرفة أمثلة على مواد حمضية أو قاعدية"]],
+  ["Vite at vann er nøytralt: pH = 7","l-phskala",["زانینی ئەوەی ئاو بێلایەنە: pH = 7","Suyun nötr olduğunu bilmek: pH = 7","دانستن اینکه آب خنثی است: pH = 7","Знати, що вода нейтральна: pH = 7","ማይ ገለልተኛ ምዃኑ ምፍላጥ፡ pH = 7","معرفة أن الماء متعادل: pH = 7"]],
+  ["Vite hva en pH-indikator er","l-ind",["زانینی ئەوەی نیشاندەری pH چییە","pH indikatörünün ne olduğunu bilmek","دانستن اینکه شناساگر pH چیست","Знати, що таке індикатор pH","ኣመልካቲ pH እንታይ ምዃኑ ምፍላጥ","معرفة ما هو كاشف pH"]]]}
+];
+
+/* ---------- SVG figures ---------- */
+function water(x,y,a,s=1){
+  const r=a-90;
+  return `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><circle cx="13.4" cy="10.5" r="8" fill="var(--h)" stroke="var(--h-stroke)"/><circle cx="-13.4" cy="10.5" r="8" fill="var(--h)" stroke="var(--h-stroke)"/><circle r="13" fill="var(--o)"/></g>`;
+}
+const FIG={
+ dipole:()=>`<svg viewBox="0 0 520 230" role="img" aria-label="Vannmolekyl med δ− på oksygen og δ+ på hydrogen">
+  <rect x="0" y="0" width="520" height="230" fill="none"/>
+  <g transform="translate(200 95) scale(2.6)">
+   <line x1="0" y1="0" x2="13.4" y2="10.5" stroke="var(--h-stroke)" stroke-width="1.5"/><line x1="0" y1="0" x2="-13.4" y2="10.5" stroke="var(--h-stroke)" stroke-width="1.5"/>
+   <circle cx="13.4" cy="10.5" r="7" fill="var(--h)" stroke="var(--h-stroke)" stroke-width=".6"/><circle cx="-13.4" cy="10.5" r="7" fill="var(--h)" stroke="var(--h-stroke)" stroke-width=".6"/>
+   <circle r="12" fill="var(--o)"/>
+  </g>
+  <text x="200" y="100" text-anchor="middle" style="font-weight:700;font-size:20px;fill:#fff">O</text>
+  <text x="165" y="128" text-anchor="middle" style="font-weight:700;font-size:16px;fill:#10252c">H</text>
+  <text x="235" y="128" text-anchor="middle" style="font-weight:700;font-size:16px;fill:#10252c">H</text>
+  <text x="200" y="45" text-anchor="middle" style="font-size:22px;font-weight:700;fill:var(--o)">δ−</text>
+  <text x="138" y="170" text-anchor="middle" style="font-size:20px;font-weight:700;fill:var(--water)">δ+</text>
+  <text x="262" y="170" text-anchor="middle" style="font-size:20px;font-weight:700;fill:var(--water)">δ+</text>
+  <text x="200" y="196" text-anchor="middle" class="mut">ca. 104,5°</text>
+  <line x1="380" y1="170" x2="380" y2="60" stroke="var(--ink)" stroke-width="2"/><path d="M372 72 L380 56 L388 72Z" fill="var(--ink)"/>
+  <text x="395" y="62">negativ side</text><text x="395" y="176">positiv side</text>
+  <text x="395" y="122" style="font-weight:700">= dipol</text>
+ </svg>`,
+ hbond:()=>{
+  let m="",d="";const pts=[];for(let i=0;i<6;i++)pts.push([70+i*62,48+i*13.4]);
+  pts.forEach(([x,y],i)=>{m+=water(x,y,0);if(i<5){d+=`<line x1="${x+10.5+8}" y1="${(y+13.4).toFixed(1)}" x2="${pts[i+1][0]-13}" y2="${pts[i+1][1].toFixed(1)}" stroke="var(--water)" stroke-width="2.5" stroke-dasharray="3 4"/>`}});
+  return `<svg viewBox="0 0 470 190" role="img" aria-label="Vannmolekyler holdt sammen av hydrogenbindinger">${d}${m}
+   <line x1="40" y1="165" x2="70" y2="165" stroke="var(--water)" stroke-width="2.5" stroke-dasharray="3 4"/><text x="78" y="170">= hydrogenbinding (H δ+ ··· O δ−)</text>
+   <circle cx="330" cy="20" r="8" fill="var(--o)"/><text x="344" y="25">O</text><circle cx="380" cy="20" r="7" fill="var(--h)" stroke="var(--h-stroke)"/><text x="394" y="25">H</text></svg>`},
+ salt:()=>{
+  let g="";for(let r=0;r<4;r++)for(let c=0;c<4;c++){const na=(r+c)%2===0;const x=40+c*30,y=50+r*30;g+=na?`<circle cx="${x}" cy="${y}" r="9" fill="var(--na)"/>`:`<circle cx="${x}" cy="${y}" r="13" fill="var(--cl)"/>`}
+  let w="";const ion=(cx,cy,na)=>{let s=na?`<circle cx="${cx}" cy="${cy}" r="11" fill="var(--na)"/><text x="${cx}" y="${cy+4}" text-anchor="middle" style="font-size:11px;font-weight:700;fill:#fff">Na⁺</text>`:`<circle cx="${cx}" cy="${cy}" r="15" fill="var(--cl)"/><text x="${cx}" y="${cy+4}" text-anchor="middle" style="font-size:11px;font-weight:700;fill:#fff">Cl⁻</text>`;
+   for(let k=0;k<5;k++){const ang=k*72-90;const R=na?40:46;const x=cx+R*Math.cos(ang*Math.PI/180),y=cy+R*Math.sin(ang*Math.PI/180);s=water(x,y,na?ang:ang+180,.8)+s}return s};
+  w=ion(330,100,true)+ion(450,100,false);
+  return `<svg viewBox="0 0 520 210" role="img" aria-label="Saltgitter og ioner omringet av vannmolekyler">${g}
+   <text x="85" y="185" text-anchor="middle">Saltgitter (fast NaCl)</text>
+   <path d="M175 95 H230" stroke="var(--ink)" stroke-width="2"/><path d="M226 89 L238 95 L226 101Z" fill="var(--ink)"/><text x="206" y="82" text-anchor="middle" class="mut">+ vann</text>
+   ${w}
+   <text x="330" y="185" text-anchor="middle">O-enden mot Na⁺</text><text x="450" y="185" text-anchor="middle">H-endene mot Cl⁻</text></svg>`},
+ oil:()=>`<svg viewBox="0 0 520 220" role="img" aria-label="Olje flyter oppå vann">
+  <path d="M150 30 V190 Q150 200 160 200 H300 Q310 200 310 190 V30" fill="none" stroke="var(--muted)" stroke-width="3"/>
+  <rect x="152" y="70" width="156" height="45" fill="var(--fat)" opacity=".85"/>
+  <rect x="152" y="115" width="156" height="83" fill="var(--water)" opacity=".55"/>
+  <text x="330" y="90" style="font-weight:700">Olje</text><text x="330" y="108" class="mut">0,9 g/cm³ · upolar</text>
+  <text x="330" y="150" style="font-weight:700">Vann</text><text x="330" y="168" class="mut">1,0 g/cm³ · polart</text>
+  <text x="40" y="96" class="mut">lavere tetthet</text><text x="40" y="112" class="mut">→ flyter oppå</text></svg>`,
+ soap:()=>{
+  const mol=(x,y,a,s=1)=>{const t=a*Math.PI/180;let p=`M${x} ${y}`;for(let i=1;i<=6;i++){const d=i*7*s;const off=(i%2?4:-4)*s;p+=` L${(x+d*Math.cos(t)-off*Math.sin(t)).toFixed(1)} ${(y+d*Math.sin(t)+off*Math.cos(t)).toFixed(1)}`}return `<path d="${p}" fill="none" stroke="var(--fat)" stroke-width="${2.5*s}" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${x}" cy="${y}" r="${7*s}" fill="var(--water)"/>`};
+  let mic=`<circle cx="380" cy="105" r="40" fill="var(--fat)" opacity=".55"/>`;
+  for(let k=0;k<14;k++){const a=k*360/14;const t=a*Math.PI/180;mic+=mol(380+78*Math.cos(t),105+78*Math.sin(t),a+180,.9)}
+  return `<svg viewBox="0 0 520 215" role="img" aria-label="Såpemolekyl og micelle rundt en fettdråpe">
+   ${mol(60,90,0,1.6)}
+   <text x="60" y="130" text-anchor="middle" style="font-weight:700">hode</text><text x="60" y="146" text-anchor="middle" class="mut">hydrofilt</text>
+   <text x="130" y="130" text-anchor="middle" style="font-weight:700">hale</text><text x="130" y="146" text-anchor="middle" class="mut">hydrofob</text>
+   ${mic}<text x="380" y="109" text-anchor="middle" style="font-weight:700">fett</text>
+   <text x="380" y="208" text-anchor="middle" class="mut">micelle: halene i fettet, hodene ut mot vannet</text></svg>`},
+ emulsion:()=>{
+  let a="",b="";let seed=7;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280};
+  for(let i=0;i<34;i++){const x=290+rnd()*190,y=45+rnd()*130,r=3+rnd()*6;b+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" fill="var(--fat)"/>`}
+  return `<svg viewBox="0 0 520 220" role="img" aria-label="Olje og vann skilt, og emulsjon med små oljedråper">
+   <rect x="40" y="40" width="190" height="45" rx="4" fill="var(--fat)" opacity=".85"/><rect x="40" y="85" width="190" height="95" rx="4" fill="var(--water)" opacity=".5"/>
+   <text x="135" y="205" text-anchor="middle">Uten emulgator: skiller seg</text>
+   <rect x="285" y="40" width="200" height="140" rx="4" fill="var(--water)" opacity=".5"/>${b}
+   <text x="385" y="205" text-anchor="middle">Med emulgator: små dråper (emulsjon)</text></svg>`},
+ indicator:()=>{
+  const rows=[["Lakmus",[["sur","#d8261c"],["nøytral","#8f5aa6"],["basisk","#2c58a6"]]],["Rødkål",[["sur","#d8336a"],["nøytral","#7a4ca8"],["basisk","#4ea24a"]]],["BTB",[["sur","#f3d21c"],["nøytral","#4ea24a"],["basisk","#2c58a6"]]]];
+  let s="";rows.forEach((r,i)=>{const y=30+i*55;s+=`<text x="20" y="${y+24}" style="font-weight:700">${r[0]}</text>`;r[1].forEach((c,j)=>{const x=130+j*125;s+=`<rect x="${x}" y="${y}" width="110" height="36" rx="6" fill="${c[1]}"/><text x="${x+55}" y="${y+23}" text-anchor="middle" style="font-weight:700;fill:${c[1]==="#f3d21c"?"#10252c":"#fff"}">${c[0]}</text>`})});
+  return `<svg viewBox="0 0 520 200" role="img" aria-label="Farger på lakmus, rødkålsaft og BTB i sur, nøytral og basisk løsning">${s}</svg>`},
+ ph:()=>""
+};
+
+/* ---------- Render: tabs & languages ---------- */
+const TABS=[["laer","Lær"],["begreper","Begreper"],["quiz","Quiz"],["sorter","Sorter"],["sjekk","Sjekkliste"]];
+let tab="laer";
+try{const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h))tab=h}catch(e){}
+
+function renderBar(){
+  const lw=document.getElementById("langs");
+  lw.innerHTML='<span class="lbl">Hjelp på:</span>'+LANGS.map(l=>`<button class="chip ${l.dir==="rtl"?"ar":""} ${l.id==="ti"?"et":""}" aria-pressed="${l.id===lang}" data-l="${l.id}" ${l.code?`lang="${l.code}"`:""}>${l.name}</button>`).join("");
+  document.getElementById("tabs").innerHTML=TABS.map(([id,n])=>`<button class="tab" role="tab" id="t-${id}" aria-controls="p-${id}" aria-selected="${id===tab}" data-t="${id}">${n}${lang!=="no"?`<small lang="${L().code}">${pick(UI[id])}</small>`:""}</button>`).join("");
+  document.getElementById("lede").innerHTML="Repetisjon til prøven. Norsk tekst står alltid først. Velg språket ditt under for å få hjelp på morsmålet."+tl(UI.lede);
+}
+document.getElementById("langs").addEventListener("click",e=>{const b=e.target.closest("[data-l]");if(!b)return;lang=b.dataset.l;try{localStorage.setItem("kap3-lang",lang)}catch(_){}renderAll()});
+document.getElementById("tabs").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(!b)return;showTab(b.dataset.t)});
+function showTab(id,scroll=true){
+  tab=id;TABS.forEach(([t])=>{document.getElementById("p-"+t).hidden=t!==id});
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===id));
+  try{history.replaceState(null,"","#"+id)}catch(e){}
+  if(scroll){const bar=document.querySelector(".bar");const y=bar.getBoundingClientRect().top+window.scrollY;if(window.scrollY>y)window.scrollTo({top:y})}
+}
+
+/* ---------- Learn ---------- */
+let phVal=7;
+function renderLearn(){
+  const p=document.getElementById("p-laer");
+  p.innerHTML=`<p class="intro">Les ett kort om gangen og se på figurene. Momentlisten finner du under «Sjekkliste».${tl(UI.laerIntro)}</p>`+
+  CH.map(c=>`<div class="chapter" id="${c.id}">
+    <div class="chhead"><span class="chnum">${c.num}</span><h2>${c.title}</h2><span class="pages">${c.pages}</span></div>
+    ${tl(c.t,"inline")}
+    ${c.cards.map(k=>`<article class="card" id="${k.id}"><h3>${k.title}</h3>${k.fig&&k.fig!=="ph"?`<div class="fig">${FIG[k.fig]()}</div>`:""}${k.fig==="ph"?phTool():""}${k.html}${tl(k.t)}</article>`).join("")}
+    <p class="src">Les mer: <a href="https://ndla.no/search?query=${encodeURIComponent(c.q)}" target="_blank" rel="noopener">«${c.q}» på NDLA</a></p>
+  </div>`).join("");
+  wirePh();
+}
+function phTool(){
+  return `<div class="phtool">
+   <div class="phbar" id="phbar">${PHC.map((c,i)=>`<button class="phcell" data-ph="${i}" style="background:${c};color:${phText(i)}" aria-pressed="${i===phVal}" aria-label="pH ${i}">${i}</button>`).join("")}</div>
+   <div class="phscale-lbl"><span>← sterkt surt</span><span>nøytralt</span><span>sterkt basisk →</span></div>
+   <label for="phrange" class="src">Dra for å se fargen og eksempler${lang!=="no"?" · "+`<span lang="${L().code}" dir="${L().dir}">${pick(UI.slider)}</span>`:""}</label>
+   <input type="range" id="phrange" min="0" max="14" step="1" value="${phVal}">
+   <div class="phread" id="phread"></div></div>`;
+}
+function phCat(v){return v<7?{no:"Surt",t:SORTS.ph.buckets[0].t}:v>7?{no:"Basisk",t:SORTS.ph.buckets[2].t}:{no:"Nøytralt",t:SORTS.ph.buckets[1].t}}
+function updatePh(){
+  const r=document.getElementById("phread");if(!r)return;
+  const v=phVal,cat=phCat(v);
+  const ex=Object.values(S).filter(s=>Math.round(s.ph)===v);
+  r.innerHTML=`<div class="phbig" style="background:${PHC[v]};color:${phText(v)}">${v}</div>
+   <div class="phinfo"><div class="k">${cat.no}${lang!=="no"?` <span class="tl inline" lang="${L().code}" dir="${L().dir}">${pick(cat.t)}</span>`:""}</div>
+   <div>${ex.length?ex.map(s=>`${s.no} <span class="mut">(pH ${String(s.ph).replace(".",",")})</span>${lang!=="no"?` – <span lang="${L().code}" dir="${L().dir}">${pick(s.t)}</span>`:""}`).join("<br>"):"<span class='src'>Ingen eksempler akkurat her – prøv et annet tall.</span>"}</div>
+   ${v>1&&v<13?`<div class="src">${v<7?`10 ganger surere enn pH ${v+1}`:v>7?`10 ganger mer basisk enn pH ${v-1}`:"Verken surt eller basisk"}</div>`:""}</div>`;
+  document.querySelectorAll(".phcell").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.ph===v));
+  const rg=document.getElementById("phrange");if(rg&&+rg.value!==v)rg.value=v;
+}
+function wirePh(){
+  const bar=document.getElementById("phbar");if(!bar)return;
+  bar.addEventListener("click",e=>{const b=e.target.closest("[data-ph]");if(!b)return;phVal=+b.dataset.ph;updatePh()});
+  document.getElementById("phrange").addEventListener("input",e=>{phVal=+e.target.value;updatePh()});
+  updatePh();
+}
+
+/* ---------- Flashcards ---------- */
+let termOrder=TERMS.map((_,i)=>i),flipped=new Set();
+function renderTerms(){
+  const p=document.getElementById("p-begreper");
+  p.innerHTML=`<p class="intro">Trykk på et kort for å se forklaringen. Prøv å forklare begrepet høyt før du snur kortet.${tl(UI.flip)}</p>
+   <div class="toolbar"><button class="btn" id="shuf">Bland kortene</button><button class="btn" id="flipall">Snu alle</button><button class="btn" id="unflip">Skjul alle forklaringer</button></div>
+   <div class="fgrid">${termOrder.map(i=>{const [no,def,t]=TERMS[i];const f=flipped.has(i);const tt=pick(t);const term=tt?tt.split(" — ")[0]:"";
+    return `<button class="fcard ${f?"flipped":""}" data-i="${i}" aria-expanded="${f}">
+     <span class="side">${f?"Forklaring":"Begrep"}</span><span class="term">${no}</span>
+     ${term?`<span class="front-only"><span class="tl inline" lang="${L().code}" dir="${L().dir}">${term}</span></span>`:""}
+     <span class="back"><span>${def}</span>${tl(t)}</span></button>`}).join("")}</div>`;
+  p.querySelector(".fgrid").addEventListener("click",e=>{const c=e.target.closest(".fcard");if(!c)return;const i=+c.dataset.i;flipped.has(i)?flipped.delete(i):flipped.add(i);
+    c.classList.toggle("flipped");c.setAttribute("aria-expanded",flipped.has(i));c.querySelector(".side").textContent=flipped.has(i)?"Forklaring":"Begrep"});
+  p.querySelector("#shuf").onclick=()=>{termOrder=shuffle(termOrder.slice());flipped.clear();renderTerms()};
+  p.querySelector("#flipall").onclick=()=>{TERMS.forEach((_,i)=>flipped.add(i));renderTerms()};
+  p.querySelector("#unflip").onclick=()=>{flipped.clear();renderTerms()};
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+/* ---------- Quiz ---------- */
+let QZ=null;
+function newQuiz(){QZ={order:shuffle(QUIZ.map((_,i)=>i)),pos:0,score:0,answered:null,opts:null,wrongs:[]};QZ.opts=shuffle([0,1,2,3])}
+function renderQuiz(){
+  if(!QZ)newQuiz();
+  const p=document.getElementById("p-quiz");const n=QUIZ.length;
+  if(QZ.pos>=n){
+    const pct=Math.round(QZ.score/n*100);
+    p.innerHTML=`<div class="qbox"><div class="eyebrow">Resultat</div><div class="score">${QZ.score} / ${n}</div>
+     <p>Du fikk ${QZ.score} av ${n} riktige. ${pct===100?"Helt rått – du er klar!":pct>=70?"Bra jobbet! Se over de du bommet på.":"Les kortene under «Lær» og prøv igjen."}</p>
+     ${tl(UI.result.map(s=>s.replace("{s}",QZ.score).replace("{n}",n)))}
+     ${QZ.wrongs.length?`<div><b>Øv mer på:</b><ul>${QZ.wrongs.map(i=>`<li>${QUIZ[i].q}</li>`).join("")}</ul></div>`:""}
+     <div class="toolbar"><button class="btn primary" id="again">Ta quizen igjen</button></div></div>`;
+    p.querySelector("#again").onclick=()=>{newQuiz();renderQuiz()};return;
+  }
+  const qi=QZ.order[QZ.pos],q=QUIZ[qi];
+  p.innerHTML=`<p class="intro">Velg riktig svar. Svaralternativene står på norsk, slik som på prøven.${tl(UI.quizIntro)}</p>
+   <div class="qbox">
+    <div class="qmeta"><span>Spørsmål ${QZ.pos+1} av ${n}</span><span>Poeng: ${QZ.score}</span></div>
+    <div class="prog"><i style="width:${QZ.pos/n*100}%"></i></div>
+    <div class="qtext">${q.q}</div>${tl(q.tq)}
+    <div class="opts">${QZ.opts.map((o,k)=>`<button class="opt" data-o="${o}"><span class="ltr">${"ABCD"[k]}</span><span>${q.o[o]}</span></button>`).join("")}</div>
+    <div id="fb"></div></div>`;
+  const opts=p.querySelectorAll(".opt");
+  const answer=o=>{
+    if(QZ.answered!==null)return;QZ.answered=o;const ok=o===0;if(ok)QZ.score++;else QZ.wrongs.push(qi);
+    opts.forEach(b=>{b.disabled=true;const v=+b.dataset.o;if(v===0)b.classList.add("right");else if(v===o)b.classList.add("wrong")});
+    p.querySelector("#fb").innerHTML=`<div class="fb ${ok?"right":"wrong"}"><strong>${ok?"Riktig!":"Ikke helt."} ${lang!=="no"?`<span lang="${L().code}" dir="${L().dir}">${pick(ok?UI.right:UI.wrong)}</span>`:""}</strong><span>${q.e}</span>${tl(q.te)}</div>
+     <div class="toolbar" style="margin-top:12px"><button class="btn primary" id="next">${QZ.pos+1<n?"Neste spørsmål →":"Se resultatet"}</button></div>`;
+    p.querySelector(".qmeta span:last-child").textContent="Poeng: "+QZ.score;
+    const nx=p.querySelector("#next");nx.focus();nx.onclick=()=>{QZ.pos++;QZ.answered=null;QZ.opts=shuffle([0,1,2,3]);renderQuiz()};
+  };
+  opts.forEach(b=>b.onclick=()=>answer(+b.dataset.o));
+  if(QZ.answered!==null){const a=QZ.answered;QZ.answered=null;if(a===0)QZ.score--;else QZ.wrongs.pop();answer(a)}
+}
+
+/* ---------- Sort ---------- */
+let sortId="ph",SORTSTATE={};
+function sortState(){if(!SORTSTATE[sortId])SORTSTATE[sortId]={order:shuffle(SORTS[sortId].items.map((_,i)=>i)),placed:{},sel:null,tries:0,msg:"",ok:null};return SORTSTATE[sortId]}
+function renderSort(){
+  const G=SORTS[sortId],st=sortState();const p=document.getElementById("p-sorter");
+  const left=st.order.filter(i=>!(i in st.placed));
+  p.innerHTML=`<p class="intro">Trykk på et stoff, og trykk så på riktig gruppe.${tl(UI.sortIntro)}</p>
+   <div class="seg">${Object.entries(SORTS).map(([id,g])=>`<button class="chip" aria-pressed="${id===sortId}" data-s="${id}">${g.name}</button>`).join("")}</div>
+   <div class="pool" aria-label="Stoffer som skal sorteres">${left.length?left.map(i=>{const it=G.items[i];return `<button class="item" data-i="${i}" aria-pressed="${st.sel===i}">${it.no}${sm(it.t)}</button>`}).join(""):`<b>Alt er sortert! ${Object.keys(st.placed).length} stoffer, ${st.tries} feil underveis.</b>`}</div>
+   <div class="msg ${st.ok===true?"right":st.ok===false?"wrong":""}" role="status">${st.msg}</div>
+   <div class="buckets">${G.buckets.map(b=>`<button class="bucket ${st.sel!==null?"ready":""}" data-b="${b.id}"><span class="bh">${b.no}<span>${b.hint}</span></span>${tl(b.t,"inline")}
+     <span class="in">${Object.entries(st.placed).filter(([,v])=>v===b.id).map(([i])=>{const it=G.items[i];return `<span class="item done">${it.no}${it.ph!==undefined?` <small>pH ${String(it.ph).replace(".",",")}</small>`:""}</span>`}).join("")}</span></button>`).join("")}</div>
+   <div class="toolbar"><button class="btn" id="sreset">Start på nytt</button></div>`;
+  p.querySelector(".seg").onclick=e=>{const b=e.target.closest("[data-s]");if(!b)return;sortId=b.dataset.s;renderSort()};
+  p.querySelector(".pool").onclick=e=>{const b=e.target.closest("[data-i]");if(!b)return;const i=+b.dataset.i;st.sel=st.sel===i?null:i;st.msg="";st.ok=null;renderSort()};
+  p.querySelectorAll(".bucket").forEach(bk=>bk.onclick=()=>{
+    if(st.sel===null){st.msg="Velg et stoff først.";st.ok=false;renderSort();return}
+    const it=G.items[st.sel];
+    if(it.b===bk.dataset.b){st.placed[st.sel]=it.b;st.msg=`Riktig! ${it.no}${it.ph!==undefined?` har pH ca. ${String(it.ph).replace(".",",")}`:""}.`;st.ok=true;st.sel=null;renderSort()}
+    else{st.tries++;st.msg=`Ikke riktig. Tenk: ${sortId==="ph"?"er pH under, lik eller over 7?":"blander stoffet seg med vann?"}`;st.ok=false;renderSort();
+      const nb=document.querySelector(`.bucket[data-b="${bk.dataset.b}"]`);nb&&nb.classList.add("shake")}
+  });
+  p.querySelector("#sreset").onclick=()=>{delete SORTSTATE[sortId];renderSort()};
+}
+
+/* ---------- Checklist ---------- */
+let checked={};try{checked=JSON.parse(localStorage.getItem("kap3-check")||"{}")}catch(e){checked={}}
+function renderCheck(){
+  const p=document.getElementById("p-sjekk");const all=CHECK.flatMap(g=>g.items);const done=all.filter(it=>checked[it[0]]).length;
+  p.innerHTML=`<p class="intro">Momentlisten fra læreren. Kryss av det du kan forklare med egne ord. «Øv» tar deg til riktig kort.${tl(UI.checkIntro)}</p>
+   <div class="meter"><div class="prog"><i style="width:${done/all.length*100}%"></i></div><b>${done} / ${all.length}</b></div>
+   ${CHECK.map((g,gi)=>`<div class="chapter"><h3>${g.ch}</h3><div class="cl">${g.items.map((it,ii)=>{const id=`ck-${gi}-${ii}`;const on=!!checked[it[0]];
+    return `<div class="ci ${on?"checked":""}"><input type="checkbox" id="${id}" data-k="${it[0]}" ${on?"checked":""}><label class="txt" for="${id}">${it[0]}${tl(it[2])}</label><button class="go" data-go="${it[1]}">Øv</button></div>`}).join("")}</div></div>`).join("")}
+   <div class="toolbar"><button class="btn" id="ckreset">Fjern alle kryss</button></div>`;
+  p.querySelectorAll("input[type=checkbox]").forEach(c=>c.onchange=()=>{c.checked?checked[c.dataset.k]=1:delete checked[c.dataset.k];try{localStorage.setItem("kap3-check",JSON.stringify(checked))}catch(e){}renderCheck()});
+  p.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{showTab("laer",false);const el=document.getElementById(b.dataset.go);if(el){el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});el.classList.add("hl");setTimeout(()=>el.classList.remove("hl"),2200)}});
+  p.querySelector("#ckreset").onclick=()=>{checked={};try{localStorage.removeItem("kap3-check")}catch(e){}renderCheck()};
+}
+
+/* ---------- Boot ---------- */
+document.getElementById("phstrip").innerHTML=PHC.map(c=>`<span style="background:${c}"></span>`).join("");
+function renderAll(){renderBar();renderLearn();renderTerms();renderQuiz();renderSort();renderCheck();showTab(tab,false)}
+renderAll();
+</script>
+
+</body>
+</html>
