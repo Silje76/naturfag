@@ -352,7 +352,7 @@ const CH=[
      "ኢሙልጋቶር ዘለዎም ሕውስዋሳት ኣብነታት — ማዮኔዝ (ዘይቲ + ብጫ እንቋቑሖ፡ ኣብ ብጫ እንቋቑሖ ዘሎ ሌሲቲን ኢሙልጋቶር እዩ)፡ ጸባ፡ ክሬም ቆርበት፡ ሶስ ሳላጣ፡ ኣይስክሪም፡ ቸኮሌት፡ ማርጋሪን። ኣብ ፓኬታት ብዙሕ ግዜ ሌሲቲን (E322) ወይ E471 ተጻሒፉ ይርከብ።",
      "أمثلة على خلائط تحتوي على مستحلِب — المايونيز (زيت + صفار البيض؛ الليسيثين في صفار البيض هو المستحلِب)، الحليب، كريم البشرة، صلصة السلطة، الآيس كريم، الشوكولاتة، المارجرين. غالبًا ما يُكتب على العبوة ليسيثين (E322) أو E471."]}
  ]},
-{id:"c33",num:"3.3",title:"Syrer og baser",pages:"s. 97–98",q:"syrer og baser",
+{id:"c33",num:"3.3",title:"Syrer og baser",pages:"s. 97–98",q:"syrer og baser",url:"https://ndla.no/e/naturfag-hs/syrer-og-baser/5bdb4ad2ae",
  t:["ئەسید و بەیس","Asitler ve bazlar","اسیدها و بازها","Кислоти й основи","ኣሲዳትን ቤዛትን","الأحماض والقواعد"],
  cards:[
  {id:"l-surbas",title:"Sure og basiske stoffer",
@@ -638,7 +638,7 @@ function renderLearn(){
     <div class="chhead"><span class="chnum">${c.num}</span><h2>${c.title}</h2><span class="pages">${c.pages}</span></div>
     ${tl(c.t,"inline")}
     ${c.cards.map(k=>`<article class="card" id="${k.id}"><h3>${k.title}</h3>${k.fig&&k.fig!=="ph"?`<div class="fig">${FIG[k.fig]()}</div>`:""}${k.fig==="ph"?phTool():""}${k.html}${tl(k.t)}</article>`).join("")}
-    <p class="src">Les mer: <a href="https://ndla.no/search?query=${encodeURIComponent(c.q)}" target="_blank" rel="noopener">«${c.q}» på NDLA</a></p>
+    <p class="src">Les mer: ${c.url?`<a href="${c.url}" target="_blank" rel="noopener">«${c.title}» på NDLA</a>`:`<a href="https://ndla.no/search?query=${encodeURIComponent(c.q)}" target="_blank" rel="noopener">«${c.q}» på NDLA</a>`}</p>
   </div>`).join("");
   wirePh();
 }
