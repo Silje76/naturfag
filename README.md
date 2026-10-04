@@ -8,9 +8,9 @@ Naturfag Vg1 helse- og oppvekstfag, tilpasset elever med norsk som andrespråk.
 Åpne `mikroorganismer/index.html` i en nettleser. Siden virker uten internett, bortsett fra lenkene til NDLA.
 
 **Språkstøtte:** Enkel norsk, «Les høyt»-knapper (nettleserens opplesning), ordkort og en ordliste.
-Eleven velger eget språk: engelsk, arabisk, ukrainsk, somali, tigrinja, dari eller polsk.
+Eleven velger eget språk: engelsk, arabisk, ukrainsk, somali, tigrinja, dari, polsk, tyrkisk eller kurdisk (kurmanji og sorani).
 Trykk på understreka ord for å se oversettelse og forklaring.
-Oversettelsene bør kontrolleres av en morsmålslærer.
+Oversettelsene bør kontrolleres av en morsmålslærer, særlig somali, tigrinja og kurdisk.
 
 **Innhold (ca. 2–3 økter):**
 

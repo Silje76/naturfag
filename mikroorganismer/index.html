@@ -168,6 +168,9 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
         <option value="ti">ትግርኛ (tigrinja)</option>
         <option value="fa">دری (dari)</option>
         <option value="pl">Polski (polsk)</option>
+        <option value="tr">Türkçe (tyrkisk)</option>
+        <option value="kmr">Kurmancî (kurdisk, kurmanji)</option>
+        <option value="ckb">کوردیی سۆرانی (kurdisk, sorani)</option>
       </select>
       <span style="font-size:.9rem;opacity:.9">Trykk på <u>understreka ord</u> for å se ordet på ditt språk.</span>
     </div>
@@ -490,27 +493,27 @@ const el=(tag,attrs={},html)=>{const e=document.createElement(tag);for(const k i
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 
 /* ---------- Glossary ---------- */
-const RTL={ar:1,fa:1};
+const RTL={ar:1,fa:1,ckb:1};
 const G={
- mikroorganisme:{no:"mikroorganisme",def:"veldig liten levende ting",en:"microorganism",ar:"كائن حي دقيق",uk:"мікроорганізм",so:"noole aad u yar (jeermis)",ti:"ንእሽተይ ህያው (ማይክሮኦርጋኒዝም)",fa:"میکروارگانیزم / ریزجاندار",pl:"mikroorganizm"},
- bakterie:{no:"bakterie",def:"en liten celle uten cellekjerne",en:"bacterium (bacteria)",ar:"بكتيريا",uk:"бактерія",so:"bakteeriya",ti:"ባክተርያ",fa:"باکتری",pl:"bakteria"},
- virus:{no:"virus",def:"smittestoff som trenger en celle for å lage nye virus",en:"virus",ar:"فيروس",uk:"вірус",so:"fayras",ti:"ቫይረስ",fa:"ویروس",pl:"wirus"},
- sopp:{no:"sopp",def:"f.eks. mugg og gjær",en:"fungus",ar:"فطر",uk:"гриб",so:"fangas",ti:"ፈንገስ",fa:"قارچ",pl:"grzyb"},
- celle:{no:"celle",def:"den minste levende delen i alt som lever",en:"cell",ar:"خلية",uk:"клітина",so:"unug",ti:"ዋህዮ",fa:"حجره / سلول",pl:"komórka"},
- formere:{no:"formere seg",def:"lage flere av seg selv",en:"to reproduce, multiply",ar:"يتكاثر",uk:"розмножуватися",so:"tarmid / tarmo",ti:"ምብዛሕ",fa:"تکثیر شدن",pl:"rozmnażać się"},
- naering:{no:"næring",def:"mat som gir energi og byggestoff",en:"nutrients, food",ar:"غذاء",uk:"поживні речовини",so:"nafaqo",ti:"መግቢ",fa:"مواد غذایی",pl:"składniki odżywcze"},
- smitte:{no:"smitte",def:"når en sykdom går fra én til en annen",en:"infection, contagion",ar:"انتقال العدوى",uk:"зараження",so:"faafitaan cudur",ti:"ለበዳ",fa:"سرایت",pl:"zakażenie"},
- smittekjede:{no:"smittekjede",def:"veien smitten går, i seks ledd",en:"chain of infection",ar:"سلسلة العدوى",uk:"ланцюг інфекції",so:"silsiladda faafitaanka",ti:"ሰንሰለት ለበዳ",fa:"زنجیره سرایت",pl:"łańcuch zakażenia"},
- smittevern:{no:"smittevern",def:"alt vi gjør for å hindre smitte",en:"infection control",ar:"الوقاية من العدوى",uk:"профілактика інфекцій",so:"ka hortagga faafitaanka",ti:"ምክልኻል ለበዳ",fa:"پیشگیری از سرایت",pl:"zapobieganie zakażeniom"},
- infeksjon:{no:"infeksjon",def:"når mikroorganismer formerer seg i kroppen og gjør deg syk",en:"infection",ar:"عدوى / التهاب",uk:"інфекція",so:"caabuq",ti:"ረኽሲ",fa:"عفونت",pl:"infekcja"},
- symptom:{no:"symptom",def:"tegn på sykdom, f.eks. feber",en:"symptom",ar:"عَرَض",uk:"симптом",so:"calaamad",ti:"ምልክት",fa:"علامت / نشانه",pl:"objaw"},
- handhygiene:{no:"håndhygiene",def:"å vaske eller sprite hendene",en:"hand hygiene",ar:"نظافة اليدين",uk:"гігієна рук",so:"nadaafadda gacmaha",ti:"ጽሬት ኢድ",fa:"بهداشت دست",pl:"higiena rąk"},
- desinfisere:{no:"desinfisere / hånddesinfeksjon",def:"drepe mikroorganismer, f.eks. med sprit",en:"to disinfect / hand sanitizer",ar:"تطهير / معقم اليدين",uk:"дезінфікувати / антисептик для рук",so:"jeermis-dile gacmaha",ti:"ምጽራይ ካብ ጀርም / ናይ ኢድ ጸረ-ጀርም",fa:"ضدعفونی کردن / ضدعفونی دست",pl:"dezynfekować / płyn do dezynfekcji rąk"},
- immunforsvar:{no:"immunforsvar",def:"kroppens forsvar mot sykdom",en:"immune system",ar:"جهاز المناعة",uk:"імунна система",so:"habdhiska difaaca jirka",ti:"ስርዓተ ምክልኻል ሰብነት",fa:"سیستم معافیت (ایمنی)",pl:"układ odpornościowy"},
- antistoff:{no:"antistoff",def:"stoff kroppen lager for å angripe smittestoff",en:"antibody",ar:"جسم مضاد",uk:"антитіло",so:"unugyada difaaca (antibody)",ti:"ኣንቲቦዲ",fa:"پادتن",pl:"przeciwciało"},
- vaksine:{no:"vaksine",def:"gir beskyttelse mot en sykdom før du blir smittet",en:"vaccine",ar:"لقاح",uk:"вакцина",so:"tallaal",ti:"ክታበት",fa:"واکسین",pl:"szczepionka"},
- antibiotika:{no:"antibiotika",def:"medisin mot bakterier – ikke mot virus",en:"antibiotics",ar:"مضادات حيوية",uk:"антибіотики",so:"antibiyootig",ti:"ኣንቲባዮቲክ",fa:"انتی‌بیوتیک",pl:"antybiotyki"},
- resistens:{no:"resistens / resistent",def:"når bakterier tåler medisinen, og den ikke virker",en:"resistance / resistant",ar:"مقاومة / مقاوم",uk:"стійкість / стійкий",so:"adkeysi (dawadu ma shaqeyso)",ti:"ተጻዋርነት",fa:"مقاومت / مقاوم",pl:"oporność / oporny"}
+ mikroorganisme:{no:"mikroorganisme",def:"veldig liten levende ting",en:"microorganism",ar:"كائن حي دقيق",uk:"мікроорганізм",so:"noole aad u yar (jeermis)",ti:"ንእሽተይ ህያው (ማይክሮኦርጋኒዝም)",fa:"میکروارگانیزم / ریزجاندار",pl:"mikroorganizm",tr:"mikroorganizma",kmr:"mîkroorganîzma (zindiyên pir biçûk)",ckb:"زیندەوەری ورد (مایکرۆئۆرگانیزم)"},
+ bakterie:{no:"bakterie",def:"en liten celle uten cellekjerne",en:"bacterium (bacteria)",ar:"بكتيريا",uk:"бактерія",so:"bakteeriya",ti:"ባክተርያ",fa:"باکتری",pl:"bakteria",tr:"bakteri",kmr:"bakterî",ckb:"بەکتریا"},
+ virus:{no:"virus",def:"smittestoff som trenger en celle for å lage nye virus",en:"virus",ar:"فيروس",uk:"вірус",so:"fayras",ti:"ቫይረስ",fa:"ویروس",pl:"wirus",tr:"virüs",kmr:"vîrûs",ckb:"ڤایرۆس"},
+ sopp:{no:"sopp",def:"f.eks. mugg og gjær",en:"fungus",ar:"فطر",uk:"гриб",so:"fangas",ti:"ፈንገስ",fa:"قارچ",pl:"grzyb",tr:"mantar",kmr:"kivark",ckb:"کەڕوو"},
+ celle:{no:"celle",def:"den minste levende delen i alt som lever",en:"cell",ar:"خلية",uk:"клітина",so:"unug",ti:"ዋህዮ",fa:"حجره / سلول",pl:"komórka",tr:"hücre",kmr:"şane",ckb:"خانە"},
+ formere:{no:"formere seg",def:"lage flere av seg selv",en:"to reproduce, multiply",ar:"يتكاثر",uk:"розмножуватися",so:"tarmid / tarmo",ti:"ምብዛሕ",fa:"تکثیر شدن",pl:"rozmnażać się",tr:"çoğalmak",kmr:"zêde bûn, pir bûn",ckb:"زۆربوون"},
+ naering:{no:"næring",def:"mat som gir energi og byggestoff",en:"nutrients, food",ar:"غذاء",uk:"поживні речовини",so:"nafaqo",ti:"መግቢ",fa:"مواد غذایی",pl:"składniki odżywcze",tr:"besin",kmr:"xurek, xwarin",ckb:"خۆراک"},
+ smitte:{no:"smitte",def:"når en sykdom går fra én til en annen",en:"infection, contagion",ar:"انتقال العدوى",uk:"зараження",so:"faafitaan cudur",ti:"ለበዳ",fa:"سرایت",pl:"zakażenie",tr:"bulaşma",kmr:"vegirtin",ckb:"گواستنەوەی نەخۆشی"},
+ smittekjede:{no:"smittekjede",def:"veien smitten går, i seks ledd",en:"chain of infection",ar:"سلسلة العدوى",uk:"ланцюг інфекції",so:"silsiladda faafitaanka",ti:"ሰንሰለት ለበዳ",fa:"زنجیره سرایت",pl:"łańcuch zakażenia",tr:"enfeksiyon zinciri",kmr:"zincîra vegirtinê",ckb:"زنجیرەی تووشبوون"},
+ smittevern:{no:"smittevern",def:"alt vi gjør for å hindre smitte",en:"infection control",ar:"الوقاية من العدوى",uk:"профілактика інфекцій",so:"ka hortagga faafitaanka",ti:"ምክልኻል ለበዳ",fa:"پیشگیری از سرایت",pl:"zapobieganie zakażeniom",tr:"enfeksiyon kontrolü",kmr:"parastina ji vegirtinê",ckb:"خۆپاراستن لە تووشبوون"},
+ infeksjon:{no:"infeksjon",def:"når mikroorganismer formerer seg i kroppen og gjør deg syk",en:"infection",ar:"عدوى / التهاب",uk:"інфекція",so:"caabuq",ti:"ረኽሲ",fa:"عفونت",pl:"infekcja",tr:"enfeksiyon",kmr:"înfeksiyon",ckb:"هەوکردن / تووشبوون"},
+ symptom:{no:"symptom",def:"tegn på sykdom, f.eks. feber",en:"symptom",ar:"عَرَض",uk:"симптом",so:"calaamad",ti:"ምልክት",fa:"علامت / نشانه",pl:"objaw",tr:"belirti",kmr:"nîşan",ckb:"نیشانە"},
+ handhygiene:{no:"håndhygiene",def:"å vaske eller sprite hendene",en:"hand hygiene",ar:"نظافة اليدين",uk:"гігієна рук",so:"nadaafadda gacmaha",ti:"ጽሬት ኢድ",fa:"بهداشت دست",pl:"higiena rąk",tr:"el hijyeni",kmr:"paqijiya destan",ckb:"پاکوخاوێنی دەست"},
+ desinfisere:{no:"desinfisere / hånddesinfeksjon",def:"drepe mikroorganismer, f.eks. med sprit",en:"to disinfect / hand sanitizer",ar:"تطهير / معقم اليدين",uk:"дезінфікувати / антисептик для рук",so:"jeermis-dile gacmaha",ti:"ምጽራይ ካብ ጀርም / ናይ ኢድ ጸረ-ጀርም",fa:"ضدعفونی کردن / ضدعفونی دست",pl:"dezynfekować / płyn do dezynfekcji rąk",tr:"dezenfekte etmek / el dezenfektanı",kmr:"dezenfekte kirin / dermanê paqijkirina destan",ckb:"پاککردنەوە لە میکرۆب / پاککەرەوەی دەست"},
+ immunforsvar:{no:"immunforsvar",def:"kroppens forsvar mot sykdom",en:"immune system",ar:"جهاز المناعة",uk:"імунна система",so:"habdhiska difaaca jirka",ti:"ስርዓተ ምክልኻል ሰብነት",fa:"سیستم معافیت (ایمنی)",pl:"układ odpornościowy",tr:"bağışıklık sistemi",kmr:"sîstema parastina laş",ckb:"سیستەمی بەرگری لەش"},
+ antistoff:{no:"antistoff",def:"stoff kroppen lager for å angripe smittestoff",en:"antibody",ar:"جسم مضاد",uk:"антитіло",so:"unugyada difaaca (antibody)",ti:"ኣንቲቦዲ",fa:"پادتن",pl:"przeciwciało",tr:"antikor",kmr:"antîkor",ckb:"دژەتەن"},
+ vaksine:{no:"vaksine",def:"gir beskyttelse mot en sykdom før du blir smittet",en:"vaccine",ar:"لقاح",uk:"вакцина",so:"tallaal",ti:"ክታበት",fa:"واکسین",pl:"szczepionka",tr:"aşı",kmr:"vaksîn",ckb:"ڤاکسین"},
+ antibiotika:{no:"antibiotika",def:"medisin mot bakterier – ikke mot virus",en:"antibiotics",ar:"مضادات حيوية",uk:"антибіотики",so:"antibiyootig",ti:"ኣንቲባዮቲክ",fa:"انتی‌بیوتیک",pl:"antybiotyki",tr:"antibiyotik",kmr:"antîbiyotîk",ckb:"ئەنتیبایۆتیک (دژەزیندەیی)"},
+ resistens:{no:"resistens / resistent",def:"når bakterier tåler medisinen, og den ikke virker",en:"resistance / resistant",ar:"مقاومة / مقاوم",uk:"стійкість / стійкий",so:"adkeysi (dawadu ma shaqeyso)",ti:"ተጻዋርነት",fa:"مقاومت / مقاوم",pl:"oporność / oporny",tr:"direnç / dirençli",kmr:"berxwedan / berxwedêr",ckb:"بەرگری / بەرگریکەر"}
 };
 const ORDER=Object.keys(G);
 let lang=store.get("lang")||"en";
