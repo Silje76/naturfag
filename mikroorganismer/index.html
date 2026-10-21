@@ -156,7 +156,7 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
 
 <header class="top">
   <div class="wrap">
-    <h1>Mikroorganismer – bakterier og virus</h1>
+    <h1>Mikroorganismer – bakterier, virus og sopp</h1>
     <p>Naturfag · Vg1 helse- og oppvekstfag · Lett norsk med ordhjelp</p>
     <div class="lang-pick">
       <label for="lang"><b>Mitt språk:</b></label>
@@ -184,13 +184,17 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
     <a href="#s2" data-sec="s2">2 Ord</a>
     <a href="#s3" data-sec="s3">3 Mikroorganismer</a>
     <a href="#s4" data-sec="s4">4 Bakterier</a>
-    <a href="#s5" data-sec="s5">5 Virus</a>
-    <a href="#s6" data-sec="s6">6 Bakterie eller virus?</a>
-    <a href="#s7" data-sec="s7">7 Smittekjeden</a>
-    <a href="#s8" data-sec="s8">8 Håndhygiene</a>
-    <a href="#s9" data-sec="s9">9 Forsvar og medisin</a>
-    <a href="#s10" data-sec="s10">10 Yrket</a>
-    <a href="#s11" data-sec="s11">11 Quiz</a>
+    <a href="#nb" data-sec="nb">5 Nyttige og farlige bakterier</a>
+    <a href="#s5" data-sec="s5">6 Virus</a>
+    <a href="#sopp" data-sec="sopp">7 Sopp</a>
+    <a href="#s6" data-sec="s6">8 Bakterie, virus eller sopp?</a>
+    <a href="#s7" data-sec="s7">9 Smitte</a>
+    <a href="#s8" data-sec="s8">10 Beskytt deg</a>
+    <a href="#s9" data-sec="s9">11 Immunforsvaret</a>
+    <a href="#kilde" data-sec="kilde">12 Kildekritikk</a>
+    <a href="#s10" data-sec="s10">13 Yrket</a>
+    <a href="#s11" data-sec="s11">14 Quiz</a>
+    <a href="#moment">Momentliste</a>
     <a href="#kilder">Kilder</a>
   </div>
 </nav>
@@ -205,6 +209,7 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
   <h3>Hva tror du? Trykk på «Sant» eller «Usant».</h3>
   <div id="pretest"></div>
   <p class="tip">💡 Det er helt greit å svare feil nå. Du får svarene etterpå, og du kan prøve igjen på slutten.</p>
+  <p class="easy"><b>Øver du til prøven?</b> <a href="#moment">Gå til momentlista</a>. Der ser du alle spørsmålene og hvor på siden du finner svaret.</p>
 </section>
 
 <!-- 2 -->
@@ -264,11 +269,82 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
 <!-- 4 -->
 <section class="card" id="s4">
   <h2><span class="step">4</span> Bakterier</h2>
-  <p class="goal">Mål: Jeg kan beskrive en bakterie og hva den trenger for å vokse.</p>
+  <p class="goal">Mål: Jeg kan beskrive hvordan en bakterie er bygd opp, hvor vi finner bakterier, hvordan de får navn og hvordan de formerer seg.</p>
+  <h3>Slik er en bakterie bygd opp</h3>
+  <div class="toolbar"><button class="listen small" data-read="r4a">Les høyt</button></div>
+  <div id="r4a">
+    <p>En <span class="ord" data-k="bakterie">bakterie</span> er én <span class="ord" data-k="celle">celle</span>. Den har <b>ikke cellekjerne</b>. Vi sier at bakterier er <b>prokaryote</b>. Bakterier er levende: de spiser, vokser og <span class="ord" data-k="formere">formerer seg</span>.</p>
+  </div>
+  <svg class="svgfig" viewBox="0 0 600 230" role="img" aria-label="Tegning av en bakterie med kapsel, cellevegg, cellemembran, cytoplasma, DNA, plasmid, ribosomer og flagell">
+    <rect x="120" y="60" width="300" height="110" rx="55" fill="none" stroke="var(--bact)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <rect x="130" y="70" width="280" height="90" rx="45" fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="4"/>
+    <rect x="139" y="79" width="262" height="72" rx="36" fill="none" stroke="var(--bact)" stroke-width="1.5"/>
+    <path d="M200 115 C215 95, 235 135, 250 112 S285 92, 300 118 S330 135, 320 110" fill="none" stroke="var(--accent)" stroke-width="3"/>
+    <circle cx="355" cy="128" r="9" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+    <g fill="var(--ink)" opacity=".55"><circle cx="170" cy="100" r="3"/><circle cx="182" cy="132" r="3"/><circle cx="270" cy="140" r="3"/><circle cx="340" cy="96" r="3"/><circle cx="230" cy="96" r="3"/><circle cx="375" cy="108" r="3"/></g>
+    <path d="M410 115 C440 100, 450 135, 480 118 S520 100, 545 120" fill="none" stroke="var(--bact)" stroke-width="2.5"/>
+    <text x="120" y="35" text-anchor="middle">kapsel (slimlag)</text><line x1="125" y1="40" x2="140" y2="66" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="270" y="22" text-anchor="middle">cellevegg</text><line x1="270" y1="27" x2="270" y2="70" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="420" y="35" text-anchor="middle">cellemembran</text><line x1="415" y1="40" x2="385" y2="82" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="80" y="205" text-anchor="middle">ribosomer</text><line x1="95" y1="195" x2="180" y2="134" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="240" y="215" text-anchor="middle">DNA (arvestoff)</text><line x1="245" y1="203" x2="250" y2="118" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="390" y="215" text-anchor="middle">plasmid</text><line x1="385" y1="203" x2="358" y2="138" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="520" y="160" text-anchor="middle">flagell (hale)</text>
+    <text x="300" y="185" text-anchor="middle" style="font-size:11px">cytoplasma (væske inni)</text>
+  </svg>
+  <div class="gloss-wrap"><table class="gloss">
+    <thead><tr><th>Del</th><th>Hva gjør den?</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cellevegg</b></td><td>Gir bakterien form og beskytter den.</td></tr>
+      <tr><td><b>Cellemembran</b></td><td>Bestemmer hva som går inn og ut av cellen.</td></tr>
+      <tr><td><b>Cytoplasma</b></td><td>Væske inni cellen. Her skjer det meste av arbeidet.</td></tr>
+      <tr><td><b>DNA (arvestoff)</b></td><td>Én lang ring som ligger fritt i cellen. Den styrer cellen.</td></tr>
+      <tr><td><b>Plasmider</b></td><td>Små ringer av DNA. De kan gi bakterien nye egenskaper, for eksempel resistens mot antibiotika.</td></tr>
+      <tr><td><b>Ribosomer</b></td><td>Lager proteiner.</td></tr>
+      <tr><td><b>Kapsel</b> (noen bakterier)</td><td>Et slimlag ytterst som beskytter mot tørke og mot kroppens forsvar.</td></tr>
+      <tr><td><b>Flagell</b> (noen bakterier)</td><td>En «hale» som bakterien svømmer med.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Hvor finner vi bakterier?</h3>
+  <div class="toolbar"><button class="listen small" data-read="r4b">Les høyt</button></div>
+  <div id="r4b">
+    <p>Bakterier finnes <b>overalt</b>: i jord, vann, luft og mat. I én teskje jord kan det være milliarder av bakterier. Noen bakterier lever i varme kilder, andre i is.</p>
+    <p>Bakterier lever også på og i kroppen vår: på huden, i munnen, i nesen, i tarmen og i skjeden. I tarmen har vi omtrent like mange bakterieceller som vi har kroppsceller. De fleste av dem er nyttige. Vi kaller dem <b>normalfloraen</b>.</p>
+  </div>
+
+  <h3>Hvordan gir vi bakterier navn?</h3>
+  <div class="toolbar"><button class="listen small" data-read="r4c">Les høyt</button></div>
+  <div id="r4c">
+    <p>Vi deler bakterier inn etter <b>formen</b> de har. Det er tre hovedformer: kuler, staver og spiraler.</p>
+    <p>Kulebakterier heter <b>kokker</b>. Navnet sier også hvordan kokkene ligger sammen: <b>diplokokker</b> ligger to og to, <b>streptokokker</b> ligger i kjeder, og <b>stafylokokker</b> ligger i klaser som druer.</p>
+    <p>Hver bakterieart har også et vitenskapelig navn i to deler: slekt og art. Eksempler er <i>Escherichia coli</i> (E. coli) og <i>Staphylococcus aureus</i> (gule stafylokokker). Navnet skrives i kursiv, og første ord har stor forbokstav.</p>
+  </div>
+  <svg class="svgfig" viewBox="0 0 660 190" role="img" aria-label="Bakterieformer: kokker, diplokokker, streptokokker, stafylokokker, staver og spiriller">
+    <g fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="2.5">
+      <circle cx="55" cy="70" r="14"/>
+      <circle cx="150" cy="70" r="13"/><circle cx="176" cy="70" r="13"/>
+      <circle cx="235" cy="70" r="11"/><circle cx="257" cy="62" r="11"/><circle cx="279" cy="70" r="11"/><circle cx="301" cy="62" r="11"/><circle cx="323" cy="70" r="11"/>
+      <circle cx="390" cy="58" r="11"/><circle cx="411" cy="54" r="11"/><circle cx="432" cy="60" r="11"/><circle cx="398" cy="78" r="11"/><circle cx="420" cy="80" r="11"/><circle cx="441" cy="78" r="11"/><circle cx="410" cy="98" r="11"/>
+      <rect x="485" y="50" width="56" height="20" rx="10"/><rect x="495" y="82" width="56" height="20" rx="10"/>
+    </g>
+    <path d="M580 75 q10 -22 20 0 t20 0 t20 0" fill="none" stroke="var(--bact)" stroke-width="5" stroke-linecap="round"/>
+    <text x="55" y="140" text-anchor="middle">kokk</text><text x="55" y="158" text-anchor="middle" style="font-size:11px">kule</text>
+    <text x="163" y="140" text-anchor="middle">diplokokker</text><text x="163" y="158" text-anchor="middle" style="font-size:11px">to og to</text>
+    <text x="279" y="140" text-anchor="middle">streptokokker</text><text x="279" y="158" text-anchor="middle" style="font-size:11px">kjede</text>
+    <text x="415" y="140" text-anchor="middle">stafylokokker</text><text x="415" y="158" text-anchor="middle" style="font-size:11px">klase (som druer)</text>
+    <text x="518" y="140" text-anchor="middle">staver</text><text x="518" y="158" text-anchor="middle" style="font-size:11px">basiller</text>
+    <text x="610" y="140" text-anchor="middle">spiriller</text><text x="610" y="158" text-anchor="middle" style="font-size:11px">spiral</text>
+  </svg>
+  <p class="tip">✏️ <b>Tegn selv:</b> Tegn en kokk, en streptokokk, en stafylokokk, en stav og en spirill i boka di. Skriv navnet under hver tegning.</p>
+  <h3>Hvilken form er det?</h3>
+  <div id="shapeQ"></div>
+
+  <h3>Hvordan formerer bakterier seg?</h3>
   <div class="toolbar"><button class="listen small" data-read="r4">Les høyt</button></div>
   <div id="r4">
-    <p>En <span class="ord" data-k="bakterie">bakterie</span> er én <span class="ord" data-k="celle">celle</span>. Den har ikke cellekjerne. Arvestoffet (DNA) ligger fritt inni cellen. Bakterier er levende: de spiser, vokser og <span class="ord" data-k="formere">formerer seg</span>.</p>
-    <p>En bakterie formerer seg ved å dele seg i to. Det kalles <b>todeling</b>. Når forholdene er gode, kan en bakterie dele seg omtrent hver 20. minutt. Da blir det fort veldig mange!</p>
+    <p>En bakterie formerer seg ved å dele seg i to. Først kopierer den DNA-et sitt. Så deler cellen seg i to like celler. Det kalles <b>todeling</b>. Når forholdene er gode, kan en bakterie dele seg omtrent hver 20. minutt. Da blir det fort veldig mange!</p>
+    <p>Når forholdene er dårlige, kan noen bakterier lage <span class="ord" data-k="spore">sporer</span>. En spore er en hvileform med tykt skall. Den tåler tørke, kulde og til og med koking. Når forholdene blir gode igjen, blir sporen til en vanlig bakterie.</p>
     <p>Bakterier trenger dette for å vokse:</p>
     <ul class="clean">
       <li>🌡️ <b>Riktig temperatur</b> – mange liker det varmt, rundt 37 °C (som kroppen vår).</li>
@@ -278,19 +354,6 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
     </ul>
     <p>Kulde (kjøleskap) gjør at bakteriene vokser sakte. Høy varme (koking, over 70 °C) dreper de fleste bakterier.</p>
   </div>
-  <svg class="svgfig" viewBox="0 0 520 150" role="img" aria-label="Tegning av en bakterie med cellevegg, cellemembran, DNA og flagell">
-    <rect x="110" y="35" width="260" height="80" rx="40" fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="4"/>
-    <rect x="118" y="43" width="244" height="64" rx="32" fill="none" stroke="var(--bact)" stroke-width="1.5" stroke-dasharray="4 3"/>
-    <path d="M180 75 C200 55, 220 95, 240 75 S280 55, 300 80" fill="none" stroke="var(--accent)" stroke-width="3"/>
-    <path d="M370 75 C400 60, 410 95, 440 78 S480 60, 500 80" fill="none" stroke="var(--bact)" stroke-width="2.5"/>
-    <text x="240" y="20" text-anchor="middle">cellevegg</text>
-    <line x1="240" y1="24" x2="240" y2="36" stroke="currentColor" stroke-opacity=".5"/>
-    <text x="240" y="140" text-anchor="middle">DNA (arvestoff)</text>
-    <line x1="240" y1="128" x2="240" y2="82" stroke="currentColor" stroke-opacity=".5"/>
-    <text x="465" y="110" text-anchor="middle">flagell (hale)</text>
-    <text x="55" y="80" text-anchor="middle">ingen</text>
-    <text x="55" y="96" text-anchor="middle">cellekjerne</text>
-  </svg>
 
   <h3>🧫 Forsøk på skjermen: Hvor fort vokser bakteriene?</h3>
   <p>Velg temperatur og tid. Vi starter med <b>én</b> bakterie på et brødsmule.</p>
@@ -316,17 +379,92 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
   <div id="simQ"></div>
 </section>
 
-<!-- 5 -->
+<!-- 5 nyttige og farlige bakterier -->
+<section class="card" id="nb">
+  <h2><span class="step">5</span> Nyttige og farlige bakterier</h2>
+  <p class="goal">Mål: Jeg kan gi eksempler på hvordan bakterier er nyttige i naturen, i kroppen og i industrien, og hvordan de kan være farlige.</p>
+  <div class="toolbar"><button class="listen small" data-read="rnb">Les høyt</button></div>
+  <div id="rnb">
+    <div class="grid2">
+      <div class="box"><h4>🌳 I naturen</h4>
+        <ul class="clean">
+          <li><b>Nedbrytere:</b> Bakterier bryter ned døde planter og dyr. Da kommer næringsstoffene tilbake til jorda.</li>
+          <li><b>Nitrogenbakterier</b> hjelper planter med å få nitrogen, som de trenger for å vokse.</li>
+          <li><b>Blågrønnbakterier</b> driver fotosyntese og lager oksygen.</li>
+        </ul></div>
+      <div class="box"><h4>🧍 I kroppen</h4>
+        <ul class="clean">
+          <li><b>Tarmbakterier</b> hjelper oss å bryte ned maten og lager K-vitamin.</li>
+          <li><b>Normalfloraen</b> på huden, i munnen og i skjeden tar plassen fra farlige mikroorganismer.</li>
+        </ul></div>
+      <div class="box"><h4>🏭 I industrien</h4>
+        <ul class="clean">
+          <li><b>Melkesyrebakterier</b> lager yoghurt, surmelk, ost og surkål.</li>
+          <li><b>Propionsyrebakterier</b> lager hullene i jarlsbergost.</li>
+          <li><b>Medisin:</b> Bakterier med endret arvestoff lager insulin til personer med diabetes.</li>
+          <li><b>Renseanlegg</b> bruker bakterier til å rense kloakk og lage biogass.</li>
+        </ul></div>
+    </div>
+    <h3>Hvordan kan bakterier være farlige?</h3>
+    <p>Noen bakterier kommer inn i kroppen og formerer seg der. Det kalles en <span class="ord" data-k="infeksjon">infeksjon</span>. Mange slike bakterier lager <b>giftstoffer</b> som skader cellene våre. Bakterier i mat kan også lage giftstoffer før vi spiser maten.</p>
+  </div>
+  <div class="gloss-wrap"><table class="gloss">
+    <thead><tr><th>Bakteriesykdom</th><th>Bakterie</th><th>Hvordan smitter den?</th></tr></thead>
+    <tbody>
+      <tr><td>Halsbetennelse</td><td>Streptokokker</td><td>Dråper fra hoste og nys</td></tr>
+      <tr><td>Lungebetennelse</td><td>Pneumokokker</td><td>Dråper fra hoste og nys</td></tr>
+      <tr><td>Urinveisinfeksjon</td><td>E. coli fra tarmen</td><td>Tarmbakterier kommer inn i urinrøret</td></tr>
+      <tr><td>Matforgiftning</td><td>Salmonella, campylobacter</td><td>Mat og vann</td></tr>
+      <tr><td>Sårinfeksjon, byller</td><td>Gule stafylokokker (MRSA er en resistent type)</td><td>Kontakt, hender</td></tr>
+      <tr><td>Tuberkulose</td><td>Tuberkelbakterien</td><td>Luft</td></tr>
+      <tr><td>Stivkrampe</td><td>Stivkrampebakterien (lager sporer i jord)</td><td>Jord i sår</td></tr>
+      <tr><td>Klamydia</td><td>Klamydiabakterien</td><td>Sex</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Hvor er bakterien nyttig?</h3>
+  <div id="nbQ"></div>
+</section>
+
+<!-- 6 virus -->
 <section class="card" id="s5">
-  <h2><span class="step">5</span> Virus</h2>
-  <p class="goal">Mål: Jeg kan forklare hvordan et virus formerer seg.</p>
+  <h2><span class="step">6</span> Virus</h2>
+  <p class="goal">Mål: Jeg kan forklare hvordan virus er bygd opp, hvor vi finner dem, hvordan de formerer seg, og hvordan de kan være nyttige og farlige.</p>
+  <h3>Slik er et virus bygd opp</h3>
   <div class="toolbar"><button class="listen small" data-read="r5">Les høyt</button></div>
   <div id="r5">
-    <p>Et <span class="ord" data-k="virus">virus</span> er mye mindre enn en bakterie. Et virus er <b>ikke en celle</b>. Det er bare arvestoff inni et skall av protein.</p>
-    <p>Et virus kan ikke spise eller vokse alene. Det må inn i en levende celle for å lage nye virus. Cellen som viruset går inn i, kalles en <b>vertscelle</b>.</p>
-    <p>Mange forskere sier derfor at virus ikke er levende.</p>
+    <p>Et <span class="ord" data-k="virus">virus</span> er mye mindre enn en bakterie. Et virus er <b>ikke en celle</b>. Det har ingen cellevegg, ingen cytoplasma og ingen ribosomer.</p>
+    <p>Et virus består av to eller tre deler:</p>
+    <ul class="clean">
+      <li><b>Arvestoff</b> (DNA eller RNA) i midten.</li>
+      <li>En <b>proteinkappe</b> rundt arvestoffet. Den kalles også kapsid.</li>
+      <li>Noen virus har også en <b>fettkappe</b> ytterst, med «pigger» av protein. Piggene hjelper viruset å feste seg til cellen. Influensavirus og koronavirus har fettkappe.</li>
+    </ul>
+    <p>Sprit løser opp fettkappen. Derfor virker sprit godt mot influensa og korona. Norovirus har ikke fettkappe, og derfor virker sprit dårlig mot omgangssyke.</p>
   </div>
-  <h3>Slik formerer et virus seg – trykk «Neste steg»</h3>
+  <svg class="svgfig" viewBox="0 0 520 200" role="img" aria-label="Tegning av et virus med arvestoff, proteinkappe, fettkappe og pigger">
+    <g stroke="var(--virus)" stroke-width="4" stroke-linecap="round">
+      <line x1="200" y1="100" x2="200" y2="18"/><line x1="200" y1="100" x2="200" y2="182"/><line x1="200" y1="100" x2="118" y2="100"/><line x1="200" y1="100" x2="282" y2="100"/>
+      <line x1="200" y1="100" x2="142" y2="42"/><line x1="200" y1="100" x2="258" y2="42"/><line x1="200" y1="100" x2="142" y2="158"/><line x1="200" y1="100" x2="258" y2="158"/>
+    </g>
+    <g fill="var(--virus)"><circle cx="200" cy="18" r="6"/><circle cx="200" cy="182" r="6"/><circle cx="118" cy="100" r="6"/><circle cx="282" cy="100" r="6"/><circle cx="142" cy="42" r="6"/><circle cx="258" cy="42" r="6"/><circle cx="142" cy="158" r="6"/><circle cx="258" cy="158" r="6"/></g>
+    <circle cx="200" cy="100" r="68" fill="var(--virus-soft)" stroke="var(--virus)" stroke-width="5"/>
+    <polygon points="200,52 242,76 242,124 200,148 158,124 158,76" fill="var(--card)" stroke="var(--virus)" stroke-width="3"/>
+    <path d="M175 100 q8 -14 16 0 t16 0 t16 0" fill="none" stroke="var(--accent)" stroke-width="3.5"/>
+    <text x="400" y="40">pigger (protein)</text><line x1="395" y1="36" x2="264" y2="40" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="400" y="85">fettkappe</text><line x1="395" y1="81" x2="268" y2="92" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="400" y="130">proteinkappe</text><line x1="395" y1="126" x2="240" y2="120" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="400" y="175">arvestoff (DNA/RNA)</text><line x1="395" y1="171" x2="215" y2="104" stroke="currentColor" stroke-opacity=".5"/>
+  </svg>
+
+  <h3>Hvor finner vi virus?</h3>
+  <div class="toolbar"><button class="listen small" data-read="r5b">Les høyt</button></div>
+  <div id="r5b">
+    <p>Virus finnes i <b>alle levende ting</b>: i mennesker, dyr, planter og til og med i bakterier. Virus som angriper bakterier, kalles <b>bakteriofager</b>. Havet er fullt av virus.</p>
+    <p>Utenfor en celle kan et virus ikke gjøre noe. Men det kan overleve en stund på hender, dørhåndtak, leker og i dråper i lufta. Derfor kan vi bli smittet via ting.</p>
+  </div>
+
+  <h3>Hvordan formerer virus seg? Trykk «Neste steg»</h3>
+  <p>Et virus kan ikke spise eller vokse alene. Det må inn i en levende celle for å lage nye virus. Cellen som viruset går inn i, kalles en <b>vertscelle</b>. Mange forskere sier derfor at virus ikke er levende.</p>
   <svg class="svgfig" id="virusSvg" viewBox="0 0 560 220" role="img" aria-label="Animasjon av hvordan et virus formerer seg i en celle">
     <ellipse cx="300" cy="115" rx="200" ry="90" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
     <circle cx="300" cy="115" r="30" fill="var(--accent)" opacity=".25"/>
@@ -337,17 +475,150 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
   <p id="vstepText" class="easy" aria-live="polite"></p>
   <div class="toolbar"><button id="vprev">← Forrige</button><button class="primary" id="vnext">Neste steg →</button></div>
   <div class="easy"><b>Kort sagt:</b> Et virus går inn i cellen vår. Det bruker cellen til å lage mange nye virus. Så går de nye virusene ut og smitter flere celler.</div>
+
+  <div class="toolbar"><button class="listen small" data-read="r5c">Les høyt</button></div>
+  <div id="r5c">
+    <div class="grid2">
+      <div class="box"><h4>👍 Hvordan kan virus være nyttige?</h4>
+        <ul class="clean">
+          <li><b>Bakteriofager</b> dreper bakterier. Leger prøver å bruke dem mot bakterier som er resistente mot antibiotika.</li>
+          <li>Ufarlige virus brukes til å frakte arvestoff inn i celler, for eksempel i noen vaksiner og i <b>genterapi</b>.</li>
+          <li>I naturen holder virus antallet bakterier i balanse, for eksempel i havet.</li>
+        </ul></div>
+      <div class="box"><h4>⚠️ Hvordan kan virus være farlige?</h4>
+        <p style="margin:0 0 6px">Når virus formerer seg, blir vertscellene ødelagt. Da blir vi syke. Eksempler på virussykdommer:</p>
+        <ul class="clean">
+          <li>Forkjølelse, influensa og covid-19</li>
+          <li>Omgangssyke (norovirus)</li>
+          <li>Vannkopper og meslinger</li>
+          <li>HIV, som angriper immunforsvaret</li>
+          <li>Hepatitt (leverbetennelse)</li>
+          <li>HPV, som kan gi kreft i livmorhalsen</li>
+        </ul></div>
+    </div>
+  </div>
 </section>
 
-<!-- 6 -->
+<!-- 7 sopp -->
+<section class="card" id="sopp">
+  <h2><span class="step">7</span> Mikrobiske sopp</h2>
+  <p class="goal">Mål: Jeg kan forklare hvordan mikrobiske sopp er bygd opp, hvor de finnes, hvordan de formerer seg, og hvordan de kan være nyttige og farlige.</p>
+  <h3>Slik er mikrobiske sopp bygd opp</h3>
+  <div class="toolbar"><button class="listen small" data-read="rs1">Les høyt</button></div>
+  <div id="rs1">
+    <p>Mikrobiske <span class="ord" data-k="sopp">sopp</span> er sopp som er så små at vi trenger mikroskop for å se én og én celle. Soppcellene har <b>cellekjerne</b>, som cellene våre. Vi sier at sopp er <b>eukaryote</b>.</p>
+    <p>Soppceller har en <b>cellevegg</b> av et stoff som heter kitin. Sopp har ikke klorofyll og kan ikke drive fotosyntese. De lever av å bryte ned andre ting.</p>
+    <p>Det finnes to hovedtyper:</p>
+    <ul class="clean">
+      <li><span class="ord" data-k="gjaer">Gjærsopp</span> er <b>encellet</b>. Cellene er runde eller ovale.</li>
+      <li><b>Muggsopp</b> er <b>flercellet</b>. Den vokser som lange tråder som heter <b>hyfer</b>. Mange hyfer sammen kalles <b>mycel</b>. Det «loet» vi ser på mugne brød, er mycel med sporehus.</li>
+    </ul>
+  </div>
+  <svg class="svgfig" viewBox="0 0 600 210" role="img" aria-label="Tegning av gjærceller som knoppskyter, og muggsopp med hyfer og sporehus">
+    <g fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5">
+      <ellipse cx="80" cy="100" rx="34" ry="26"/><circle cx="80" cy="100" r="8" fill="var(--accent)" opacity=".5"/>
+      <ellipse cx="170" cy="100" rx="34" ry="26"/><ellipse cx="212" cy="86" rx="14" ry="11"/><circle cx="170" cy="100" r="8" fill="var(--accent)" opacity=".5"/>
+    </g>
+    <text x="80" y="160" text-anchor="middle">gjærcelle</text>
+    <text x="190" y="160" text-anchor="middle">knoppskyting</text>
+    <text x="212" y="66" text-anchor="middle" style="font-size:11px">knopp</text>
+    <g fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round">
+      <path d="M320 180 C360 170, 420 185, 560 175"/>
+      <path d="M380 178 L380 70"/><path d="M460 180 L455 90"/><path d="M520 176 L530 60"/>
+      <path d="M380 140 C350 130, 345 120, 335 110"/><path d="M460 150 C490 140, 500 135, 505 120"/>
+    </g>
+    <g fill="var(--ink)" opacity=".55"><circle cx="380" cy="55" r="16"/><circle cx="455" cy="76" r="14"/><circle cx="530" cy="45" r="16"/></g>
+    <g fill="var(--accent)"><circle cx="360" cy="40" r="3"/><circle cx="400" cy="38" r="3"/><circle cx="548" cy="28" r="3"/><circle cx="512" cy="26" r="3"/></g>
+    <text x="300" y="60" text-anchor="end">sporehus</text><line x1="304" y1="57" x2="362" y2="55" stroke="currentColor" stroke-opacity=".5"/>
+    <text x="440" y="205" text-anchor="middle">hyfer (tråder) = mycel</text>
+  </svg>
+
+  <h3>Hvor finner vi mikrobiske sopp?</h3>
+  <div class="toolbar"><button class="listen small" data-read="rs2">Les høyt</button></div>
+  <div id="rs2">
+    <p>Sopp finnes nesten overalt: i jord, i lufta (som sporer), på mat som brød og frukt, og på fuktige steder som bad og kjeller. Sopp liker fukt og varme.</p>
+    <p>Vi har også litt sopp på huden, i munnen, i tarmen og i skjeden. En vanlig gjærsopp på kroppen heter <b>Candida</b>. I små mengder er den ufarlig.</p>
+  </div>
+
+  <h3>Hvordan formerer mikrobiske sopp seg?</h3>
+  <div class="toolbar"><button class="listen small" data-read="rs3">Les høyt</button></div>
+  <div id="rs3">
+    <p><b>Gjærsopp</b> formerer seg ved <b>knoppskyting</b>. En liten knopp vokser ut på siden av cellen. Når knoppen er stor nok, løsner den og blir en ny gjærcelle.</p>
+    <p><b>Muggsopp</b> formerer seg med <span class="ord" data-k="spore">sporer</span>. Sporene lages i sporehus på toppen av hyfene. De er så lette at de flyr med lufta. Når en spore lander på fuktig mat, vokser den ut til nye hyfer.</p>
+  </div>
+
+  <h3>🎈 Gjærforsøket</h3>
+  <p>Husker du forsøket med gjær, sukker og lunkent vann i en flaske med ballong? Gjæren bryter ned sukker og lager gassen <b>karbondioksid</b> (CO₂). Gassen blåser opp ballongen. Dette kalles <b>gjæring</b>.</p>
+  <p class="easy" style="text-align:center"><b>sukker</b> → (gjær) → <b>karbondioksid</b> + <b>alkohol</b> + energi</p>
+  <p>Velg hva som er i flaska og hvor varmt vannet er. Se hva som skjer med ballongen.</p>
+  <div class="sim-controls">
+    <div>
+      <label>Sukker i flaska?</label>
+      <div class="temps" id="ySugar">
+        <button data-v="1" aria-pressed="true">🍬 Med sukker</button>
+        <button data-v="0">🚫 Uten sukker</button>
+      </div>
+    </div>
+    <div>
+      <label>Vannet</label>
+      <div class="temps" id="yTemp">
+        <button data-v="5">❄️ Kaldt 5 °C</button>
+        <button data-v="37" aria-pressed="true">🌡️ Lunkent 37 °C</button>
+        <button data-v="100">🔥 Kokende 100 °C</button>
+      </div>
+    </div>
+    <div>
+      <label for="ytime">Tid: <b id="ytimeLbl">30 minutter</b></label>
+      <input type="range" id="ytime" min="0" max="60" step="5" value="30">
+    </div>
+  </div>
+  <svg class="svgfig" id="yeastSvg" viewBox="0 -72 300 372" style="max-width:300px" role="img" aria-label="Flaske med ballong i gjærforsøket">
+    <ellipse id="balloon" cx="150" cy="70" rx="20" ry="22" fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="3"/>
+    <rect x="138" y="88" width="24" height="24" fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="3"/>
+    <path d="M135 112 L135 140 Q95 160 95 200 L95 280 L205 280 L205 200 Q205 160 165 140 L165 112 Z" fill="var(--card)" stroke="var(--muted)" stroke-width="3"/>
+    <path d="M97 210 L203 210 L203 278 L97 278 Z" fill="var(--accent-soft)"/>
+    <g id="bubbles" fill="none" stroke="var(--accent)" stroke-width="1.5"></g>
+  </svg>
+  <div class="stat" id="ystat"></div>
+  <h3>Spørsmål om gjærforsøket</h3>
+  <div id="yeastQ"></div>
+
+  <div class="toolbar"><button class="listen small" data-read="rs4">Les høyt</button></div>
+  <div id="rs4">
+    <div class="grid2">
+      <div class="box"><h4>👍 Hvordan kan sopp være nyttige?</h4>
+        <ul class="clean">
+          <li><b>Brød:</b> Gjæren lager CO₂, som får deigen til å heve.</li>
+          <li><b>Øl og vin:</b> Gjæren lager alkohol.</li>
+          <li><b>Ost:</b> Muggsopp gir smak til brie og blåmuggost.</li>
+          <li><b>Medisin:</b> Penicillin, det første antibiotikumet, kommer fra muggsoppen <i>Penicillium</i>. Alexander Fleming oppdaget det i 1928.</li>
+          <li><b>Naturen:</b> Sopp er viktige nedbrytere.</li>
+        </ul></div>
+      <div class="box"><h4>⚠️ Hvordan kan sopp være farlige?</h4>
+        <ul class="clean">
+          <li><b>Soppinfeksjoner</b> på hud, negler og slimhinner: fotsopp, neglesopp, trøske (munnsopp hos babyer) og underlivssopp. De er plagsomme, men sjelden farlige.</li>
+          <li>For personer med svakt immunforsvar kan sopp gi alvorlig sykdom.</li>
+          <li><b>Muggsopp på mat</b> kan lage giftstoffer. Ikke spis mat med mugg.</li>
+          <li><b>Mugg i fuktige hus</b> kan gi allergi og astma.</li>
+        </ul></div>
+    </div>
+    <p class="tip">🩺 <b>I yrket:</b> På sykehjem tørker vi godt mellom tærne og gir godt munnstell. Det hindrer soppinfeksjoner.</p>
+  </div>
+  <h3>Nyttig eller farlig sopp?</h3>
+  <div id="soppQ"></div>
+</section>
+
+<!-- 8 sammenligning -->
 <section class="card" id="s6">
-  <h2><span class="step">6</span> Bakterie eller virus?</h2>
-  <p class="goal">Mål: Jeg kan sammenligne bakterier og virus.</p>
+  <h2><span class="step">8</span> Bakterie, virus eller sopp?</h2>
+  <p class="goal">Mål: Jeg kan sammenligne bakterier, virus og mikrobiske sopp.</p>
   <div class="grid2">
     <div class="box b"><h4>🦠 Bakterie</h4>
-      <ul class="clean"><li>Er en celle</li><li>Lever og formerer seg selv</li><li>Ca. 0,001–0,005 mm</li><li><b>Antibiotika</b> kan virke</li></ul></div>
+      <ul class="clean"><li>Er en celle uten cellekjerne</li><li>Formerer seg ved todeling</li><li>Ca. 0,001–0,005 mm</li><li><b>Antibiotika</b> kan virke</li></ul></div>
     <div class="box v"><h4>🧬 Virus</h4>
-      <ul class="clean"><li>Er ikke en celle</li><li>Trenger en vertscelle</li><li>Ca. 100 ganger mindre</li><li><b>Antibiotika virker ikke</b></li></ul></div>
+      <ul class="clean"><li>Er ikke en celle</li><li>Trenger en vertscelle</li><li>Ca. 100 ganger mindre enn en bakterie</li><li><b>Antibiotika virker ikke</b></li></ul></div>
+    <div class="box" style="background:var(--accent-soft);border-color:transparent"><h4>🍄 Mikrobisk sopp</h4>
+      <ul class="clean"><li>Celler med cellekjerne</li><li>Knoppskyting (gjær) eller sporer (mugg)</li><li>Gjærcelle ca. 0,005–0,01 mm</li><li>Behandles med <b>soppmidler</b>, ikke antibiotika</li></ul></div>
   </div>
   <h3>Sorter: Hva skyldes sykdommen?</h3>
   <div id="sortBV"></div>
@@ -356,8 +627,23 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
 
 <!-- 7 -->
 <section class="card" id="s7">
-  <h2><span class="step">7</span> Smittekjeden</h2>
-  <p class="goal">Mål: Jeg kan forklare smittekjeden og hvordan vi kan bryte den.</p>
+  <h2><span class="step">9</span> Smitteveier og smittekjeden</h2>
+  <p class="goal">Mål: Jeg kan forklare de ulike smitteveiene, smittekjeden og hvordan vi kan bryte den.</p>
+  <h3>Smitteveier</h3>
+  <p>En smittevei er måten mikroorganismen kommer fra smittekilden til en ny person.</p>
+  <div class="toolbar"><button class="listen small" data-read="r7a">Les høyt</button></div>
+  <div id="r7a" class="grid2">
+    <div class="box"><h4>🤝 Kontaktsmitte</h4><p style="margin:0"><b>Direkte:</b> fra person til person, for eksempel hender eller kyss. <b>Indirekte:</b> via ting, for eksempel dørhåndtak, leker eller håndklær.</p></div>
+    <div class="box"><h4>🤧 <span class="ord" data-k="dropesmitte">Dråpesmitte</span></h4><p style="margin:0">Dråper fra hoste, nys og snakking lander på nese, munn eller øyne hos personer i nærheten. Eksempel: forkjølelse og influensa.</p></div>
+    <div class="box"><h4>💨 Luftsmitte</h4><p style="margin:0">Bitte små dråper eller støv svever lenge i lufta og pustes inn. Eksempel: tuberkulose, meslinger og vannkopper.</p></div>
+    <div class="box"><h4>🍽️ Mat- og vannsmitte</h4><p style="margin:0">Mikroorganismer i mat eller drikkevann. Ofte kommer de fra avføring, via hender som ikke er vasket. Eksempel: salmonella og norovirus.</p></div>
+    <div class="box"><h4>🩸 Blodsmitte</h4><p style="margin:0">Via blod og andre kroppsvæsker, for eksempel stikk med brukte sprøyter eller sex. Eksempel: HIV og hepatitt B.</p></div>
+    <div class="box"><h4>🦟 Smitte via dyr og insekter</h4><p style="margin:0">Et dyr eller insekt bærer smitten. Eksempel: mygg kan smitte malaria, og flått kan smitte borreliose.</p></div>
+  </div>
+  <h3>Hvilken smittevei er det?</h3>
+  <div id="veiQ"></div>
+
+  <h3>Smittekjeden</h3>
   <div class="toolbar"><button class="listen small" data-read="r7">Les høyt</button></div>
   <div id="r7">
     <p><span class="ord" data-k="smitte">Smitte</span> betyr at mikroorganismer går fra én person eller ting til en annen. Veien smitten går, kaller vi <span class="ord" data-k="smittekjede">smittekjeden</span>. Den har seks ledd.</p>
@@ -373,8 +659,23 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
 
 <!-- 8 -->
 <section class="card" id="s8">
-  <h2><span class="step">8</span> Håndhygiene</h2>
-  <p class="goal">Mål: Jeg vet når og hvordan jeg skal vaske eller sprite hendene.</p>
+  <h2><span class="step">10</span> Slik beskytter vi oss mot smitte</h2>
+  <p class="goal">Mål: Jeg vet hvordan vi best beskytter oss mot smitte, og når og hvordan jeg skal vaske eller sprite hendene.</p>
+  <div class="toolbar"><button class="listen small" data-read="r8a">Les høyt</button></div>
+  <div id="r8a">
+    <p>De viktigste tiltakene mot smitte er:</p>
+    <ul class="clean">
+      <li>🧴 <b>Håndhygiene</b> – det aller viktigste.</li>
+      <li>🤧 <b>Hostehygiene</b> – host og nys i albuen eller i et papirlommetørkle.</li>
+      <li>💉 <b>Vaksiner</b>.</li>
+      <li>🍗 <b>God mathygiene</b> – stek kjøtt godt, hold maten kald, og bruk rene redskaper.</li>
+      <li>🏠 <b>Bli hjemme</b> når du er syk.</li>
+      <li>🧤 <b>Beskyttelsesutstyr</b> på jobb – hansker, frakk og munnbind.</li>
+      <li>🧽 <b>Renhold</b> av overflater, leker og utstyr.</li>
+      <li>🛡️ <b>Kondom</b> beskytter mot smitte ved sex.</li>
+    </ul>
+  </div>
+  <h3>Håndhygiene</h3>
   <div class="toolbar"><button class="listen small" data-read="r8">Les høyt</button></div>
   <div id="r8">
     <p><span class="ord" data-k="handhygiene">Håndhygiene</span> er det enkleste, billigste og viktigste tiltaket mot smitte. Det betyr å vaske hendene med såpe og vann, eller å bruke <span class="ord" data-k="desinfisere">hånddesinfeksjon</span> (sprit).</p>
@@ -393,22 +694,99 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
 
 <!-- 9 -->
 <section class="card" id="s9">
-  <h2><span class="step">9</span> Kroppens forsvar, vaksiner og antibiotika</h2>
-  <p class="goal">Mål: Jeg kan forklare hva vaksiner og antibiotika gjør.</p>
+  <h2><span class="step">11</span> Immunforsvaret, vaksiner og antibiotika</h2>
+  <p class="goal">Mål: Jeg kan forklare kroppens ytre forsvar, det indre uspesifikke forsvaret og det indre spesifikke forsvaret, og hvordan en vaksine virker.</p>
+  <p>Kroppen har et forsvar mot sykdom. Det heter <span class="ord" data-k="immunforsvar">immunforsvaret</span>. Vi kan dele det i tre forsvarslinjer. Trykk på hver linje.</p>
+  <div class="temps" id="defTabs" role="tablist">
+    <button role="tab" data-d="0" aria-pressed="true">1 Ytre forsvar</button>
+    <button role="tab" data-d="1">2 Indre, uspesifikt</button>
+    <button role="tab" data-d="2">3 Indre, spesifikt</button>
+  </div>
+  <div class="toolbar" style="margin-top:10px"><button class="listen small" data-read="defPanel">Les høyt</button></div>
+  <div id="defPanel" class="box" aria-live="polite"></div>
+
+  <h3>Hva skjer når du får et sår? Sett i riktig rekkefølge.</h3>
+  <ol class="answer-list" id="woundAnswer"></ol>
+  <ul class="order-list" id="woundSteps"></ul>
+  <div class="toolbar"><button id="woundReset">Start på nytt</button></div>
+  <div class="feedback" id="woundFb"></div>
+
+  <h3>Hvilken forsvarslinje?</h3>
+  <div id="lineQ"></div>
+
+  <h3>Slik virker en vaksine</h3>
   <div class="toolbar"><button class="listen small" data-read="r9">Les høyt</button></div>
   <div id="r9">
-    <p>Kroppen har et forsvar mot sykdom. Det heter <span class="ord" data-k="immunforsvar">immunforsvaret</span>. Huden og slimhinnene stopper mange mikroorganismer. Hvite blodceller angriper dem som kommer inn i kroppen.</p>
-    <p>Kroppen lager <span class="ord" data-k="antistoff">antistoffer</span> mot hver type mikroorganisme. Den lager også <b>hukommelsesceller</b>. De husker smittestoffet. Neste gang blir du ikke syk, eller bare litt syk.</p>
-    <p>En <span class="ord" data-k="vaksine">vaksine</span> inneholder ufarlige deler av et virus eller en bakterie. Kroppen lærer å kjenne igjen smittestoffet, uten at du blir syk. Da er du beskyttet.</p>
+    <p>En <span class="ord" data-k="vaksine">vaksine</span> inneholder døde eller svekkede mikroorganismer, ufarlige deler av dem, eller en «oppskrift» på en del av dem. Du blir ikke syk av vaksinen.</p>
+    <p>Det spesifikke forsvaret tror at kroppen er smittet. B-lymfocyttene lager <span class="ord" data-k="antistoff">antistoffer</span>, og kroppen lager <b>hukommelsesceller</b>. Hvis du senere blir smittet av den ekte mikroorganismen, kjenner hukommelsescellene den igjen med en gang. Forsvaret slår til raskt, og du blir ikke syk, eller bare litt syk. Da er du <b>immun</b>.</p>
+    <p>Når mange er vaksinert, sprer smitten seg dårlig. Da blir også de som ikke kan ta vaksinen beskyttet, for eksempel nyfødte og alvorlig syke. Dette kalles <b>flokkimmunitet</b>. I Norge får alle barn gratis vaksiner i <b>barnevaksinasjonsprogrammet</b>, for eksempel mot meslinger, kikhoste, polio og HPV.</p>
+  </div>
+  <h3>🧪 Prøv selv: flokkimmunitet</h3>
+  <p>Velg hvor mange som er vaksinert. Trykk «Start smitte». Én syk person kommer inn i gruppen.</p>
+  <div class="sim-controls">
+    <div><label for="vacc">Vaksinert: <b id="vaccLbl">50 %</b></label><input type="range" id="vacc" min="0" max="95" step="5" value="50"></div>
+    <div class="toolbar" style="margin:0"><button class="primary" id="herdRun">Start smitte</button></div>
+  </div>
+  <div id="herd" style="display:grid;grid-template-columns:repeat(15,1fr);gap:3px;max-width:420px;margin:12px auto" aria-label="Gruppe med mennesker"></div>
+  <p style="text-align:center;font-size:.9rem;color:var(--muted)"><span style="color:var(--ok)">■</span> vaksinert · <span style="color:var(--muted)">■</span> ikke vaksinert · <span style="color:var(--bad)">■</span> smittet</p>
+  <div class="stat" id="herdStat" aria-live="polite"></div>
+  <p class="tip">Modellen er forenklet. Hver syk person smitter naboene sine som ikke er vaksinert. Prøv flere ganger med ulike tall.</p>
+
+  <h3>Antibiotika</h3>
+  <div class="toolbar"><button class="listen small" data-read="r9b">Les høyt</button></div>
+  <div id="r9b">
     <p><span class="ord" data-k="antibiotika">Antibiotika</span> er medisin som dreper bakterier eller stopper veksten deres. Antibiotika virker <b>ikke</b> mot virus. Hvis vi bruker for mye antibiotika, kan bakteriene bli <span class="ord" data-k="resistens">resistente</span>. Da virker ikke medisinen lenger.</p>
   </div>
   <h3>Riktig bruk av antibiotika – sant eller usant?</h3>
   <div id="abQ"></div>
 </section>
 
-<!-- 10 -->
+<!-- 12 kildekritikk -->
+<section class="card" id="kilde">
+  <h2><span class="step">12</span> Kildekritikk og drøfting</h2>
+  <p class="goal">Mål: Jeg kan vurdere om helseinformasjon er pålitelig, og drøfte hvilken betydning mikroorganismer har for kropp og helse.</p>
+  <div class="toolbar"><button class="listen small" data-read="rk1">Les høyt</button></div>
+  <div id="rk1">
+    <p>Vi får mye informasjon om helse fra nettet, sosiale medier, reklame og venner. Noe er riktig, og noe er feil. Å vurdere om en kilde er pålitelig kaller vi <span class="ord" data-k="kildekritikk">kildekritikk</span>.</p>
+    <p>Still disse spørsmålene:</p>
+    <ol>
+      <li><b>Hvem</b> står bak? Er det en fagperson, en myndighet eller et firma?</li>
+      <li><b>Hvorfor</b> er det skrevet? For å informere, for å selge eller for å påvirke?</li>
+      <li><b>Når</b> er det skrevet? Er informasjonen ny?</li>
+      <li><b>Bygger</b> det på forskning, eller bare på én persons erfaring?</li>
+      <li><b>Sier andre gode kilder</b> det samme?</li>
+    </ol>
+    <p><b>Pålitelige kilder om helse</b> er for eksempel Folkehelseinstituttet (fhi.no), helsenorge.no, Norsk helseinformatikk (nhi.no), Store norske leksikon, NDLA, legen og apoteket.</p>
+    <p>En KI-chatbot kan gi svar med feil eller gammel informasjon. Sjekk alltid svaret mot en pålitelig kilde.</p>
+  </div>
+  <h3>Er kilden pålitelig?</h3>
+  <div id="srcQ"></div>
+
+  <h3>Drøft</h3>
+  <p>Å <b>drøfte</b> betyr å se på en sak fra flere sider. Du skriver argumenter <b>for</b> og <b>mot</b>, og så skriver du hva du mener til slutt. Det kalles en <b>konklusjon</b>.</p>
+  <label for="drQ"><b>Velg en drøfteoppgave:</b></label>
+  <select id="drQ" style="display:block;margin:6px 0 12px;max-width:100%">
+    <option>Mikroorganismer er mer nyttige enn farlige for mennesker. Drøft.</option>
+    <option>Bør alle som jobber i helse og oppvekst ta influensavaksine?</option>
+    <option>Bør det være lov å kjøpe antibiotika uten resept?</option>
+    <option>Bør alle barn vaksineres i barnevaksinasjonsprogrammet?</option>
+  </select>
+  <p>Bruk ordene:</p>
+  <div class="starters">
+    <span>På den ene siden …</span><span>På den andre siden …</span><span>En fordel er at …</span><span>En ulempe er at …</span><span>Ifølge Folkehelseinstituttet …</span><span>Et eksempel er …</span><span>Derfor mener jeg at …</span><span>Konklusjonen min er at …</span>
+  </div>
+  <div class="grid2">
+    <div><label for="drFor"><b>Argumenter for</b></label><textarea id="drFor" placeholder="På den ene siden …"></textarea></div>
+    <div><label for="drMot"><b>Argumenter mot</b></label><textarea id="drMot" placeholder="På den andre siden …"></textarea></div>
+  </div>
+  <label for="drKon"><b>Konklusjon</b></label>
+  <textarea id="drKon" placeholder="Derfor mener jeg at …"></textarea>
+  <p style="font-size:.85rem;color:var(--muted)">Teksten lagres bare i din egen nettleser.</p>
+</section>
+
+<!-- 13 -->
 <section class="card" id="s10">
-  <h2><span class="step">10</span> I yrket: Helse og oppvekst</h2>
+  <h2><span class="step">13</span> I yrket: Helse og oppvekst</h2>
   <p class="goal">Mål: Jeg kan bruke kunnskapen i en arbeidssituasjon.</p>
   <h3>Fyll inn riktig ord</h3>
   <div class="wordbank" id="bank"></div>
@@ -442,12 +820,26 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
 
 <!-- 11 -->
 <section class="card" id="s11">
-  <h2><span class="step">11</span> Quiz – sjekk deg selv</h2>
+  <h2><span class="step">14</span> Quiz – sjekk deg selv</h2>
   <p class="goal">Mål: Jeg vet hva jeg kan, og hva jeg må øve mer på.</p>
   <div id="quiz"></div>
   <div class="toolbar"><span class="score" id="quizScore" aria-live="polite"></span><button id="quizReset">Prøv igjen</button></div>
   <h3>Se tilbake: Svarte du riktig i starten?</h3>
   <div id="pretestReview"></div>
+</section>
+
+<section class="card" id="moment">
+  <h2><span class="step">✓</span> Momentliste – øv til prøven</h2>
+  <p class="goal">Kryss av når du kan svare på spørsmålet. Trykk på lenken for å lese svaret.</p>
+  <h3>Læreplanmål</h3>
+  <p>Du skal kunne:</p>
+  <ul class="clean">
+    <li>drøfte aktuelle helse- og livsstilspørsmål og vurdere pålitelighet i informasjon fra ulike kilder – <a href="#kilde">del 12</a></li>
+    <li>drøfte hvilken betydning mikroorganismer har for kropp og helse – <a href="#nb">del 5</a>, <a href="#s5">6</a>, <a href="#sopp">7</a> og <a href="#kilde">12</a></li>
+  </ul>
+  <p class="tip">Spørsmålene under kan hjelpe deg når du øver til prøven. Men det er læreplanmålene som er utgangspunktet.</p>
+  <div class="stat" id="momStat" style="text-align:left"></div>
+  <div id="momList"></div>
 </section>
 
 <section class="card" id="kilder">
@@ -463,6 +855,10 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
     <li><a href="https://ndla.no/r/naturfag-hs/utforsk-smittekjeden/5ba01a8a5e" target="_blank" rel="noopener">Utforsk smittekjeden – Naturfag (HS)</a></li>
     <li><a href="https://ndla.no/r/naturfag-hs/forsok-undersok-mikroorganismer/638818bb20" target="_blank" rel="noopener">Forsøk: Undersøk mikroorganismer – Naturfag (HS)</a></li>
     <li><a href="https://ndla.no/r/naturfag-hs/oppsummeringsoppgaver-om-mikroorganismer/8f837cb25d" target="_blank" rel="noopener">Oppsummeringsoppgaver om mikroorganismer – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/nb/r/naturfag-hs/bakterier/6c4fc9c819" target="_blank" rel="noopener">Bakterier – Naturfag (HS)</a></li>
+    <li><a href="https://ndla.no/nn/r/naturfag-hs/sopp-algar-og-eincella-organismar/5752cd1881" target="_blank" rel="noopener">Sopp, algar og eincella organismar – Naturfag (HS, nynorsk)</a></li>
+    <li><a href="https://ndla.no/nb/r/naturfag-rm/nyttige-mikroorganismer/47301be6ee" target="_blank" rel="noopener">Nyttige mikroorganismer – Naturfag (RM)</a></li>
+    <li><a href="https://ndla.no/r/naturfag-rm/kilder-og-kildekritikk/63d8c34edc" target="_blank" rel="noopener">Kilder og kildekritikk – Naturfag (RM)</a></li>
   </ul>
   <h3>Helsefremmende arbeid (Vg1) og andre fag</h3>
   <ul class="sources">
@@ -471,6 +867,12 @@ footer{max-width:900px;margin:0 auto;padding:10px 16px 40px;color:var(--muted);f
     <li><a href="https://ndla.no/nb/r/helsefremmende-arbeid-hs-hsf-vg1/immunforsvaret/e1bdf7ea6a" target="_blank" rel="noopener">Immunforsvaret – Helsefremmende arbeid (HS-HSF vg1)</a></li>
     <li><a href="https://ndla.no/en/r/helsefremmende-arbeid-hs-hsf-vg1/virus-og-vaksiner/577c3d1fa8" target="_blank" rel="noopener">Virus og vaksiner – Helsefremmende arbeid (HS-HSF vg1)</a></li>
     <li><a href="https://ndla.no/nb/r/helsefremmende-arbeid-hs-hea-vg2/handhygiene-som-grunnleggende-smittevernrutine/543e4f6164" target="_blank" rel="noopener">Håndhygiene som grunnleggende smittevernrutine – Helsefremmende arbeid (HS-HEA vg2)</a></li>
+    <li><a href="https://ndla.no/r/helsefremmende-arbeid-hs-hsf-vg1/smittekjeden/1a8de569f8" target="_blank" rel="noopener">Smittekjeden – Helsefremmende arbeid (HS-HSF vg1)</a></li>
+    <li><a href="https://ndla.no/nb/r/helsefremmende-arbeid-hs-hsf-vg1/forebygging-av-smitte/7f81780c3f" target="_blank" rel="noopener">Forebygging av smitte – Helsefremmende arbeid (HS-HSF vg1)</a></li>
+    <li><a href="https://ndla.no/nb/r/biologi-1/hvordan-spres-og-hindres-smitte/b649251b6b" target="_blank" rel="noopener">Hvordan spres og hindres smitte? – Biologi 1</a></li>
+    <li><a href="https://ndla.no/nb/r/biologi-1/det-uspesifikke-immunforsvaret/bdd3e955a9" target="_blank" rel="noopener">Det uspesifikke immunforsvaret – Biologi 1</a></li>
+    <li><a href="https://ndla.no/r/biologi-1/sammendrag---immunforsvaret/635725c8d8" target="_blank" rel="noopener">Sammendrag – immunforsvaret – Biologi 1</a></li>
+    <li><a href="https://ndla.no/nb/r/biologi-1/eukaryote-mikroorganismer/a1ef37580b" target="_blank" rel="noopener">Eukaryote mikroorganismer – Biologi 1</a></li>
     <li><a href="https://ndla.no/r/biologi-1/antibiotikaresistens/e495328761" target="_blank" rel="noopener">Antibiotikaresistens – Biologi 1</a></li>
   </ul>
   <p class="tip">Lærer: Lenkene er hentet fra NDLA i oktober 2026. NDLA flytter av og til sider. Søk på tittelen på ndla.no hvis en lenke ikke virker.</p>
@@ -513,7 +915,14 @@ const G={
  antistoff:{no:"antistoff",def:"stoff kroppen lager for å angripe smittestoff",en:"antibody",ar:"جسم مضاد",uk:"антитіло",so:"unugyada difaaca (antibody)",ti:"ኣንቲቦዲ",fa:"پادتن",pl:"przeciwciało",tr:"antikor",kmr:"antîkor",ckb:"دژەتەن"},
  vaksine:{no:"vaksine",def:"gir beskyttelse mot en sykdom før du blir smittet",en:"vaccine",ar:"لقاح",uk:"вакцина",so:"tallaal",ti:"ክታበት",fa:"واکسین",pl:"szczepionka",tr:"aşı",kmr:"vaksîn",ckb:"ڤاکسین"},
  antibiotika:{no:"antibiotika",def:"medisin mot bakterier – ikke mot virus",en:"antibiotics",ar:"مضادات حيوية",uk:"антибіотики",so:"antibiyootig",ti:"ኣንቲባዮቲክ",fa:"انتی‌بیوتیک",pl:"antybiotyki",tr:"antibiyotik",kmr:"antîbiyotîk",ckb:"ئەنتیبایۆتیک (دژەزیندەیی)"},
- resistens:{no:"resistens / resistent",def:"når bakterier tåler medisinen, og den ikke virker",en:"resistance / resistant",ar:"مقاومة / مقاوم",uk:"стійкість / стійкий",so:"adkeysi (dawadu ma shaqeyso)",ti:"ተጻዋርነት",fa:"مقاومت / مقاوم",pl:"oporność / oporny",tr:"direnç / dirençli",kmr:"berxwedan / berxwedêr",ckb:"بەرگری / بەرگریکەر"}
+ resistens:{no:"resistens / resistent",def:"når bakterier tåler medisinen, og den ikke virker",en:"resistance / resistant",ar:"مقاومة / مقاوم",uk:"стійкість / стійкий",so:"adkeysi (dawadu ma shaqeyso)",ti:"ተጻዋርነት",fa:"مقاومت / مقاوم",pl:"oporność / oporny",tr:"direnç / dirençli",kmr:"berxwedan / berxwedêr",ckb:"بەرگری / بەرگریکەر"},
+ spore:{no:"spore",def:"hvileform eller «frø» som tåler tørke; bakterier og sopp lager sporer",en:"spore",ar:"بوغ (أبواغ)",uk:"спора",so:"abuur (spore)",ti:"ዘርኢ ፈንገስ (ስፖር)",fa:"هاگ / اسپور",pl:"zarodnik",tr:"spor",kmr:"spor",ckb:"سپۆر"},
+ gjaer:{no:"gjær / gjærsopp",def:"encellet sopp som brukes til brød, øl og vin",en:"yeast",ar:"خميرة",uk:"дріжджі",so:"khamiir",ti:"እርሾ",fa:"خمیرمایه",pl:"drożdże",tr:"maya",kmr:"hevîrtirş, maya",ckb:"هەوێن"},
+ slimhinne:{no:"slimhinne",def:"fuktig hud inni nese, munn, luftveier og tarm",en:"mucous membrane",ar:"غشاء مخاطي",uk:"слизова оболонка",so:"xuubka dheecaanka",ti:"ልሕጺ ዘለዎ ሽፋን",fa:"غشای مخاطی",pl:"błona śluzowa",tr:"mukoza (sümüksü zar)",kmr:"mukoz, perdeya şil",ckb:"پەردەی لینجی"},
+ betennelse:{no:"betennelse",def:"kroppen blir rød, varm, hoven og øm der den kjemper mot smitte",en:"inflammation",ar:"التهاب",uk:"запалення",so:"barar (caabuq)",ti:"ምንፋሕ (ኢንፍላሜሽን)",fa:"التهاب",pl:"stan zapalny",tr:"iltihap",kmr:"werimîn, iltîhab",ckb:"هەوکردن"},
+ hvite:{no:"hvite blodceller",def:"celler i blodet som forsvarer kroppen",en:"white blood cells",ar:"خلايا الدم البيضاء",uk:"білі кров'яні клітини (лейкоцити)",so:"unugyada dhiigga cad",ti:"ጻዕዳ ዋህዮታት ደም",fa:"گلبول‌های سفید",pl:"białe krwinki",tr:"akyuvarlar (beyaz kan hücreleri)",kmr:"xaneyên spî yên xwînê",ckb:"خڕۆکە سپییەکانی خوێن"},
+ dropesmitte:{no:"dråpesmitte",def:"smitte via dråper fra hoste og nys",en:"droplet transmission",ar:"العدوى بالرذاذ",uk:"крапельна передача",so:"faafitaanka dhibcaha (hindhisada)",ti:"ለበዳ ብነጠብጣብ",fa:"سرایت قطره‌ای",pl:"zakażenie kropelkowe",tr:"damlacık yoluyla bulaşma",kmr:"vegirtina bi dilopan",ckb:"گواستنەوە بە دڵۆپ"},
+ kildekritikk:{no:"kildekritikk",def:"å vurdere om informasjon er pålitelig",en:"source criticism",ar:"تقييم المصادر",uk:"критична оцінка джерел",so:"qiimeynta ilaha",ti:"ገምጋም ምንጭታት",fa:"ارزیابی منابع",pl:"krytyczna ocena źródeł",tr:"kaynak eleştirisi",kmr:"rexneya çavkaniyan",ckb:"هەڵسەنگاندنی سەرچاوە"}
 };
 const ORDER=Object.keys(G);
 let lang=store.get("lang")||"en";
@@ -570,7 +979,8 @@ const done=new Set(JSON.parse(store.get("done")||"[]"));
 function mark(sec){done.add(sec);store.set("done",JSON.stringify([...done]));updProg()}
 function updProg(){
   document.querySelectorAll("nav.toc a[data-sec]").forEach(a=>a.classList.toggle("done",done.has(a.dataset.sec)));
-  $("#progbar").style.width=(done.size/11*100)+"%";
+  const secs=[...document.querySelectorAll("nav.toc a[data-sec]")].map(a=>a.dataset.sec);
+  $("#progbar").style.width=(secs.filter(s=>done.has(s)).length/secs.length*100)+"%";
 }
 if("IntersectionObserver"in window){
   const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting&&["s2","s3","s5","s9"].includes(en.target.id)){/* reading sections count after time */const id=en.target.id;setTimeout(()=>mark(id),8000)}}),{threshold:.4});
@@ -712,28 +1122,99 @@ $("#vnext").onclick=()=>{vs=vs===4?0:vs+1;drawVirus()};
 $("#vprev").onclick=()=>{if(vs>0){vs--;drawVirus()}};
 drawVirus();
 
-/* 6 sort */
+/* 4 bacteria shapes */
+const shp=(inner)=>`<svg viewBox="0 0 120 50" width="120" height="50" style="vertical-align:middle;display:block;margin-bottom:6px" aria-hidden="true"><g fill="var(--bact-soft)" stroke="var(--bact)" stroke-width="2.5">${inner}</g></svg>`;
+const SH=["Kokker","Streptokokker","Stafylokokker","Staver","Spiriller"];
+choiceBlock($("#shapeQ"),[
+ {q:shp('<circle cx="20" cy="25" r="9"/><circle cx="38" cy="25" r="9"/><circle cx="56" cy="25" r="9"/><circle cx="74" cy="25" r="9"/><circle cx="92" cy="25" r="9"/>')+"Bakteriene ligger i en kjede. Hva heter de?",opts:SH,a:1,why:"Streptokokker. «Strepto» betyr kjede. Streptokokker kan gi halsbetennelse."},
+ {q:shp('<rect x="20" y="15" width="40" height="16" rx="8"/><rect x="66" y="22" width="40" height="16" rx="8"/>')+"Bakteriene er avlange. Hva heter de?",opts:SH,a:3,why:"Staver (basiller). E. coli er en stavbakterie."},
+ {q:shp('<circle cx="48" cy="16" r="9"/><circle cx="64" cy="14" r="9"/><circle cx="40" cy="31" r="9"/><circle cx="57" cy="31" r="9"/><circle cx="74" cy="29" r="9"/><circle cx="66" cy="44" r="5"/>')+"Bakteriene ligger i en klase, som druer. Hva heter de?",opts:SH,a:2,why:"Stafylokokker. Gule stafylokokker kan gi sårinfeksjoner og byller."},
+ {q:`<svg viewBox="0 0 120 50" width="120" height="50" style="display:block;margin-bottom:6px" aria-hidden="true"><path d="M15 25 q10 -20 20 0 t20 0 t20 0 t20 0" fill="none" stroke="var(--bact)" stroke-width="4" stroke-linecap="round"/></svg>Bakterien er snodd som en spiral. Hva heter den?`,opts:SH,a:4,why:"Spiriller er spiralformede bakterier."}
+],null,null);
+
+/* 5 useful bacteria */
+const NB=["🌳 Naturen","🧍 Kroppen","🏭 Industrien"];
+choiceBlock($("#nbQ"),[
+ {q:"Bakterier bryter ned et dødt tre.",opts:NB,a:0,why:"Naturen. Nedbrytere gir næringsstoffene tilbake til jorda."},
+ {q:"Bakterier i tarmen lager K-vitamin.",opts:NB,a:1,why:"Kroppen. Tarmbakteriene er en del av normalfloraen."},
+ {q:"Melkesyrebakterier gjør melk om til yoghurt.",opts:NB,a:2,why:"Industrien. Matindustrien bruker melkesyrebakterier."},
+ {q:"Bakterier med endret arvestoff lager insulin.",opts:NB,a:2,why:"Industrien. Legemiddelindustrien lager insulin på denne måten."},
+ {q:"Gode bakterier i skjeden hindrer soppinfeksjoner.",opts:NB,a:1,why:"Kroppen. Normalfloraen tar plassen fra skadelige mikroorganismer."},
+ {q:"Nitrogenbakterier hjelper planter å vokse.",opts:NB,a:0,why:"Naturen."}
+],null,"nb");
+
+/* 7 yeast experiment */
+let ySugar=1,yTemp=37;
+function drawYeast(){
+  const t=+$("#ytime").value;$("#ytimeLbl").textContent=t+" minutter";
+  const rate=!ySugar||yTemp===100?0:(yTemp===37?1:.15);
+  const gas=rate*t/60;
+  const rx=14+60*gas,ry=14+66*gas;
+  const b=$("#balloon");b.setAttribute("rx",rx);b.setAttribute("ry",ry);b.setAttribute("cy",88-ry+2);
+  let bub="";const n=rate===0||t===0?0:Math.round(4+rate*12);
+  for(let i=0;i<n;i++){const x=105+((i*37)%90),y=220+((i*23)%52);bub+=`<circle cx="${x}" cy="${y}" r="${2+(i%3)}"/>`}
+  $("#bubbles").innerHTML=bub;
+  let txt;
+  if(!ySugar)txt="Nesten ingenting skjer<small>Gjæren får ingen næring uten sukker.</small>";
+  else if(yTemp===100)txt="Ingenting skjer<small>Kokende vann dreper gjærcellene.</small>";
+  else if(t===0)txt="Ballongen er tom<small>Gjæren har ikke begynt ennå.</small>";
+  else if(yTemp===5)txt="Ballongen vokser veldig sakte<small>I kulde arbeider gjæren sakte.</small>";
+  else txt="Ballongen blåses opp!<small>Gjæren bryter ned sukker og lager CO₂-gass.</small>";
+  $("#ystat").innerHTML=txt;
+  if(t>=30)mark("sopp");
+}
+function pressGroup(id,cb){$(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$(id).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));cb(+b.dataset.v);drawYeast()})}
+pressGroup("#ySugar",v=>ySugar=v);pressGroup("#yTemp",v=>yTemp=v);
+$("#ytime").addEventListener("input",drawYeast);drawYeast();
+choiceBlock($("#yeastQ"),[
+ {q:"Hvilken gass blåser opp ballongen?",opts:["Oksygen","Karbondioksid (CO₂)","Nitrogen"],a:1,why:"Gjæren lager karbondioksid når den bryter ned sukker."},
+ {q:"Hvorfor skjer det nesten ingenting uten sukker?",opts:["Gjæren får ingen næring","Vannet er for varmt","Ballongen er for liten"],a:0,why:"Sukker er maten til gjæren."},
+ {q:"Hvorfor bruker vi lunkent vann og ikke kokende vann når vi baker?",opts:["Kokende vann dreper gjæren","Kokende vann gir for mye sukker","Det spiller ingen rolle"],a:0,why:"Gjærceller tåler ikke sterk varme."},
+ {q:"Hvordan formerer gjærcellene seg?",opts:["Todeling","Knoppskyting","Sporer i sporehus"],a:1,why:"Gjærsopp formerer seg ved knoppskyting. Muggsopp bruker sporer."}
+],null,null);
+choiceBlock($("#soppQ"),[
+ {q:"🍞 Gjær i brøddeig",a:0,why:"Nyttig. Gjæren får deigen til å heve."},
+ {q:"🦶 Fotsopp mellom tærne",a:1,why:"Farlig. Fotsopp er en soppinfeksjon i huden."},
+ {q:"💊 Penicillium som lager penicillin",a:0,why:"Nyttig. Penicillin er et antibiotikum."},
+ {q:"🍓 Mugg på jordbær",a:1,why:"Farlig. Muggsopp kan lage giftstoffer. Kast maten."},
+ {q:"🧀 Muggsopp i blåmuggost",a:0,why:"Nyttig. Den gir smak til osten."},
+ {q:"👶 Trøske (hvite flekker i munnen) hos en baby",a:1,why:"Farlig. Trøske skyldes gjærsoppen Candida."}
+],["👍 Nyttig","⚠️ Farlig"],null);
+
+/* 8 sort */
 const SORT=shuffle([
  ["Forkjølelse","v"],["Influensa","v"],["Covid-19","v"],["Vannkopper","v"],["Omgangssyke (norovirus)","v"],
- ["Halsbetennelse (streptokokker)","b"],["Urinveisinfeksjon","b"],["Salmonella (matforgiftning)","b"],["Tuberkulose","b"]
+ ["Halsbetennelse (streptokokker)","b"],["Urinveisinfeksjon","b"],["Salmonella (matforgiftning)","b"],["Tuberkulose","b"],
+ ["Fotsopp","s"],["Trøske (munnsopp)","s"]
 ]);
+const SORTNAME={b:"bakterie",v:"virus",s:"sopp"};
 let sortRight=0,sortDone=0;
 SORT.forEach(([name,ans])=>{
   const row=el("div",{class:"sort-card"},`<span>${name}</span>`);
   const btns=el("div",{class:"btns"});
-  [["b","🦠 Bakterie","btn-b"],["v","🧬 Virus","btn-v"]].forEach(([v,l,c])=>{
+  [["b","🦠 Bakterie","btn-b"],["v","🧬 Virus","btn-v"],["s","🍄 Sopp",""]].forEach(([v,l,c])=>{
     const b=el("button",{class:"small "+c},l);
     b.onclick=()=>{
       if(row.dataset.done)return;row.dataset.done=1;
       const ok=v===ans;row.classList.add(ok?"right":"wrong");
-      if(!ok)row.querySelector("span").insertAdjacentHTML("beforeend",` → <b>${ans==="b"?"bakterie":"virus"}</b>`);
+      if(!ok)row.querySelector("span").insertAdjacentHTML("beforeend",` → <b>${SORTNAME[ans]}</b>`);
       sortDone++;if(ok)sortRight++;
-      if(sortDone===SORT.length){const f=$("#sortBVfb");f.className="feedback "+(sortRight>=7?"ok":"bad");f.textContent=`Du fikk ${sortRight} av ${SORT.length} riktig. Husk: antibiotika hjelper bare mot sykdommene som skyldes bakterier.`;mark("s6")}
+      if(sortDone===SORT.length){const f=$("#sortBVfb");f.className="feedback "+(sortRight>=SORT.length-2?"ok":"bad");f.textContent=`Du fikk ${sortRight} av ${SORT.length} riktig. Husk: antibiotika hjelper bare mot sykdommene som skyldes bakterier.`;mark("s6")}
     };
     btns.appendChild(b);
   });
   row.appendChild(btns);$("#sortBV").appendChild(row);
 });
+
+/* 9 routes */
+const VEI=["Kontaktsmitte","Dråpesmitte","Luftsmitte","Mat- og vannsmitte","Blodsmitte"];
+choiceBlock($("#veiQ"),[
+ {q:"Et barn tar på en leke som et sykt barn har hatt i munnen.",opts:VEI,a:0,why:"Indirekte kontaktsmitte via en ting."},
+ {q:"En kollega nyser rett mot deg på pauserommet.",opts:VEI,a:1,why:"Dråpesmitte. Dråpene lander på nese, munn eller øyne."},
+ {q:"Du spiser kylling som ikke er godt stekt.",opts:VEI,a:3,why:"Matsmitte, for eksempel salmonella."},
+ {q:"En sykepleier stikker seg på en brukt sprøyte.",opts:VEI,a:4,why:"Blodsmitte, for eksempel hepatitt B eller HIV."},
+ {q:"Meslinger sprer seg i et rom, selv om den syke har gått ut.",opts:VEI,a:2,why:"Luftsmitte. Bitte små dråper svever lenge i lufta."}
+],null,null);
 
 /* 7 chain */
 const LINKS=[
@@ -801,6 +1282,98 @@ choiceBlock($("#abQ"),[
  {q:"En vaksine gjør at kroppen lager hukommelsesceller.",a:0,why:"Sant. Hukommelsescellene kjenner igjen smittestoffet hvis du blir smittet senere."}
 ],TF,"s9");
 
+/* 11 defence lines */
+const o=(k,t)=>`<span class="ord" data-k="${k}" tabindex="0" role="button">${t}</span>`;
+const DEF=[
+ `<h4>1 Det ytre forsvaret</h4><p>Det ytre forsvaret stopper mikroorganismene <b>før</b> de kommer inn i kroppen.</p><ul class="clean">
+  <li><b>Huden</b> er en tett mur. Overflaten er litt sur, og det liker ikke mikroorganismene.</li>
+  <li>${o("slimhinne","Slimhinnene")} i nese, munn og luftveier har slim som fanger mikroorganismer.</li>
+  <li><b>Flimmerhår</b> i luftveiene feier slimet opp og ut. Vi hoster og nyser det ut.</li>
+  <li><b>Tårer og spytt</b> inneholder et stoff (lysozym) som bryter ned bakterier.</li>
+  <li><b>Magesyren</b> dreper mange mikroorganismer i maten.</li>
+  <li><b>Normalfloraen</b> – de gode bakteriene – tar plassen fra de farlige.</li>
+  <li><b>Urinen</b> skyller bakterier ut av urinrøret.</li></ul>`,
+ `<h4>2 Det indre, uspesifikke forsvaret</h4><p>Hvis mikroorganismene kommer inn, for eksempel gjennom et sår, angriper dette forsvaret <b>alle</b> fremmede på samme måte. Det starter med en gang. Vi er født med det.</p><ul class="clean">
+  <li><b>Eteceller</b> (fagocytter) er ${o("hvite","hvite blodceller")} som spiser mikroorganismer. Det kalles <b>fagocytose</b>.</li>
+  <li>${o("betennelse","Betennelse")}: Blodårene utvider seg, og flere hvite blodceller kommer til stedet. Området blir <b>rødt, varmt, hovent og ømt</b>.</li>
+  <li><b>Feber</b>: Høyere temperatur gjør det vanskeligere for mikroorganismene, og forsvaret arbeider raskere.</li></ul>`,
+ `<h4>3 Det indre, spesifikke forsvaret</h4><p>Dette forsvaret angriper <b>én bestemt</b> mikroorganisme. Første gang tar det noen dager før det virker. Det husker smittestoffet til neste gang.</p><ul class="clean">
+  <li><b>Lymfocytter</b> er en type hvite blodceller.</li>
+  <li><b>B-lymfocytter</b> lager ${o("antistoff","antistoffer")}. Antistoffene fester seg til smittestoffet og merker det. Da er det lett for etecellene å finne og spise det.</li>
+  <li><b>T-hjelpeceller</b> styrer forsvaret og setter i gang de andre cellene.</li>
+  <li><b>T-drepeceller</b> dreper kroppsceller som er smittet av virus.</li>
+  <li><b>Hukommelsesceller</b> husker smittestoffet. Neste gang kommer forsvaret raskere og sterkere. Da er du <b>immun</b>.</li></ul>`
+];
+function showDef(i){$("#defPanel").innerHTML=DEF[i];$("#defTabs").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.d===i))}
+$("#defTabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)showDef(+b.dataset.d)});showDef(0);
+
+function orderTask(items,listSel,ansSel,fbSel,resetSel,doneMsg,sec){
+  let pos=0,err=0;
+  function init(){
+    pos=0;err=0;$(ansSel).innerHTML="";$(fbSel).className="feedback";
+    const ul=$(listSel);ul.innerHTML="";
+    shuffle(items.map((s,i)=>[s,i])).forEach(([s,i])=>{
+      const li=el("li"),b=el("button",{},s);
+      b.onclick=()=>{
+        const f=$(fbSel);
+        if(i===pos){b.disabled=true;$(ansSel).appendChild(el("li",{},s));pos++;
+          if(pos===items.length){f.className="feedback ok";f.textContent=doneMsg+(err?` Du hadde ${err} feil underveis.`:"");if(sec)mark(sec)}}
+        else{err++;f.className="feedback bad";f.textContent="Ikke dette steget ennå. Hva skjer først?"}
+      };
+      li.appendChild(b);ul.appendChild(li);
+    });
+  }
+  $(resetSel).onclick=init;init();
+}
+orderTask(["Bakterier kommer inn gjennom et sår i huden","Det blir betennelse: rødt, varmt og hovent","Eteceller kommer og spiser bakterier","B-lymfocytter lager antistoffer mot bakterien","Det lages hukommelsesceller som husker bakterien"],
+ "#woundSteps","#woundAnswer","#woundFb","#woundReset","Riktig! Først det ytre forsvaret, så det uspesifikke, og til slutt det spesifikke forsvaret.",null);
+const LINE=["1 Ytre","2 Indre, uspesifikt","3 Indre, spesifikt"];
+choiceBlock($("#lineQ"),[
+ {q:"Magesyre dreper bakterier i maten.",opts:LINE,a:0},
+ {q:"Du får feber.",opts:LINE,a:1},
+ {q:"B-lymfocytter lager antistoffer.",opts:LINE,a:2},
+ {q:"Flimmerhår feier slim ut av luftveiene.",opts:LINE,a:0},
+ {q:"En etecelle spiser en bakterie.",opts:LINE,a:1},
+ {q:"Hukommelsesceller kjenner igjen et virus.",opts:LINE,a:2}
+],null,null);
+
+/* herd immunity */
+const HN=150,herdEl=$("#herd");let herdState=[],herdTimer=null;
+const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function herdColor(s){return s==="v"?"var(--ok)":s==="i"?"var(--bad)":"var(--muted)"}
+function herdDraw(){herdEl.innerHTML=herdState.map(s=>`<div style="aspect-ratio:1;border-radius:3px;background:${herdColor(s)};opacity:${s==="u"?.35:1}"></div>`).join("")}
+function herdSetup(){
+  clearTimeout(herdTimer);const p=+$("#vacc").value;$("#vaccLbl").textContent=p+" %";
+  const nv=Math.round(HN*p/100);const idx=shuffle([...Array(HN).keys()]);
+  herdState=Array(HN).fill("u");idx.slice(0,nv).forEach(i=>herdState[i]="v");herdDraw();$("#herdStat").textContent="";
+}
+function herdRun(){
+  herdSetup();
+  const un=herdState.map((s,i)=>s==="u"?i:-1).filter(i=>i>=0);
+  if(!un.length){$("#herdStat").textContent="Alle er vaksinert. Smitten kommer ikke inn.";return}
+  let front=[un[Math.floor(Math.random()*un.length)]];herdState[front[0]]="i";const total=un.length;
+  const step=()=>{
+    const next=[];
+    front.forEach(i=>{const r=Math.floor(i/15),c=i%15;[[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(([y,x])=>{if(y<0||y>9||x<0||x>14)return;const j=y*15+x;if(herdState[j]==="u"&&Math.random()<.8){herdState[j]="i";next.push(j)}})});
+    herdDraw();front=next;
+    if(front.length){herdTimer=setTimeout(step,reduce?0:180)}
+    else{const inf=herdState.filter(s=>s==="i").length;$("#herdStat").innerHTML=`${inf} av ${total} som ikke er vaksinert, ble smittet<small>${inf/total>.5?"Smitten spredte seg til mange.":"Vaksinene stoppet mye av smitten."}</small>`;mark("s9")}
+  };
+  herdTimer=setTimeout(step,reduce?0:300);
+}
+$("#vacc").addEventListener("input",herdSetup);$("#herdRun").onclick=herdRun;herdSetup();
+
+/* 12 source criticism */
+choiceBlock($("#srcQ"),[
+ {q:"📱 En influencer på TikTok: «Hvitløk kurerer influensa bedre enn vaksine! Kjøp mitt hvitløkspulver.»",opts:["✅ Pålitelig","❌ Lite pålitelig"],a:1,why:"Lite pålitelig. Personen vil selge noe, og påstanden bygger ikke på forskning."},
+ {q:"🏛️ Folkehelseinstituttet: «Influensavaksine anbefales for personer over 65 år og personer i risikogrupper.»",opts:["✅ Pålitelig","❌ Lite pålitelig"],a:0,why:"Pålitelig. FHI er en offentlig fagmyndighet som bygger på forskning."},
+ {q:"💬 En venn på Snapchat: «Jeg tok antibiotika mot forkjølelse og ble frisk på to dager.»",opts:["✅ Pålitelig","❌ Lite pålitelig"],a:1,why:"Lite pålitelig. Det er én persons erfaring. Forkjølelse går over av seg selv, og antibiotika virker ikke mot virus."},
+ {q:"🛒 En nettbutikk: «Våre kapsler gir deg et immunforsvar av stål!»",opts:["✅ Pålitelig","❌ Lite pålitelig"],a:1,why:"Lite pålitelig. Det er reklame, og påstanden er overdrevet."},
+ {q:"🩺 helsenorge.no: «Vask hendene med såpe og vann ved omgangssyke.»",opts:["✅ Pålitelig","❌ Lite pålitelig"],a:0,why:"Pålitelig. Helsenorge er den offentlige helsetjenesten sin nettside."}
+],null,"kilde");
+["drFor","drMot","drKon"].forEach(id=>{const t=$("#"+id);t.value=store.get(id)||"";t.addEventListener("input",()=>store.set(id,t.value))});
+const drq=$("#drQ");const sq=store.get("drQ");if(sq!==null)drq.selectedIndex=+sq;drq.addEventListener("change",()=>store.set("drQ",drq.selectedIndex));
+
 /* 10 cloze */
 const CLOZE=[
  ["Bakterier formerer seg ved", "todeling", ". En bakterie kan dele seg hvert 20. minutt."],
@@ -853,14 +1426,56 @@ const QUIZ=[
  {q:"Hvilket ledd i smittekjeden bryter en vaksine?",opts:["Smittevei","Utgangsport","Mottakelig person"],a:2,why:"Vaksinen gjør at personen ikke lenger er mottakelig for smittestoffet."},
  {q:"Hvorfor skal vi ikke bruke antibiotika unødvendig?",opts:["Det er dyrt","Bakteriene kan bli resistente","Det smaker vondt"],a:1},
  {q:"Hva gjør en vaksine?",opts:["Dreper alle bakterier i kroppen","Lærer immunforsvaret å kjenne igjen et smittestoff","Gir deg sykdommen"],a:1},
- {q:"Et barn har omgangssyke. Hva er best for hendene dine?",opts:["Sprit","Såpe og vann","Bare vann"],a:1,why:"Sprit virker dårlig mot norovirus."}
+ {q:"Et barn har omgangssyke. Hva er best for hendene dine?",opts:["Sprit","Såpe og vann","Bare vann"],a:1,why:"Sprit virker dårlig mot norovirus."},
+ {q:"Hva kaller vi kuleformede bakterier?",opts:["Staver","Kokker","Spiriller"],a:1},
+ {q:"Hvordan ligger streptokokker?",opts:["I kjeder","I klaser som druer","To og to"],a:0},
+ {q:"Hvordan er bakterier nyttige i industrien?",opts:["De lager yoghurt og ost","De lager plast","De gir oss influensa"],a:0},
+ {q:"Hva er en bakteriofag?",opts:["En bakterie som spiser virus","Et virus som angriper bakterier","En type sopp"],a:1},
+ {q:"Hvordan formerer gjærsopp seg?",opts:["Knoppskyting","Todeling","Med en vertscelle"],a:0},
+ {q:"Hvilket antibiotikum kommer fra en muggsopp?",opts:["Insulin","Penicillin","Paracet"],a:1},
+ {q:"Hva er en del av det ytre forsvaret?",opts:["Antistoffer","Huden og slimhinnene","Hukommelsesceller"],a:1},
+ {q:"Hva gjør B-lymfocyttene?",opts:["Lager antistoffer","Lager magesyre","Lager slim"],a:0},
+ {q:"Hvilken smittevei er hoste og nys?",opts:["Blodsmitte","Matsmitte","Dråpesmitte"],a:2},
+ {q:"Hvilken kilde er mest pålitelig om vaksiner?",opts:["En reklame for kosttilskudd","Folkehelseinstituttet","En kommentar på sosiale medier"],a:1}
 ];
 let qRight=0,qDone=0;
 function initQuiz(){
   qRight=0;qDone=0;$("#quiz").innerHTML="";$("#quizScore").textContent="";
-  choiceBlock($("#quiz"),QUIZ,null,"s11",(i,r)=>{qDone++;if(r)qRight++;$("#quizScore").textContent=`${qRight} av ${qDone} riktige`+(qDone===QUIZ.length?(qRight>=8?" – supert! 🎉":" – les mer på NDLA og prøv igjen."):"")});
+  choiceBlock($("#quiz"),QUIZ,null,"s11",(i,r)=>{qDone++;if(r)qRight++;$("#quizScore").textContent=`${qRight} av ${qDone} riktige`+(qDone===QUIZ.length?(qRight>=16?" – supert! 🎉":" – les mer på NDLA og prøv igjen."):"")});
 }
 $("#quizReset").onclick=initQuiz;initQuiz();
+
+/* momentliste */
+const MOM=[
+ ["Hva mener vi med mikroorganismer? Gi noen eksempler","s3","3"],
+ ["Hvordan er bakterier bygd opp?","s4","4"],
+ ["Hvor finner vi bakterier?","s4","4"],
+ ["Hvordan gir vi bakteriene navn? Tegn noen eksempler","s4","4"],
+ ["Hvordan formerer bakterier seg?","s4","4"],
+ ["Hvordan kan bakterier være nyttige i naturen, kroppen og industrien?","nb","5"],
+ ["Hvordan kan bakterier være farlige? Gi noen eksempler på bakteriesykdommer","nb","5"],
+ ["Hvilke smitteveier har vi?","s7","9"],
+ ["Hvordan kan vi best beskytte oss mot smitte?","s8","10"],
+ ["Forklar hva kroppens ytre immunforsvar består av","s9","11"],
+ ["Forklar hva kroppens indre, uspesifikke immunforsvar består av","s9","11"],
+ ["Forklar hva kroppens indre, spesifikke immunforsvar består av","s9","11"],
+ ["Hvordan virker en vaksine?","s9","11"],
+ ["Hvordan er virus bygd opp?","s5","6"],
+ ["Hvor finner vi virus?","s5","6"],
+ ["Hvordan formerer virus seg?","s5","6"],
+ ["Hvordan kan virus være nyttige?","s5","6"],
+ ["Hvordan kan virus være farlige? Gi noen eksempler på virussykdommer","s5","6"],
+ ["Hvordan er mikrobiske sopp bygd opp?","sopp","7"],
+ ["Hvor finner vi mikrobiske sopp?","sopp","7"],
+ ["Hvordan formerer mikrobiske sopp seg? Husk forsøket med gjærceller","sopp","7"],
+ ["Hvordan kan mikrobiske sopp være nyttige?","sopp","7"],
+ ["Hvordan kan mikrobiske sopp være farlige?","sopp","7"]
+];
+const momDone=new Set(JSON.parse(store.get("mom")||"[]"));
+function momStat(){$("#momStat").innerHTML=`Du kan ${momDone.size} av ${MOM.length} spørsmål`}
+$("#momList").innerHTML=MOM.map((m,i)=>`<label class="sort-card" style="justify-content:flex-start;cursor:pointer"><input type="checkbox" id="mom${i}" data-i="${i}" ${momDone.has(i)?"checked":""}><span style="flex:1;min-width:0"><b>${i+1}.</b> ${m[0]}</span><a href="#${m[1]}">Del ${m[2]}</a></label>`).join("");
+$("#momList").addEventListener("change",e=>{const i=+e.target.dataset.i;e.target.checked?momDone.add(i):momDone.delete(i);store.set("mom",JSON.stringify([...momDone]));momStat()});
+momStat();
 
 updProg();
 })();
